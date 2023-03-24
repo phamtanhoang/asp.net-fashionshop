@@ -1,0 +1,105 @@
+﻿@model dynamic
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_MainLayoutAdmin.cshtml";
+}
+
+<div class="container position-relative pt-4 pb-5">
+    @if (TempData.ContainsKey("ErrorMessage"))
+    {
+        <div class="toast position-absolute show"
+             style="top: 1rem; right: 1rem; z-index: 99999; border-radius: 5px; opacity: 0.8">
+            <div class="toast-header bg-danger text-white">
+                <strong class="me-auto">Thông báo</strong>
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body">
+                <p>@TempData["ErrorMessage"]</p>
+            </div>
+        </div>
+    }
+    <!-- Outer Row -->
+    <div class="row justify-content-center container">
+
+        <div class="col-xl-10 col-lg-12 col-md-9 justify-content-center">
+
+            <div class="card o-hidden border-0 shadow-lg my-1">
+                <div class="card-body p-0">
+                    <div class="row">
+
+                        <div class="col-lg-10" style="margin: 0 auto">
+                            <div class="p-4">
+                                <div class="text-center">
+                                    <h1 class="h3 mb-4 text-gray-800 text-center">Xóa sản phẩm</h1>
+                                </div>
+                                <form method="post" id="myForm">
+                                    <div class="form-group row container" style="margin:0; justify-content: center;">
+                                        <div class="col-sm-4 mb-3 mb-sm-0">
+                                            <p>Hình ảnh:</p>
+                                            <img src="@ViewBag.product.Image" style="width: 100%; border: 2px solid gray" />
+                                        </div>
+                                        <div class="col-sm-6 mb-3 mb-sm-0 ">
+                                            <div class="col-sm-12 mb-2">
+                                                <p>Mã:</p>
+                                                <input type="text" class="form-control form-control-user"
+                                                       value="@ViewBag.product.ProductID" disabled name="ProductID">
+                                            </div>
+                                            <div class="col-sm-12 mb-2">
+                                                <p>Tên:</p>
+                                                <input required type="text" class="form-control form-control-user"
+                                                       value="@ViewBag.product.ProductName" disabled name="ProductName">
+                                            </div>
+                                            <div class="col-sm-12 mb-2">
+                                                <p>Giá:</p>
+                                                <input type="text" class="form-control form-control-user"
+                                                       value="@ViewBag.product.UnitPrice.ToString("#,##0 VND")" disabled name="UnitPrice">
+                                            </div>
+                                            <div class="col-sm-12 mb-2">
+                                                <p>Tình trạng:</p>
+                                                <input type="text" class="form-control form-control-user"
+                                                       value="@(ViewBag.product.active ? "Còn bán" : "Ngừng bán")" disabled name="Active">
+                                            </div>
+                                            <div class="col-sm-12 mb-2">
+                                                <p>Loại sản phẩm:</p>
+                                                @foreach (var cate in ViewBag.category)
+                                                {
+                                                    if (cate.CategoryID == ViewBag.product.CategoryID)
+                                                    {
+                                                        <input type="text" class="form-control form-control-user"
+                                                               value="@cate.CategoryName" disabled name="category">
+                                                    }
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-10 mb-3 mb-sm-0" style="margin:auto">
+                                            <p>Mô tả:</p>
+                                            <textarea id="description" name="description" style="width:100%;height:100px" disabled>@ViewBag.product.Description</textarea>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-6 mb-3 mb-sm-0" style="margin:auto">
+                                            <input type="submit" class="btn btn-primary btn-user btn-block" value="Xác nhận xóa" />
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="back">
+                            <a href="@Url.Action("Index","Product")" class="text-black"><i style="font-size:1rem; " class="fa">&#xf060;</i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+

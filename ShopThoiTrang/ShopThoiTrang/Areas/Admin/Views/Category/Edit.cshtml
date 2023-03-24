@@ -1,0 +1,72 @@
+﻿@model Category
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_MainLayoutAdmin.cshtml";
+}
+
+<div class="container position-relative pt-5">
+    @if (TempData.ContainsKey("ErrorMessage"))
+    {
+        <div class="toast position-absolute show"
+             style="top: 1rem; right: 1rem; z-index: 99999; border-radius: 5px; opacity: 0.95">
+            <div class="toast-header bg-danger text-white">
+                <strong class="me-auto">Thông báo</strong>
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body">
+                <p>@TempData["ErrorMessage"]</p>
+            </div>
+        </div>
+    }
+    <!-- Outer Row -->
+    <div class="row justify-content-center container">
+
+    <div class="col-xl-10 col-lg-12 col-md-9 justify-content-center">
+
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+
+                    <div class="col-lg-6" style="margin: 0 auto">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h3 mb-5 text-gray-800 text-center">Chỉnh sửa loại sản phẩm</h1>
+                            </div>
+                            <form method="post">
+                                <div class="form-group">
+                                    <p>Mã:</p>
+                                    <input required type="text" class="form-control form-control-user"
+                                           value="@Model.CategoryID" name="CategoryID" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <p>Tên:</p>
+                                    <input required type="text" class="form-control form-control-user"
+                                           value="@Model.CategoryName" name="CategoryName">
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0" style="margin: 2rem auto">
+                                        <input type="submit" class="btn btn-primary btn-user btn-block" value="Xác nhận chỉnh sửa" />
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="back">
+                        <a href="@Url.Action("Index","Category")" class="text-black"><i style="font-size:1rem; " class="fa">&#xf060;</i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+
+
+

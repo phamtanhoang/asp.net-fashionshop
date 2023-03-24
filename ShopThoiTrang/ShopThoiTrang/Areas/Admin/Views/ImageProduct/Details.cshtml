@@ -1,0 +1,68 @@
+﻿@model dynamic
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_MainLayoutAdmin.cshtml";
+}
+
+<div class="container position-relative pt-4">
+    <!-- Outer Row -->
+    <div class="row justify-content-center container">
+
+        <div class="col-xl-10 col-lg-12 col-md-9 justify-content-center">
+
+            <div class="card o-hidden border-0 shadow-lg my-1">
+                <div class="card-body p-0">
+                    <div class="row">
+
+                        <div class="col-lg-10" style="margin: 0 auto">
+                            <div class="p-4">
+                                <div class="text-center">
+                                    <h1 class="h3 mb-4 text-gray-800 text-center">Chi tiết ảnh sản phẩm</h1>
+                                </div>
+                                <form method="post" id="myForm">
+                                    <div class="form-group row container" style="margin:0 0  2rem; justify-content: center;">
+                                        <div class="col-sm-4 mb-3 mb-sm-0">
+                                            <p>Hình ảnh:</p>
+                                            <img src="@ViewBag.img.Image" style="width: 100%; border: 2px solid gray" />
+                                        </div>
+                                        <div class="col-sm-6 mb-3 mb-sm-0 ">
+                                            <div class="col-sm-12 mb-2">
+                                                <p>Mã:</p>
+                                                <input type="text" class="form-control form-control-user"
+                                                       value="@ViewBag.img.ImageProductID" disabled name="ImageProductID">
+                                            </div>
+                                            <div class="col-sm-12 mb-2">
+                                                <p>Mã sản phẩm:</p>
+                                                <input type="text" class="form-control form-control-user"
+                                                       value="@ViewBag.prod.ProductID" disabled name="ProductID">
+                                            </div>
+                                            <div class="col-sm-12 mb-2">
+                                                <p>Tên sản phẩm:</p>
+                                                <input required type="text" class="form-control form-control-user"
+                                                       value="@ViewBag.prod.ProductName" disabled name="ProductName">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-10 mb-3 mb-sm-0" style="margin:auto">
+                                            <a href="/Admin/ImageProduct/Edit/@ViewBag.img.ImageProductID" class="btn btn-primary btn-user" style="width:49%">Sửa</a>
+                                            <a href="/Admin/ImageProduct/Delete/@ViewBag.img.ImageProductID" class="btn btn-danger btn-user" style="width:49%">Xóa</a>
+                                        </div>
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="back">
+                            <a href="@Url.Action("Index","ImageProduct")" class="text-black"><i style="font-size:1rem; " class="fa">&#xf060;</i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+

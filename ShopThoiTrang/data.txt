@@ -1,0 +1,370 @@
+use ShopThoiTrang
+go
+
+insert into Products
+values(N'Áo thun đen', 250000, N'Áo thun nam với chất liệu cotton 100%, màu đen, size M.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678083467/1_msrhqs.jpg',1)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678083466/2_nj9tvc.jpg',1)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678083466/3_gz6pv9.jpg',1)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678083466/4_oli6dt.jpg',1)
+
+go
+
+insert into Products
+values(N'Áo thun hồng', 250000, N'Áo thun nam với chất liệu cotton 100%, màu hồng, size L.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678084295/1_iqzzdy.jpg',1)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678084295/2_byvqks.jpg',2)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678084295/3_utovw6.jpg',2)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678084295/4_ksuqrs.jpg',2)
+
+go
+
+insert into Products
+values(N'Áo thun nâu', 250000, N'Áo thun nam với chất liệu cotton 100%, màu nâu, size M.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678084506/1_av6ymd.jpg',1)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678084506/2_z1oy7e.jpg',3)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678084506/3_h55bcm.jpg',3)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678084506/4_tyj4z5.jpg',3)
+
+go
+
+insert into Products
+values(N'Áo thun trắng', 250000, N'Áo thun nam với chất liệu cotton 100%, màu trắng, size S.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678084778/1_kamkkm.jpg',1)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678084778/2_ykph2j.jpg',4)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678084778/3_mebaof.jpg',4)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678084778/4_mioz5h.jpg',4)
+
+go
+
+insert into Products
+values(N'Áo thun vàng', 250000, N'Áo thun nam với chất liệu cotton 100%, màu vàng, size M.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678085002/1_kbidca.jpg',1)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678085002/2_pm3woy.jpg',5)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678085002/3_xijld6.jpg',5)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678085002/4_mivhtf.jpg',5)
+
+go
+
+insert into Products
+values(N'Áo thun xanh', 250000, N'Áo thun nam với chất liệu cotton 100%, màu xanh, size XL.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678085250/1_a3utn9.jpg',1)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678086396/2_f4jya1.webp',6)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678085250/3_cfnqty.jpg',6)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678085250/4_pduhmn.jpg',6)
+
+go
+
+insert into Products
+values(N'Áo polo đen in', 280000, N'Áo polo nam với chất liệu cotton 100%, màu đen, size M.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678113798/1_tdxqgv.jpg',1)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678113798/2_cqdcaq.jpg',7)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678113798/3_p6izux.jpg',7)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678113798/4_j4u1yt.jpg',7)
+
+go
+
+insert into Products
+values(N'Áo polo đen trắng', 280000, N'Áo polo nam với chất liệu cotton 100%, màu đen trắng, size L.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678113955/1_abuz9t.jpg',1)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678113955/2_aofeix.jpg',8)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678113955/3_aucrc3.jpg',8)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678113955/4_qnovye.jpg',8)
+
+go
+
+insert into Products
+values(N'Áo polo trắng phối đen', 280000, N'Áo polo nam với chất liệu cotton 100%, màu trắng đen, size S.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114142/1_prloly.jpg',1)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114141/2_duvehu.jpg',9)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114142/3_ry2x1q.jpg',9)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114142/4_y2wc0c.jpg',9)
+
+go
+
+insert into Products
+values(N'Áo polo trắng in', 280000, N'Áo polo nam với chất liệu cotton 100%, màu trắng, size M.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114362/1_szusmk.jpg',1)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114362/2_ivypku.jpg',10)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114362/3_x3bglv.jpg',10)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114362/4_ounfnt.jpg',10)
+
+go
+
+insert into Products
+values(N'Áo polo trắng xanh', 280000, N'Áo polo nam với chất liệu cotton 100%, màu trắng sọc xanh, size M.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114534/1_hqljrb.jpg',1)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114534/2_z8vnyr.jpg',11)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114534/3_pcenny.jpg',11)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114534/4_bgvh6c.jpg',11)
+
+go
+
+insert into Products
+values(N'Áo polo xanh biển', 280000, N'Áo polo nam với chất liệu cotton 100%, màu xanh nước biển, size XL.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114731/1_evzvhh.jpg',1)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114731/2_oxouxo.jpg',12)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114731/3_tabpdu.jpg',12)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114731/4_l1ktly.jpg',12)
+
+go
+
+insert into Products
+values(N'Áo sơ mi họa tiết', 300000, N'Áo sơ mi nam với chất liệu cotton 100%, màu trắng họa tiết đen, size M.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114919/1_hfrpvd.jpg',1)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114919/2_exncjy.jpg',13)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114919/3_q4s77p.jpg',13)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114919/4_ky2zen.jpg',13)
+
+go
+
+insert into Products
+values(N'Áo sơ mi nâu tay dài', 300000, N'Áo sơ mi nam với chất liệu cotton 100%, màu nâu, size L.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115199/1_vp4na1.jpg',1)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115199/2_yjtbcc.jpg',14)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115199/3_zc0kz8.jpg',14)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115199/4_pfjg2x.jpg',14)
+
+go
+
+insert into Products
+values(N'Áo sơ mi sọc trắng xanh', 300000, N'Áo sơ mi nam với chất liệu cotton 100%, màu xanh sọc trắng, size M.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115328/1_zamww6.jpg',1)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115328/2_jlqs79.jpg',15)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115328/3_dzsf8p.jpg',15)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115328/4_ho1bb5.jpg',15)
+
+go
+
+insert into Products
+values(N'Áo sơ mi trắng tay dài', 300000, N'Áo sơ mi nam với chất liệu cotton 100%, màu trắng, size S.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115689/1_pymxpm.jpg',1)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115689/2_ws5oq4.jpg',16)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115689/3_sacfxg.jpg',16)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115689/4_pb0efb.jpg',16)
+
+go
+
+insert into Products
+values(N'Áo sơ mi trắng tay ngắn', 300000, N'Áo sơ mi nam với chất liệu cotton 100%, màu trắng, size M.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115832/1_nkscl1.jpg',1)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115832/2_pi3mg0.jpg',17)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115832/3_hmzksk.jpg',17)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115832/4_mkhtmc.jpg',17)
+
+go
+
+insert into Products
+values(N'Áo sơ mi xanh rêu tay dài', 300000, N'Áo sơ mi nam với chất liệu cotton 100%, màu xanh rêu, size L.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115946/1_tge7xx.jpg',1)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115945/2_tsiuuc.jpg',18)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115945/3_kpidsn.jpg',18)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115945/4_ogol8f.jpg',18)
+
+go
+
+insert into Products
+values(N'Quần jean đen dài', 300000, N'Quần jean nam với chất liệu cotton Duck và bông thô, màu đen, size 27.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116081/1_lljijk.jpg',2)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116081/2_qbotua.jpg',19)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116081/3_gaqofj.jpg',19)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116081/4_l4ulmc.jpg',19)
+
+go
+
+insert into Products
+values(N'Quần kaki be dài', 290000, N'Quần kaki nam với chất liệu cotton đan chéo với sợi tổng hợp, màu be, size 28.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116354/1_k86kon.jpg',2)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116354/2_k3ebh7.jpg',20)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116354/3_pg65pq.jpg',20)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116081/4_l4ulmc.jpg',20)
+
+go
+
+insert into Products
+values(N'Quần kaki đen dài', 290000, N'Quần jean nam với chất liệu cotton đan chéo với sợi tổng hợp, màu đen, size 30.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116632/1_on8l00.jpg',2)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116632/2_ehuzwk.jpg',21)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116632/3_kqjlsj.jpg',21)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116632/4_hyi5uw.jpg',21)
+
+go
+
+insert into Products
+values(N'Quần jean trắng rách dài', 300000, N'Quần jean nam với chất liệu cotton Duck và bông thô, màu trắng, size 32.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116840/1_sgrbo3.jpg',2)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116840/2_bwj7gx.jpg',22)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116840/3_svpcjv.jpg',22)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116840/4_n88cbh.jpg',22)
+
+go
+
+insert into Products
+values(N'Quần jean xanh đậm dài', 300000, N'Quần jean nam với chất liệu cotton Duck và bông thô, màu xanh đậm, size 30.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116979/1_kxa2gq.jpg',2)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116979/2_sxcymk.jpg',23)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116979/3_wuxmfq.jpg',23)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116979/4_u00wxn.jpg',23)
+
+go
+
+insert into Products
+values(N'Quần jean xanh rách dài', 300000, N'Quần jean nam với chất liệu cotton Duck và bông thô, màu xanh, size 29.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678117279/1_yywk1u.jpg',2)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678117279/2_cr99ft.jpg',24)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678117279/3_rrc7mz.jpg',24)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678117279/4_fl4fmy.jpg',24)
+
+go
+
+insert into Products
+values(N'Quần jean đen túi', 230000, N'Quần jean nam với chất liệu cotton 100%, màu đen, size XL.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678117708/1_qumhpx.jpg',2)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678117708/2_e0arv5.jpg',25)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678117708/3_sejiuj.jpg',25)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678117708/4_e2qnyq.jpg',25)
+
+go
+
+insert into Products
+values(N'Quần jean xanh', 230000, N'Quần jean nam với chất liệu cotton 100%, màu xanh, size XXL.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678117936/1_xyjolt.jpg',2)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678117936/2_ee7stl.jpg',26)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678117936/3_qppx1r.jpg',26)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678117937/4_my0ddk.jpg',26)
+
+go
+
+insert into Products
+values(N'Quần jean be', 230000, N'Quần jean nam với chất liệu cotton 100%, màu be, size XXXL.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678118078/1_zt7cc0.jpg',2)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678118077/2_lvesiw.jpg',27)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678118077/3_rs0b7a.jpg',27)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678118077/4_dflky4.jpg',27)
+
+go
+
+insert into Products
+values(N'Quần jean đen', 230000, N'Quần jean nam với chất liệu cotton 100%, màu đen, size XL.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678118183/1_yfq90y.jpg',2)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678118183/2_anfg9z.jpg',28)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678118183/3_pp45x6.jpg',28)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678118183/4_jepkcg.jpg',28)
+
+go
+
+insert into Products
+values(N'Quần jean xanh rách', 230000, N'Quần jean nam với chất liệu cotton 100%, màu xanh, size XXL.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678118325/1_nvogbn.jpg',2)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678118325/2_hevabz.jpg',29)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678118325/3_xcw6tr.jpg',29)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678118325/4_sv7jjm.jpg',29)
+
+go
+
+insert into Products
+values(N'Quần short trắng in', 230000, N'Quần short nam với chất liệu cotton 100%, màu trắng, size XL.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678118432/1_ggxbje.jpg',2)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678118432/2_xool6c.jpg',30)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678118432/3_jwsygw.jpg',30)
+insert into ImageProducts
+values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678118432/4_rhswuu.jpg',30)
+
+go
+
+insert into Products
+values(N'Đồng hồ đeo tay Skmei', 350000, N'Đồng hồ đeo tay nam với chất liệu nhựa, màu đen vàng.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678118993/1163YL_%C4%90%E1%BB%93ng_h%E1%BB%93_%C4%91eo_tay_Skmei_-_1163YL_falljh.jpg',3)
+
+go
+
+insert into Products
+values(N'Đồng hồ đeo tay Nakzen', 350000, N'Đồng hồ đeo tay nam với chất liệu nhựa, màu trắng.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678119711/SL5059GBN-7_%C4%90%E1%BB%93ng_h%E1%BB%93_%C4%91eo_tay_Nakzen_-_SL5059GBN-7_tdjir5.jpg',3)
+
+go
+
+insert into Products
+values(N'Balo đen ', 450000, N'Balo nam nữ với chất liệu nhựa PVC, màu đen.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678119943/XBG096_Ba_l%C3%B4_%C4%91en_CS_jtvcit.jpg',3)
+
+go
+
+insert into Products
+values(N'Túi đeo chéo', 150000, N'Túi đeo chéo nam nữ với chất liệu nhựa PVC, màu đen.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678120449/XBG097_T%C3%BAi_%C4%91eo_ch%C3%A9o_CS_juycio.jpg',3)
+
+go
+
+insert into Products
+values(N'Thắt lưng mẫu 1', 200000, N'Thắt lưng nam với chất liệu vải cotton và polyester, màu đen.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678120341/XEL229_D%C3%A2y_n%E1%BB%8Bt_jmdspv.jpg',3)
+
+go
+
+insert into Products
+values(N'Thắt lưng mẫu 2', 200000, N'Thắt lưng nam với chất liệu vải cotton và polyester, màu đen.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678120405/XEL232_D%C3%A2y_n%E1%BB%8Bt_yqgtxj.jpg',3)
+
+go
+
+insert into Products
+values(N'Vớ nam mẫu 1', 35000, N'Vớ nam với chất liệu bằng các loại sợi mềm như len, đủ màu.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678120599/XSK024_V%E1%BB%9B_nam_e3jhwf.jpg',3)
+
+go
+
+insert into Products
+values(N'Vớ nam mẫu 2', 35000, N'Vớ nam với chất liệu bằng các loại sợi mềm như len, đủ màu.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678120675/XSK025_V%E1%BB%9B_nam_j7cwda.jpg',3)

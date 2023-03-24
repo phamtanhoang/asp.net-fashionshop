@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Tag>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_MainLayoutAdmin.cshtml";
+}
+<div class="position-relative container-fluid">
+
+    @if (TempData.ContainsKey("SuccessMessage"))
+    {
+        <div class="toast position-absolute show"
+             style="top: 1rem; right: 1rem; z-index: 99999; border-radius: 5px; opacity: 0.95">
+            <div class="toast-header bg-success text-white">
+                <strong class="me-auto">Thông báo</strong>
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body">
+                <p>@TempData["SuccessMessage"]</p>
+            </div>
+        </div>
+    }
+    <!-- Page Heading -->
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 div-add">
+            <h6 class="m-0 font-weight-bold text-primary">Danh sách nhãn sản phẩm:</h6>
+            <button onclick="window.location.href='/Admin/Tag/Create'" title="Thêm nhãn sản phẩm"><i class="fa fa-plus"></i></button>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="example" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Mã </th>
+                            <th>Tên </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var tag in Model)
+                        {
+
+                            <tr onclick="window.location.href = '/Admin/Tag/Details/@tag.TagID'">
+
+                                <td>@tag.TagID</td>
+                                <td>@tag.TagName</td>
+                                <th style="width:11%">
+                                    <a href="/Admin/Tag/Edit/@tag.TagID" class="btn btn-primary btn-user">Sửa</a>
+                                    <a href="/Admin/Tag/Delete/@tag.TagID" class="btn btn-danger btn-user">Xóa</a>
+                                </th>
+                            </tr>
+                        }
+
+                    </tbody>
+                    <tfoot>
+
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+

@@ -1,0 +1,123 @@
+﻿@model dynamic
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_MainLayoutAdmin.cshtml";
+}
+
+<div class="container position-relative pt-4 pb-5">
+    @if (TempData.ContainsKey("ErrorMessage"))
+    {
+        <div class="toast position-absolute show"
+             style="top: 1rem; right: 1rem; z-index: 99999; border-radius: 5px; opacity: 0.8">
+            <div class="toast-header bg-danger text-white">
+                <strong class="me-auto">Thông báo</strong>
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="toast"></button>
+            </div>
+            <div class="toast-body">
+                <p>@TempData["ErrorMessage"]</p>
+            </div>
+        </div>
+    }
+    <!-- Outer Row -->
+    <div class="row justify-content-center container">
+
+        <div class="col-xl-10 col-lg-12 col-md-9 justify-content-center">
+
+            <div class="card o-hidden border-0 shadow-lg my-1">
+                <div class="card-body p-0">
+                    <div class="row">
+
+                        <div class="col-lg-8" style="margin: 0 auto">
+                            <div class="p-4">
+                                <div class="text-center">
+                                    <h1 class="h3 mb-4 text-gray-800 text-center">Thêm sản phẩm mới</h1>
+                                </div>
+                                <form method="post" enctype="multipart/form-data">
+                                    <div class="form-group row container">
+                                        <div class="col-sm-8 mb-3 mb-sm-0 ">
+                                            <p>Tên:</p>
+                                            <input required type="text" class="form-control form-control-user"
+                                                   value="" name="ProductName">
+                                        </div>
+                                        <div class="col-sm-4 mb-3 mb-sm-0 ">
+                                            <p>Loại sản phẩm:</p>
+                                            <select name="CategoryID" id="CategoryID" style="width:100%; height:35px">
+                                                @foreach (var cate in ViewBag.cate)
+                                                {
+                                                    <option value="@cate.CategoryID">@cate.CategoryName</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row container">
+                                        <div class="col-sm-8 mb-3 mb-sm-0 ">
+                                            <p>Giá (VNĐ):</p>
+                                            <input required
+                                                   type="number"
+                                                   class="form-control form-control-user"
+                                                   value=""
+                                                   name="UnitPrice" min="0" />
+                                        </div>
+                                        <div class="col-sm-4 mb-3 mb-sm-0 ">
+                                            <p>Tình trạng:</p>
+                                            <select name="active" id="active" style="width: 100%; height: 35px">
+                                                <option value="true">Còn bán</option>
+                                                <option value="false">Ngừng bán</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row container">
+                                        <div class="col-sm-8 mb-3 mb-sm-0 ">
+                                            <div style="width:100%" class="mb-3">
+                                                <p>Hình ảnh:</p>
+                                                <input accept="image/*" class="form-control" type="file" id="Image" required name="Image" />
+                                            </div>
+                                            <div style="width:100%">
+                                                <p>Mô tả:</p>
+                                                <textarea id="description" name="description" style="width:100%;height:100px"></textarea>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-sm-4 mb-3 mb-sm-0 ">
+                                            <p>Nhãn sản phẩm:</p>
+                                            <select name="TagID[]" multiple style="width: 100%; height: 193px">
+                                                @foreach (var tag in ViewBag.tag)
+                                                {
+                                                    <option value="@tag.TagID">@tag.TagName</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-6 mb-3 mb-sm-0" style="margin:auto">
+                                            <input type="submit" class="btn btn-primary btn-user btn-block" value="Thêm" />
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="back">
+                            <a href="@Url.Action("Index","Product")" class="text-black"><i style="font-size:1rem; " class="fa">&#xf060;</i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    var select = document.querySelector('select[name="TagID"]');
+    var selectedOptions = [];
+
+    select.addEventListener('change', function () {
+        selectedOptions = Array.from(select.selectedOptions).map(function (option) {
+            return option.value;
+        });
+    });
+</script>
