@@ -731,7 +731,7 @@ values(26,3)
 insert into ProductTags
 values(35,3)
 insert into ProductTags
-values(16,2)
+values(16,3)
 
 insert into ProductTags
 values(7,4)
