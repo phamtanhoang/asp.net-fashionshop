@@ -67,6 +67,15 @@ namespace ShopThoiTrang.Controllers
             }
             
         }
+        public static IQueryable<Tag> GetTagsByProductID(int productID)
+        {
+            using (var db = new ShopThoiTrangEntities3())
+            {
+                var tags = db.Products.Where(p => p.ProductID == productID)
+                                 .SelectMany(p => p.Tags);
+                return tags.ToList().AsQueryable();
+            }
+        }
 
     }
 }

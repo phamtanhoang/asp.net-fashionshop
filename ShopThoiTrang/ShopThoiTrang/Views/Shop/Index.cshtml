@@ -109,13 +109,19 @@
                             <div class="product">
                                 <div class="product-img">
                                     <img src="@product.Image" alt="">
+                                    <div class="product-label">
+                                        @foreach (var tag in ShopThoiTrang.Controllers.DataController.GetTagsByProductID(product.ProductID))
+                                        {
+                                            <span class="new" style="text-transform: uppercase;">@tag.TagName</span>
+                                        }
+                                    </div>
                                 </div>
                                 <div class="product-body">
                                     @foreach (var category in ViewBag.Categories)
                                     {
                                         if (@category.CategoryID == @product.CategoryID)
                                         {
-                                            <p class="product-category">@category.CategoryName</p>
+                                            <p class="product-category" >@category.CategoryName</p>
                                         }
                                     }
                                     <h3 class="product-name"><a href="~/Shop/Details/@product.ProductID">@product.ProductName</a></h3>
@@ -125,7 +131,7 @@
                                     </div>
                                 </div>
                                 <div class="add-to-cart">
-                                    <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+                                    <button class="add-to-cart-btn" data-product-id="@product.ProductID" data-product-image="@product.Image" data-product-name="@product.ProductName" data-product-price="@product.UnitPrice"><i class="fa fa-shopping-cart"></i> add to cart</button>
                                 </div>
                             </div>
                         </div>
