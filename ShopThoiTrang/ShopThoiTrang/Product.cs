@@ -17,7 +17,6 @@ namespace ShopThoiTrang
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Product()
         {
-            this.Comments = new HashSet<Comment>();
             this.ImageProducts = new HashSet<ImageProduct>();
             this.OrderDetails = new HashSet<OrderDetail>();
             this.Tags = new HashSet<Tag>();
@@ -32,8 +31,6 @@ namespace ShopThoiTrang
         public Nullable<int> CategoryID { get; set; }
     
         public virtual Category Category { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Comment> Comments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ImageProduct> ImageProducts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

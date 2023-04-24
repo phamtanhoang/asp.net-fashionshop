@@ -10,5 +10,6 @@ namespace ShopThoiTrang
         {
             ConfigureAuth(app);
         }
+
     }
 }

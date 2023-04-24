@@ -21,7 +21,7 @@ namespace ShopThoiTrang.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("ShopThoiTrangEntities3", throwIfV1Schema: false)
+            : base("ShopThoiTrangEntities", throwIfV1Schema: false)
         {
         }
 

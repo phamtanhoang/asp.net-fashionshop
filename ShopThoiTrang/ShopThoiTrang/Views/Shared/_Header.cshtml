@@ -3,12 +3,21 @@
     <div id="top-header">
         <div class="container">
             <ul class="header-links pull-left">
-                <li><a href="tel:+840362400302"><i class="fa fa-phone"></i> +84362400302</a></li>
-                <li><a href="mailto:phamtanhoang3202@email.com"><i class="fa fa-envelope-o"></i> phamtanhoang3202@gmail.com</a></li>
-                <li><a href="https://goo.gl/maps/FaCxakhWPKqodrSK7"><i class="fa fa-map-marker"></i> 371 Nguyễn Kiệm</a></li>
+                <li><a href="tel:+840362400302" style="text-decoration: none"><i class="fa fa-phone"></i> +84362400302</a></li>
+                <li><a href="mailto:phamtanhoang3202@email.com" style="text-decoration: none"><i class="fa fa-envelope-o"></i> phamtanhoang3202@gmail.com</a></li>
+                <li><a href="https://goo.gl/maps/FaCxakhWPKqodrSK7" style="text-decoration: none"><i class="fa fa-map-marker"></i> 371 Nguyễn Kiệm</a></li>
             </ul>
             <ul class="header-links pull-right">
-                <li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
+                @if (Session["UserID"] == null)
+                {
+                    <li><a href="/user/account" style="text-decoration: none"><i class="fa fa-user-o"></i>Đăng nhập</a></li>
+                }
+                else
+                {
+                    User user = ShopThoiTrang.Controllers.DataController.getUserByID((int)Session["UserID"]);
+                    <li><a href="/user/infomation" style="text-decoration: none">Xin chào @user.FullName!!!</a></li>
+                    <li><a href="/user/logout" onclick="return confirm('Bạn có chắc chắn muốn đăng xuất?')" style="text-decoration: none"><i class="fa fa-user-o"></i>Đăng xuất</a></li>
+                }
             </ul>
         </div>
     </div>
@@ -57,8 +66,8 @@
                                     <h5 id="cart-total">Tổng tiền: 0 VNĐ</h5>
                                 </div>
                                 <div class="cart-btns">
-                                    <a href="#!" class="deletea-all-cart" onclick="DeleteAllCart()">Xóa toàn bộ</a>
-                                    <a href="#">Thanh toán<i class="fa fa-arrow-circle-right"></i></a>
+                                    <a class="deletea-all-cart" onclick="DeleteAllCart()" style="cursor:pointer">Xóa toàn bộ</a>
+                                    <a href="~/cart">Thanh toán<i class="fa fa-arrow-circle-right"></i></a>
                                 </div>
                             </div>
                         </div>

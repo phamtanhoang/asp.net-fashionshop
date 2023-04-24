@@ -126,7 +126,7 @@
                 {
                     // Lấy danh mục cần tìm kiếm sản phẩm ngẫu nhiên
                     int categoryId = cate.CategoryID; // Thay đổi ID của danh mục tùy ý
-                    using (var db = new ShopThoiTrangEntities3())
+                    using (var db = new ShopThoiTrangEntities())
                     {
                         var category = db.Categories.FirstOrDefault(c => c.CategoryID == categoryId);
                         if (category != null)

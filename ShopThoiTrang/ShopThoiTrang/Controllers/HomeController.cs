@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using ShopThoiTrang.Models;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -8,7 +11,6 @@ namespace ShopThoiTrang.Controllers
 {
     public class HomeController : Controller
     {
-
         public ActionResult Index()
         {
             IQueryable<Category> categories = DataController.GetCategories();
@@ -30,7 +32,6 @@ namespace ShopThoiTrang.Controllers
             ViewBag.RandomProducts3 = products3.ToList();
             return View();
         }
-
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

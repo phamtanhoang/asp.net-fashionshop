@@ -11,16 +11,26 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         // GET: Admin/Tag
         public ActionResult Index()
         {
-            var tag = DataAdminController.GetTags();
-            return View(tag);
+            if (Session["UserID"] != null)
+            {
+                var tag = DataAdminController.GetTags();
+                return View(tag);
+            }
+            return RedirectToAction("", "Login");
+            
         }
 
         // GET: Admin/Tag/Details/5
         public ActionResult Details(int id)
         {
-            var tag = DataAdminController.GetTagByID(id);
-            IEnumerable<Product> products = DataAdminController.GetProductsByTagID(id);
-            return View(tag,products);
+            if (Session["UserID"] != null)
+            {
+                var tag = DataAdminController.GetTagByID(id);
+                IEnumerable<Product> products = DataAdminController.GetProductsByTagID(id);
+                return View(tag, products);
+            }
+            return RedirectToAction("", "Login");
+            
         }
 
         private ActionResult View(Tag tag, IEnumerable<Product> products)
@@ -33,118 +43,148 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         // GET: Admin/Tag/Create
         public ActionResult Create()
         {
-            var products = DataAdminController.GetProducts("","");
-            return View(products);
+            if (Session["UserID"] != null)
+            {
+                var products = DataAdminController.GetProducts("", "");
+                return View(products);
+            }
+            return RedirectToAction("", "Login");
+            
         }
 
         // POST: Admin/Tag/Create
         [HttpPost]
         public ActionResult Create(Tag tag, int[] ProductID)
         {
-            try
+            if (Session["UserID"] != null)
             {
-                bool added = DataAdminController.AddTag(tag, ProductID);
-                if (added)
+                try
                 {
-                    TempData["SuccessMessage"] = "Thêm " + tag.TagName + " thành công";
-                    return RedirectToAction("Index");
+                    bool added = DataAdminController.AddTag(tag, ProductID);
+                    if (added)
+                    {
+                        TempData["SuccessMessage"] = "Thêm " + tag.TagName + " thành công";
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        TempData["ErrorMessage"] = tag.TagName + " đã tồn tại";
+                    }
                 }
-                else
+                catch
                 {
-                    TempData["ErrorMessage"] = tag.TagName + " đã tồn tại";
+                    TempData["ErrorMessage"] = "Có lỗi xảy ra khi thêm nhãn sản phẩm";
                 }
-            }
-            catch
-            {
-                TempData["ErrorMessage"] = "Có lỗi xảy ra khi thêm nhãn sản phẩm";
-            }
 
-            var products = DataAdminController.GetProducts("", "");
-            return View(products);
+                var products = DataAdminController.GetProducts("", "");
+                return View(products);
+            }
+            return RedirectToAction("", "Login");
+            
         }
 
         // GET: Admin/Tag/Edit/5
         public ActionResult Edit(int id)
         {
-            Tag tag = DataAdminController.GetTagByID(id);
-            if (tag == null)
+            if (Session["UserID"] != null)
             {
-                return HttpNotFound();
+                Tag tag = DataAdminController.GetTagByID(id);
+                if (tag == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(tag);
             }
-            return View(tag);
+            return RedirectToAction("", "Login");
+            
         }
 
         // POST: Admin/Tag/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
-            var tag = DataAdminController.GetTagByID(id);
-            try
+            if (Session["UserID"] != null)
             {
-                if (tag == null)
+                var tag = DataAdminController.GetTagByID(id);
+                try
                 {
-                    return HttpNotFound();
-                }
+                    if (tag == null)
+                    {
+                        return HttpNotFound();
+                    }
 
-                tag.TagName = collection["TagName"];
+                    tag.TagName = collection["TagName"];
 
-                var result = DataAdminController.EditTag(tag);
-                if (result)
-                {
-                    TempData["SuccessMessage"] = "Chỉnh sửa thành công";
-                    return RedirectToAction("Index");
+                    var result = DataAdminController.EditTag(tag);
+                    if (result)
+                    {
+                        TempData["SuccessMessage"] = "Chỉnh sửa thành công";
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        TempData["ErrorMessage"] = "Chỉnh sửa không thành công";
+                    }
                 }
-                else
+                catch
                 {
-                    TempData["ErrorMessage"] = "Chỉnh sửa không thành công";
+                    TempData["ErrorMessage"] = "Có lỗi xảy ra khi sửa loại sản phẩm";
                 }
+                return View(tag);
             }
-            catch
-            {
-                TempData["ErrorMessage"] = "Có lỗi xảy ra khi sửa loại sản phẩm";
-            }
-            return View(tag);
+            return RedirectToAction("", "Login");
+            
         }
 
         // GET: Admin/Tag/Delete/5
         public ActionResult Delete(int id)
         {
-            Tag tag = DataAdminController.GetTagByID(id);
-            if (tag == null)
+            if (Session["UserID"] != null)
             {
-                return HttpNotFound();
+                Tag tag = DataAdminController.GetTagByID(id);
+                if (tag == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(tag);
             }
-            return View(tag);
+            return RedirectToAction("", "Login");
+            
         }
 
         // POST: Admin/Tag/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
-            var tag = DataAdminController.GetTagByID(id);
-            try
+            if (Session["UserID"] != null)
             {
-                if (tag == null)
+                var tag = DataAdminController.GetTagByID(id);
+                try
                 {
-                    return HttpNotFound();
-                }
+                    if (tag == null)
+                    {
+                        return HttpNotFound();
+                    }
 
-                var result = DataAdminController.DeleteTag(tag);
-                if (result)
-                {
-                    TempData["SuccessMessage"] = "Xóa thành công";
-                    return RedirectToAction("Index");
+                    var result = DataAdminController.DeleteTag(tag);
+                    if (result)
+                    {
+                        TempData["SuccessMessage"] = "Xóa thành công";
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        TempData["ErrorMessage"] = "Xóa không thành công";
+                    }
                 }
-                else
+                catch
                 {
-                    TempData["ErrorMessage"] = "Xóa không thành công";
+                    TempData["ErrorMessage"] = "Có lỗi xảy ra khi xóa loại sản phẩm";
                 }
+                return View(tag);
             }
-            catch
-            {
-                TempData["ErrorMessage"] = "Có lỗi xảy ra khi xóa loại sản phẩm";
-            }
-            return View(tag);
+            return RedirectToAction("", "Login");
+            
         }
     }
 }

@@ -11,20 +11,29 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         // GET: Admin/Category
         public ActionResult Index()
         {
-            var cate = DataAdminController.GetCategories();
-            return View(cate);
+            if (Session["UserID"] != null)
+            {
+                var cate = DataAdminController.GetCategories();
+                return View(cate);
+            }
+            return RedirectToAction("", "Login");
+            
         }
 
         // GET: Admin/Category/Details/5
         public ActionResult Details(int id)
         {
-            Category category = DataAdminController.GetCategoryByID(id);
-            if (category == null)
+            if (Session["UserID"] != null)
             {
-                return HttpNotFound();
+                Category category = DataAdminController.GetCategoryByID(id);
+                if (category == null)
+                {
+                    return HttpNotFound();
+                }
+                IQueryable<Product> products = DataAdminController.GetProducts("", category.CategoryName);
+                return View(category, products);
             }
-            IQueryable<Product> products = DataAdminController.GetProducts("", category.CategoryName);
-            return View(category, products);
+            return RedirectToAction("", "Login");
         }
 
         private ActionResult View(Category category, IQueryable<Product> products)
@@ -37,117 +46,144 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         // GET: Admin/Category/Create
         public ActionResult Create()
         {
-            return View();
+            if (Session["UserID"] != null)
+            {
+                return View();
+            }
+            return RedirectToAction("", "Login");
         }
 
         // POST: Admin/Category/Create
         [HttpPost]
         public ActionResult Create(Category cate)
         {
-            try
+            if (Session["UserID"] != null)
             {
-                bool added = DataAdminController.AddCategory(cate);
-                if (added)
+                try
                 {
-                    TempData["SuccessMessage"] = "Thêm " + cate.CategoryName + " thành công";
-                    return RedirectToAction("Index");
+                    bool added = DataAdminController.AddCategory(cate);
+                    if (added)
+                    {
+                        TempData["SuccessMessage"] = "Thêm " + cate.CategoryName + " thành công";
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        TempData["ErrorMessage"] = cate.CategoryName + " đã tồn tại";
+                        return View();
+                    }
                 }
-                else
+                catch
                 {
-                    TempData["ErrorMessage"] = cate.CategoryName + " đã tồn tại";
-                    return View();
+                    TempData["ErrorMessage"] = "Có lỗi xảy ra khi thêm loại sản phẩm";
                 }
-            }
-            catch
-            {
-                TempData["ErrorMessage"] = "Có lỗi xảy ra khi thêm loại sản phẩm";
-            }
 
-            return View();
-        }
+                return View();
+            }
+            return RedirectToAction("", "Login");
+    }
 
         // GET: Admin/Category/Edit/5
         public ActionResult Edit(int id)
         {
-            Category category = DataAdminController.GetCategoryByID(id);
-            if (category == null)
+            if (Session["UserID"] != null)
             {
-                return HttpNotFound();
+                Category category = DataAdminController.GetCategoryByID(id);
+                if (category == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(category);
             }
-            return View(category);
+            return RedirectToAction("", "Login");
         }
 
         // POST: Admin/Category/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
-            var category = DataAdminController.GetCategoryByID(id);
-            try
+            if (Session["UserID"] != null)
             {
-                if (category == null)
+                var category = DataAdminController.GetCategoryByID(id);
+                try
                 {
-                    return HttpNotFound();
-                }
+                    if (category == null)
+                    {
+                        return HttpNotFound();
+                    }
 
-                category.CategoryName = collection["CategoryName"];
+                    category.CategoryName = collection["CategoryName"];
 
-                var result = DataAdminController.EditCategory(category);
-                if (result)
-                {
-                    TempData["SuccessMessage"] = "Chỉnh sửa thành công";
-                    return RedirectToAction("Index");
+                    var result = DataAdminController.EditCategory(category);
+                    if (result)
+                    {
+                        TempData["SuccessMessage"] = "Chỉnh sửa thành công";
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        TempData["ErrorMessage"] = "Chỉnh sửa không thành công";
+                    }
                 }
-                else
+                catch
                 {
-                    TempData["ErrorMessage"] = "Chỉnh sửa không thành công";
+                    TempData["ErrorMessage"] = "Có lỗi xảy ra khi sửa loại sản phẩm";
                 }
+                return View(category);
             }
-            catch
-            {
-                TempData["ErrorMessage"] = "Có lỗi xảy ra khi sửa loại sản phẩm";
-            }
-            return View(category);
+            return RedirectToAction("", "Login");
+            
         }
 
         // GET: Admin/Category/Delete/5
         public ActionResult Delete(int id)
         {
-            Category category = DataAdminController.GetCategoryByID(id);
-            if (category == null)
+            if (Session["UserID"] != null)
             {
-                return HttpNotFound(); 
+                Category category = DataAdminController.GetCategoryByID(id);
+                if (category == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(category);
             }
-            return View(category);
+            return RedirectToAction("", "Login");
+            
         }
 
         // POST: Admin/Category/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
-            var category = DataAdminController.GetCategoryByID(id);
-            try
+            if (Session["UserID"] != null)
             {
-                if (category == null)
+                var category = DataAdminController.GetCategoryByID(id);
+                try
                 {
-                    return HttpNotFound();
-                }
+                    if (category == null)
+                    {
+                        return HttpNotFound();
+                    }
 
-                var result = DataAdminController.DeleteCategory(category);
-                if (result)
-                {
-                    TempData["SuccessMessage"] = "Xóa thành công";
-                    return RedirectToAction("Index");
+                    var result = DataAdminController.DeleteCategory(category);
+                    if (result)
+                    {
+                        TempData["SuccessMessage"] = "Xóa thành công";
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        TempData["ErrorMessage"] = "Xóa không thành công";
+                    }
                 }
-                else
+                catch
                 {
-                    TempData["ErrorMessage"] = "Xóa không thành công";
+                    TempData["ErrorMessage"] = "Có lỗi xảy ra khi xóa loại sản phẩm";
                 }
+                return View(category);
             }
-            catch
-            {
-                TempData["ErrorMessage"] = "Có lỗi xảy ra khi xóa loại sản phẩm";
-            }
-            return View(category);
+            return RedirectToAction("", "Login");
+            
         }
     }
 }

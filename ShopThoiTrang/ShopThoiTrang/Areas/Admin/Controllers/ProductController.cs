@@ -14,21 +14,30 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         // GET: Admin/Product
         public ActionResult Index()
         {
-            var prod = DataAdminController.GetProducts("","");
-            return View(prod);
+            if (Session["UserID"] != null)
+            {
+                var prod = DataAdminController.GetProducts("", "");
+                return View(prod);
+            }
+            return RedirectToAction("", "Login");
+            
         }
 
         // GET: Admin/Product/Details/5
         public ActionResult Details(int id)
         {
-            Product product = DataAdminController.GetProductByID(id);
-            if (product == null)
+            if (Session["UserID"] != null)
             {
-                return HttpNotFound();
+                Product product = DataAdminController.GetProductByID(id);
+                if (product == null)
+                {
+                    return HttpNotFound();
+                }
+                var cate = DataAdminController.GetCategories();
+                IEnumerable<Tag> tags = DataAdminController.GetTagsByProductID(id);
+                return View(product, cate, tags);
             }
-            var cate = DataAdminController.GetCategories();
-            IEnumerable<Tag> tags = DataAdminController.GetTagsByProductID(id);
-            return View(product, cate, tags);
+            return RedirectToAction("", "Login");
         }
 
         private ActionResult View(Product product, IQueryable<Category> cate, IEnumerable<Tag> tags)
@@ -42,9 +51,14 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         // GET: Admin/Product/Create
         public ActionResult Create()
         {
-            var cate = DataAdminController.GetCategories();
-            var tag = DataAdminController.GetTags();
-            return View(cate, tag);
+            if (Session["UserID"] != null)
+            {
+                var cate = DataAdminController.GetCategories();
+                var tag = DataAdminController.GetTags();
+                return View(cate, tag);
+            }
+            return RedirectToAction("", "Login");
+            
         }
 
         private ActionResult View(IQueryable<Category> cate, IQueryable<Tag> tag)
@@ -59,65 +73,75 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         [Obsolete]
         public ActionResult Create(Product product, HttpPostedFileBase Image, int[] TagID)
         {
-            try
+            if (Session["UserID"] != null)
             {
-                using (var db = new ShopThoiTrangEntities3())
+                try
                 {
-                    var duplicateProd = db.Products.FirstOrDefault(p => p.ProductName == product.ProductName);
-                    if (duplicateProd == null)
+                    using (var db = new ShopThoiTrangEntities())
                     {
-
-                        if (ModelState.IsValid)
+                        var duplicateProd = db.Products.FirstOrDefault(p => p.ProductName == product.ProductName);
+                        if (duplicateProd == null)
                         {
-                            product.Image = CloudinaryController.UploadImage(Image);
-                            if (product.Image != "")
+
+                            if (ModelState.IsValid)
                             {
-                                bool added = DataAdminController.AddProduct(product, TagID);
-                                if (added)
+                                product.Image = CloudinaryController.UploadImage(Image);
+                                if (product.Image != "")
                                 {
-                                    TempData["SuccessMessage"] = "Thêm " + product.ProductName + " thành công";
-                                    return RedirectToAction("Index");
+                                    bool added = DataAdminController.AddProduct(product, TagID);
+                                    if (added)
+                                    {
+                                        TempData["SuccessMessage"] = "Thêm " + product.ProductName + " thành công";
+                                        return RedirectToAction("Index");
+                                    }
+                                    else
+                                    {
+                                        TempData["ErrorMessage"] = product.ProductName + " đã tồn tại";
+                                    }
                                 }
                                 else
                                 {
-                                    TempData["ErrorMessage"] = product.ProductName + " đã tồn tại";
+                                    TempData["ErrorMessage"] = "Có lỗi xảy ra khi thêm sản phẩm";
                                 }
                             }
-                            else
-                            {
-                                TempData["ErrorMessage"] = "Có lỗi xảy ra khi thêm sản phẩm";
-                            }
+                        }
+                        else
+                        {
+                            TempData["ErrorMessage"] = product.ProductName + " đã tồn tại";
                         }
                     }
-                    else
-                    {
-                        TempData["ErrorMessage"] = product.ProductName + " đã tồn tại";
-                    }
-                }
-                
-            }
-            catch
-            {
-                TempData["ErrorMessage"] = "Có lỗi xảy ra khi thêm sản phẩm";
-            }
 
-            var cate = DataAdminController.GetCategories();
-            var tag = DataAdminController.GetTags();
-            return View(cate, tag);
+                }
+                catch
+                {
+                    TempData["ErrorMessage"] = "Có lỗi xảy ra khi thêm sản phẩm";
+                }
+
+                var cate = DataAdminController.GetCategories();
+                var tag = DataAdminController.GetTags();
+                return View(cate, tag);
+            }
+            return RedirectToAction("", "Login");
+            
         }
 
         // GET: Admin/Product/Edit/5
         public ActionResult Edit(int id)
         {
-            Product product = DataAdminController.GetProductByID(id);
-            if (product == null)
+            if (Session["UserID"] != null)
             {
-                return HttpNotFound();
+                Product product = DataAdminController.GetProductByID(id);
+                if (product == null)
+                {
+                    return HttpNotFound();
+                }
+                var cate = DataAdminController.GetCategories();
+                var tag = DataAdminController.GetTags();
+                var tagprod = DataAdminController.GetTagsByProductID(id);
+                return View(product, cate, tag, tagprod);
             }
-            var cate = DataAdminController.GetCategories();
-            var tag = DataAdminController.GetTags();
-            var tagprod = DataAdminController.GetTagsByProductID(id);
-            return View(product, cate, tag, tagprod);
+            return RedirectToAction("", "Login");
+            
         }
         private ActionResult View(Product product, IQueryable<Category> cate, IEnumerable<Tag> tags, IQueryable<Tag> tagprod)
         {
@@ -132,53 +156,58 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         [Obsolete]
         public ActionResult Edit(int id, FormCollection collection, HttpPostedFileBase Image, int[] TagID)
         {
-            var prod = DataAdminController.GetProductByID(id);
-            try
+            if (Session["UserID"] != null)
             {
-                if (prod == null)
+                var prod = DataAdminController.GetProductByID(id);
+                try
                 {
-                    return HttpNotFound();
-                }
-                prod.ProductName = collection["ProductName"];
-                prod.UnitPrice = Decimal.Parse(collection["UnitPrice"]);
-                prod.active = Boolean.Parse(collection["active"]);
-                prod.CategoryID = Int32.Parse(collection["CategoryID"]);
-                prod.Description = collection["Description"];
-                using (var db = new ShopThoiTrangEntities3())
-                {
-                    var duplicateProd = db.Products.FirstOrDefault(p => p.ProductName == prod.ProductName && p.ProductID != id);
-                    if (duplicateProd == null)
+                    if (prod == null)
                     {
-                        
-                        if (ModelState.IsValid)
+                        return HttpNotFound();
+                    }
+                    prod.ProductName = collection["ProductName"];
+                    prod.UnitPrice = Decimal.Parse(collection["UnitPrice"]);
+                    prod.active = Boolean.Parse(collection["active"]);
+                    prod.CategoryID = Int32.Parse(collection["CategoryID"]);
+                    prod.Description = collection["Description"];
+                    using (var db = new ShopThoiTrangEntities())
+                    {
+                        var duplicateProd = db.Products.FirstOrDefault(p => p.ProductName == prod.ProductName && p.ProductID != id);
+                        if (duplicateProd == null)
                         {
-                            prod.Image = CloudinaryController.UploadImage(Image);
-                        }
-                        var result = DataAdminController.EditProduct(prod, TagID);
-                        if (result)
-                        {
-                            TempData["SuccessMessage"] = "Chỉnh sửa thành công";
-                            return RedirectToAction("Index");
+
+                            if (ModelState.IsValid)
+                            {
+                                prod.Image = CloudinaryController.UploadImage(Image);
+                            }
+                            var result = DataAdminController.EditProduct(prod, TagID);
+                            if (result)
+                            {
+                                TempData["SuccessMessage"] = "Chỉnh sửa thành công";
+                                return RedirectToAction("Index");
+                            }
+                            else
+                            {
+                                TempData["ErrorMessage"] = "Chỉnh sửa không thành công";
+                            }
                         }
                         else
                         {
                             TempData["ErrorMessage"] = "Chỉnh sửa không thành công";
                         }
                     }
-                    else
-                    {
-                        TempData["ErrorMessage"] = "Chỉnh sửa không thành công";
-                    }
-                }     
+                }
+                catch
+                {
+                    TempData["ErrorMessage"] = "Có lỗi xảy ra khi sửa sản phẩm";
+                }
+                var cate = DataAdminController.GetCategories();
+                var tag = DataAdminController.GetTags();
+                var tagprod = DataAdminController.GetTagsByProductID(id);
+                return View(prod, cate, tag, tagprod);
             }
-            catch
-            {
-                TempData["ErrorMessage"] = "Có lỗi xảy ra khi sửa sản phẩm";
-            }
-            var cate = DataAdminController.GetCategories();
-            var tag = DataAdminController.GetTags();
-            var tagprod = DataAdminController.GetTagsByProductID(id);
-            return View(prod, cate, tag, tagprod);
+            return RedirectToAction("", "Login");
+            
         }
         private ActionResult View(Product product, IQueryable<Category> cate)
         {
@@ -189,43 +218,53 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         // GET: Admin/Product/Delete/5
         public ActionResult Delete(int id)
         {
-            Product product = DataAdminController.GetProductByID(id);
-            if (product == null)
+            if (Session["UserID"] != null)
             {
-                return HttpNotFound();
+                Product product = DataAdminController.GetProductByID(id);
+                if (product == null)
+                {
+                    return HttpNotFound();
+                }
+                var cate = DataAdminController.GetCategories();
+                return View(product, cate);
             }
-            var cate = DataAdminController.GetCategories();
-            return View(product,cate);
+            return RedirectToAction("", "Login");
+            
         }
 
         // POST: Admin/Product/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
-            var prod = DataAdminController.GetProductByID(id);
-            try
+            if (Session["UserID"] != null)
             {
-                if (prod == null)
+                var prod = DataAdminController.GetProductByID(id);
+                try
                 {
-                    return HttpNotFound();
-                }
+                    if (prod == null)
+                    {
+                        return HttpNotFound();
+                    }
 
-                var result = DataAdminController.DeleteProduct(prod);
-                if (result)
-                {
-                    TempData["SuccessMessage"] = "Xóa thành công";
-                    return RedirectToAction("Index");
+                    var result = DataAdminController.DeleteProduct(prod);
+                    if (result)
+                    {
+                        TempData["SuccessMessage"] = "Xóa thành công";
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        TempData["ErrorMessage"] = "Xóa không thành công";
+                    }
                 }
-                else
+                catch
                 {
-                    TempData["ErrorMessage"] = "Xóa không thành công";
+                    TempData["ErrorMessage"] = "Có lỗi xảy ra khi xóa loại sản phẩm";
                 }
+                return View(prod);
             }
-            catch
-            {
-                TempData["ErrorMessage"] = "Có lỗi xảy ra khi xóa loại sản phẩm";
-            }
-            return View(prod);
+            return RedirectToAction("", "Login");
+            
         }
     }
 }

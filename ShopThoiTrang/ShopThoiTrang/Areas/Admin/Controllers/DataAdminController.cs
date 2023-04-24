@@ -15,7 +15,7 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         //CATEGORY
         public static IQueryable<Category> GetCategories()
         {
-            using (var db = new ShopThoiTrangEntities3())
+            using (var db = new ShopThoiTrangEntities())
             {
                 var query = from p in db.Categories
                             select p;
@@ -24,7 +24,7 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         }
         public static bool AddCategory(Category cate)
         {
-            using (var db = new ShopThoiTrangEntities3())
+            using (var db = new ShopThoiTrangEntities())
             {
                 if (db.Categories.Any(c => c.CategoryName == cate.CategoryName))
                 {
@@ -37,7 +37,7 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         }
         public static bool EditCategory(Category category)
         {
-            using (var db = new ShopThoiTrangEntities3())
+            using (var db = new ShopThoiTrangEntities())
             {
                 var existingCategory = db.Categories.FirstOrDefault(c => c.CategoryID == category.CategoryID);
                 if (existingCategory == null)
@@ -46,7 +46,7 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
                 }
 
                 // Kiểm tra xem đã tồn tại bản ghi có CategoryName trùng với đối tượng category truyền vào không
-                var duplicateCategory = db.Categories.FirstOrDefault(c => c.CategoryName == category.CategoryName);
+                var duplicateCategory = db.Categories.FirstOrDefault(c => c.CategoryName == category.CategoryName && c.CategoryID != category.CategoryID);
                 if (duplicateCategory != null)
                 {
                     return false; // Đã tồn tại bản ghi khác có CategoryName giống với đối tượng category truyền vào
@@ -61,7 +61,7 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         }
         public static bool DeleteCategory(Category category)
         {
-            using (var db = new ShopThoiTrangEntities3())
+            using (var db = new ShopThoiTrangEntities())
             {
                 var existingCategory = db.Categories.FirstOrDefault(c => c.CategoryID == category.CategoryID);
                 if (existingCategory == null)
@@ -76,7 +76,7 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         }
         public static Category GetCategoryByID(int categoryId)
         {
-            using (var db = new ShopThoiTrangEntities3())
+            using (var db = new ShopThoiTrangEntities())
             {
                 return db.Categories.FirstOrDefault(c => c.CategoryID == categoryId);
             }
@@ -85,7 +85,7 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         //PRODUCT
         public static IQueryable<Product> GetProducts(String tagname, String cate)
         {
-            using (var db = new ShopThoiTrangEntities3())
+            using (var db = new ShopThoiTrangEntities())
             {
                 var query = db.Products.AsQueryable();
                 if (!string.IsNullOrEmpty(tagname))
@@ -101,14 +101,14 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         }
         public static Product GetProductByID(int n)
         {
-            using (var db = new ShopThoiTrangEntities3())
+            using (var db = new ShopThoiTrangEntities())
             {
                 return db.Products.SingleOrDefault(p => p.ProductID == n);
             }
         }
         public static bool AddProduct(Product prod, int[] tagIds)
         {
-            using (var db = new ShopThoiTrangEntities3())
+            using (var db = new ShopThoiTrangEntities())
             {
                 if (db.Products.Any(p => p.ProductName == prod.ProductName))
                 {
@@ -130,7 +130,7 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         }
         public static bool DeleteProduct(Product prod)
         {
-            using (var db = new ShopThoiTrangEntities3())
+            using (var db = new ShopThoiTrangEntities())
             {
                 var existingProduct = db.Products.FirstOrDefault(p => p.ProductID == prod.ProductID);
                 if (existingProduct == null)
@@ -145,7 +145,7 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         }
         public static bool EditProduct(Product prod, int[] tagID)
         {
-            using (var db = new ShopThoiTrangEntities3())
+            using (var db = new ShopThoiTrangEntities())
             {
                 var existingProd = db.Products.FirstOrDefault(p => p.ProductID == prod.ProductID);
                 if (existingProd == null)
@@ -184,7 +184,7 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         }
         public static IQueryable<Tag> GetTagsByProductID(int productID)
         {
-            using (var db = new ShopThoiTrangEntities3())
+            using (var db = new ShopThoiTrangEntities())
             {
                 var tags = db.Products.Where(p => p.ProductID == productID)
                                  .SelectMany(p => p.Tags);
@@ -194,7 +194,7 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         //TAG
         public static IQueryable<Tag> GetTags()
         {
-            using (var db = new ShopThoiTrangEntities3())
+            using (var db = new ShopThoiTrangEntities())
             {
                 var query = from t in db.Tags
                             select t;
@@ -203,14 +203,14 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         }
         public static Tag GetTagByID(int n)
         {
-            using (var db = new ShopThoiTrangEntities3())
+            using (var db = new ShopThoiTrangEntities())
             {
                 return db.Tags.SingleOrDefault(t => t.TagID == n);
             }
         }
         public static IQueryable<Product> GetProductsByTagID(int tagID)
         {
-            using (var db = new ShopThoiTrangEntities3())
+            using (var db = new ShopThoiTrangEntities())
             {
                 var products = db.Tags.Where(t => t.TagID == tagID)
                                  .SelectMany(t => t.Products);
@@ -219,7 +219,7 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         }
         public static bool AddTag(Tag tag, int[] ProductID)
         {
-            using (var db = new ShopThoiTrangEntities3())
+            using (var db = new ShopThoiTrangEntities())
             {
                 if (db.Tags.Any(c => c.TagName == tag.TagName && c.TagID != tag.TagID))
                 {
@@ -242,7 +242,7 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         }
         public static bool EditTag(Tag tag)
         {
-            using (var db = new ShopThoiTrangEntities3())
+            using (var db = new ShopThoiTrangEntities())
             {
                 var existingTag = db.Tags.FirstOrDefault(c => c.TagID == tag.TagID);
                 if (existingTag == null)
@@ -250,7 +250,7 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
                     return false;
                 }
 
-                var duplicateTag = db.Tags.FirstOrDefault(c => c.TagName == tag.TagName);
+                var duplicateTag = db.Tags.FirstOrDefault(c => c.TagName == tag.TagName && c.TagID != tag.TagID);
                 if (duplicateTag != null)
                 {
                     return false;
@@ -264,7 +264,7 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         }
         public static bool DeleteTag(Tag tag)
         {
-            using (var db = new ShopThoiTrangEntities3())
+            using (var db = new ShopThoiTrangEntities())
             {
                 var existingTag = db.Tags.FirstOrDefault(c => c.TagID == tag.TagID);
                 if (existingTag == null)
@@ -284,7 +284,7 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         //IMAGE-PRODUCTS
         public static IQueryable<ImageProduct> GetImageProducts()
         {
-            using (var db = new ShopThoiTrangEntities3())
+            using (var db = new ShopThoiTrangEntities())
             {
                 var query = from t in db.ImageProducts
                             select t;
@@ -293,14 +293,14 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         }
         public static ImageProduct GetImageProductByID(int n)
         {
-            using (var db = new ShopThoiTrangEntities3())
+            using (var db = new ShopThoiTrangEntities())
             {
                 return db.ImageProducts.SingleOrDefault(p => p.ImageProductID == n);
             }
         }
         public static bool AddImageProduct(ImageProduct imgprod)
         {
-            using (var db = new ShopThoiTrangEntities3())
+            using (var db = new ShopThoiTrangEntities())
             {
                 db.ImageProducts.Add(imgprod);
                 db.SaveChanges();
@@ -309,7 +309,7 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         }
         public static bool DeleteImageProduct(ImageProduct imgprod)
         {
-            using (var db = new ShopThoiTrangEntities3())
+            using (var db = new ShopThoiTrangEntities())
             {
                 var existingImageProduct = db.ImageProducts.FirstOrDefault(c => c.ImageProductID == imgprod.ImageProductID);
                 if (existingImageProduct == null)
@@ -324,7 +324,7 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         }
         public static bool EditImageProduct(ImageProduct imgprod)
         {
-            using (var db = new ShopThoiTrangEntities3())
+            using (var db = new ShopThoiTrangEntities())
             {
                 var existingImageProduct = db.ImageProducts.FirstOrDefault(c => c.ImageProductID == imgprod.ImageProductID);
                 if (existingImageProduct == null)

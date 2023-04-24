@@ -17,9 +17,8 @@ namespace ShopThoiTrang
         public int CommentID { get; set; }
         public string CommentContent { get; set; }
         public System.DateTime CreateDate { get; set; }
-        public string CustomerName { get; set; }
-        public Nullable<int> ProductID { get; set; }
+        public Nullable<int> UserID { get; set; }
     
-        public virtual Product Product { get; set; }
+        public virtual User User { get; set; }
     }
 }
