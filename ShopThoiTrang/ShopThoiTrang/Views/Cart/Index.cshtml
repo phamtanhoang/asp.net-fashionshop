@@ -1,5 +1,4 @@
-﻿@model string
-@{
+﻿@{
     ViewBag.Title = "Cart";
 }
 
@@ -12,18 +11,87 @@
                         <h5 class="mb-0">Giỏ hàng của bạn</h5>
                     </div>
                     <div class="card-body">
-                        <p>@Model</p>
+                        @if (ViewBag.CartItems.Count > 0)
+                        {
+                            foreach (var item in ViewBag.CartItems)
+                            {
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
+                                        
+                                        <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
+                                            <img src="@item.ProductImage"
+                                                 class="w-100" alt="@item.ProductName" />
+                                            <a href="#!">
+                                                <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
+                                            </a>
+                                        </div>
+                                        
+                                    </div>
+
+                                    <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
+
+                                        <p><strong>@item.ProductName</strong></p>
+                                        @if (item.ProductID != null)
+                                        {
+                                            Product prod = ShopThoiTrang.Controllers.DataController.GetProduct(item.ProductID);
+                                            foreach (var category in @ViewBag.Categories)
+                                            {
+                                                if (prod.CategoryID == category.CategoryID)
+                                                {
+                                                    <p>Loại sản phẩm: @category.CategoryName</p>
+                                                }
+                                            }
+                                        }
+
+                                        <button type="button" class="btn btn-danger btn-lg mb-2 delete-item-cart" data-product-id="@item.ProductID" data-mdb-toggle="tooltip" title="Xóa khỏi giỏ hàng">Xóa</button>
+
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-6 mb-4 mb-lg-0 ">
+                                        
+                                        <label class="form-label" for="form1">Số lượng</label>
+                                        <div class="d-flex mb-4" style="max-width: 300px;">
+                                            <button class="btn btn-primary px-3 me-2 btn-lg"
+                                                    onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                                                <strong>-</strong>
+                                            </button>
+
+                                            <div class="form-outline">
+                                                <input id="form1" min="0" name="quantity" value="@item.Quantity" type="number" class="form-control" style="font-size: 1.5rem" />
+                                            </div>
+
+                                            <button class="btn btn-primary px-3 ms-2 btn-lg"
+                                                    onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                                                <strong>+</strong>
+                                            </button>
+                                        </div>
+                                        
+                                        <p class="text-start text-md-center display-5">
+                                            <strong>@item.UnitPrice.ToString("#,##0 VND")</strong>
+                                        </p>
+                                        
+                                    </div>
+                                </div>
+                                <hr class="my-4" />
+                            }
+                        }
+                        else
+                        {
+                            <div class="alert alert-danger" role="alert">
+                                Chưa có sản phẩm nào trong giỏ hàng
+                            </div>
+                        }
                     </div>
                 </div>
                 <div class="card mb-4">
                     <div class="card-body">
-                        <p><strong>Expected shipping delivery</strong></p>
-                        <p class="mb-0">12.10.2020 - 14.10.2020</p>
+                        <p><strong>Đơn hàng sẽ được giao trong thời gian</strong></p>
+                        <p class="mb-0 ship-date"></p>
                     </div>
                 </div>
                 <div class="card mb-4 mb-lg-0">
                     <div class="card-body">
-                        <p><strong>We accept</strong></p>
+                        <p><strong>Thanh toán sau khi nhận hàng</strong></p>
                         <img class="me-2" width="45px"
                              src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/visa.svg"
                              alt="Visa" />
@@ -33,40 +101,46 @@
                         <img class="me-2" width="45px"
                              src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/mastercard.svg"
                              alt="Mastercard" />
-                        <img class="me-2" width="45px"
-                             src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce/includes/gateways/paypal/assets/images/paypal.webp"
-                             alt="PayPal acceptance mark" />
+                       
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="card mb-4">
                     <div class="card-header py-3">
-                        <h5 class="mb-0">Thanh toán</h5>
+                        <h5 class="mb-0">Hóa đơn</h5>
                     </div>
                     <div class="card-body">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                                Products
+                                Tạm tính
                                 <span>$53.98</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                                Shipping
-                                <span>Gratis</span>
+                                Vận chuyển
+                                <span>50,000 VNĐ</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
                                 <div>
-                                    <strong>Total amount</strong>
-                                    <strong>
-                                        <p class="mb-0">(including VAT)</p>
-                                    </strong>
+                                    <strong>Tổng tiền:</strong>
                                 </div>
-                                <span><strong>$53.98</strong></span>
+                                <span style="font-size:2rem"><strong>$53.98</strong></span>
                             </li>
                         </ul>
-
-                        <button type="button" class="btn btn-primary btn-lg btn-block">
-                            Go to checkout
+                        <div class="form-group">
+                            <input type="text" class="form-control form-control-user"
+                                   placeholder="Nhập tên đăng nhập..." name="Email" style="font-size:1.5rem">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control form-control-user"
+                                   placeholder="Nhập tên đăng nhập..." name="Email" style="font-size:1.5rem">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control form-control-user"
+                                   placeholder="Nhập tên đăng nhập..." name="Email" style="font-size:1.5rem">
+                        </div>
+                        <button type="button" class="btn btn-primary btn-lg btn-block btn-buy">
+                            Đặt hàng
                         </button>
                     </div>
                 </div>
@@ -75,22 +149,21 @@
     </div>
 </section>
 
-<style>
-    h5 {
+<style>font-size
+    h5, .btn-buy {
         font-size: 2rem;
     }
-
-    p {
-        font-size: 1.5rem;
-    }
-
-    label {
-        font-size: 1.5rem;
-    }
-
-    button {
-        font-size: 1.5rem;
-    }
 </style>
+<script>
+    const now = new Date();
+    const deliveryDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 5);
+    const deliveryDateStr = deliveryDate.toLocaleDateString();
+    const expectedDeliveryDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 10);
+    const expectedDeliveryDateStr = expectedDeliveryDate.toLocaleDateString();
+    const deliveryText = `${deliveryDateStr} - ${expectedDeliveryDateStr}`;
+    document.querySelector('.ship-date').textContent = deliveryText;
+</script>
+
+
 
 

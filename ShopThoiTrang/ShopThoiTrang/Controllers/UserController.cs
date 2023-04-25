@@ -55,6 +55,7 @@ namespace ShopThoiTrang.Controllers
             User userLogin = DataController.LoginUser(collect["Email"], collect["PassWord"]);
             if (userLogin == null)
             {
+                TempData["TitleMessage"] = "Đăng nhập không thành công";
                 TempData["ErrorMessage"] = "Tài khoản hoặc mật khẩu chưa đúng!!!";
                 return RedirectToAction("account", "user");
             }

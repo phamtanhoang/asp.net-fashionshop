@@ -20,6 +20,14 @@ namespace ShopThoiTrang.Controllers
             }
         }
 
+        public static Category GetCategoryByID(int n)
+        {
+            using (var db = new ShopThoiTrangEntities())
+            {
+                return db.Categories.SingleOrDefault(p => p.CategoryID == n);
+            }
+        }
+
         public static IQueryable<Product> GetProducts(String tagname, String cate)
         {
             using (var db = new ShopThoiTrangEntities())

@@ -94,73 +94,9 @@
                 <div id="product-tab">
                     <!-- product tab nav -->
                     <ul class="tab-nav">
-                        <li><a data-toggle="tab" href="#tab3" class="active" style="font-size: 16px;">Bình luận</a></li>
                     </ul>
                     <!-- /product tab nav -->
-                    <!-- product tab content -->
-
-                    <div class="chatHistoryContainer">
-                        <ul class="formComments">
-                            <li class="commentLi commentstep-1">
-                                <div class="form-comments-table">
-                                    <tr>
-                                        <td>
-                                            <p class="comment-user" style="font-size: 2rem; font-weight:500; margin:0">Ollie Bott <span class="comment-timestamp" style="font-size: 1.5rem;"><i>12:03 25/4/2016</i></span></p>
-                                        </td>
-                                        <br />
-                                        <td>
-                                            <div class="comment comment-step1">
-                                                This is a comment HELLO!!!This is a comment HELLO!!!This is a comment HELLO!!!This is a comment HELLO!!!This is a comment HELLO!!!This is a comment HELLO!!!This is a comment HELLO!!!
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <hr />
-                                    <tr>
-                                        <td>
-                                            <p class="comment-user" style="font-size: 2rem; font-weight:500; margin:0">Ollie Bott <span class="comment-timestamp" style="font-size: 1.5rem;"><i>12:03 25/4/2016</i></span></p>
-                                        </td>
-                                        <br />
-                                        <td>
-                                            <div class="comment comment-step1">
-                                                This is a comment HELLO!!!This is a comment HELLO!!!This is a comment HELLO!!!This is a comment HELLO!!!This is a comment HELLO!!!This is a comment HELLO!!!This is a comment HELLO!!!
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <hr />
-                                    <tr>
-                                        <td>
-                                            <p class="comment-user" style="font-size: 2rem; font-weight:500; margin:0">Ollie Bott <span class="comment-timestamp" style="font-size: 1.5rem;"><i>12:03 25/4/2016</i></span></p>
-                                        </td>
-                                        <br />
-                                        <td>
-                                            <div class="comment comment-step1">
-                                                This is a comment HELLO!!!This is a comment HELLO!!!This is a comment HELLO!!!This is a comment HELLO!!!This is a comment HELLO!!!This is a comment HELLO!!!This is a comment HELLO!!!
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <hr />
-                                    <tr>
-                                        <td>
-                                            <p class="comment-user" style="font-size: 2rem; font-weight:500; margin:0">Ollie Bott <span class="comment-timestamp" style="font-size: 1.5rem;"><i>12:03 25/4/2016</i></span></p>
-                                        </td>
-                                        <br />
-                                        <td>
-                                            <div class="comment comment-step1">
-                                                This is a comment HELLO!!!This is a comment HELLO!!!This is a comment HELLO!!!This is a comment HELLO!!!This is a comment HELLO!!!This is a comment HELLO!!!This is a comment HELLO!!!
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </div>
-                            </li>   
-                        </ul>
-                        <div class="input-group input-group-sm chatMessageControls">
-                            <input type="text" class="form-control" placeholder="Nhập bình luận..." aria-describedby="sizing-addon3" style="width: 70%; font-size: 1.5rem"/>
-                            <button id="sendMessageButton" class="btn btn-primary" type="button" style="width: 30%; font-size: 1.5rem">
-                                <i class="fa fa-send"></i>Gửi
-                            </button>
-                        </div>
-                    </div>
-                    <!-- /product tab content  -->
+                    
                 </div>
             </div>
             <!-- /Product tab -->
@@ -212,7 +148,7 @@
                                             </div>
                                         </div>
                                         <div class="add-to-cart">
-                                            <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+                                            <button class="add-to-cart-btn" data-product-id="@ViewBag.product.ProductID"><i class="fa fa-shopping-cart"></i> add to cart</button>
                                         </div>
                                     </div>
                                 }

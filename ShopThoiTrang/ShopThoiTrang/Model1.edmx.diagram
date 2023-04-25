@@ -9,7 +9,7 @@
         <EntityTypeShape EntityType="ShopThoiTrangModel.Comment" Width="1.5" PointX="6" PointY="14.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ShopThoiTrangModel.ImageProduct" Width="1.5" PointX="5.25" PointY="2.625" IsExpanded="true" />
         <EntityTypeShape EntityType="ShopThoiTrangModel.OrderDetail" Width="1.5" PointX="8.25" PointY="3.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShopThoiTrangModel.Order" Width="1.5" PointX="6" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopThoiTrangModel.Order" Width="1.5" PointX="8.5" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ShopThoiTrangModel.Product" Width="1.5" PointX="3" PointY="3.125" IsExpanded="true" />
         <EntityTypeShape EntityType="ShopThoiTrangModel.sysdiagram" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ShopThoiTrangModel.Tag" Width="1.5" PointX="5.25" PointY="8.125" IsExpanded="true" />
