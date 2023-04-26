@@ -22,7 +22,17 @@ namespace ShopThoiTrang.Controllers
             {
                 cart = new List<CartItem>();
             }
+            decimal temp = 0;
+            foreach (CartItem item in cart)
+            {
+                temp += item.Quantity * item.UnitPrice;
+            }
+            
 
+            decimal total = temp + 50000;
+
+            ViewBag.temp = temp;
+            ViewBag.total = total;
             // Truyền danh sách sản phẩm trong giỏ hàng cho View
             ViewBag.CartItems = cart;
             ViewBag.Categories = DataController.GetCategories();
@@ -85,9 +95,88 @@ namespace ShopThoiTrang.Controllers
 
             // Lưu lại danh sách sản phẩm mới vào Session
             Session["Cart"] = cart;
-
+            
             // Điều hướng người dùng trở lại trang giỏ hàng
             return RedirectToAction("Cart");
+        }
+
+        public ActionResult UpdateCart(int productId, int quantity)
+        {
+            // Lấy danh sách sản phẩm trong giỏ hàng từ Session
+            List<CartItem> cart = (List<CartItem>)Session["Cart"];
+
+            // Tìm sản phẩm cần cập nhật số lượng
+            CartItem itemToUpdate = cart.FirstOrDefault(item => item.ProductID == productId);
+
+            // Nếu sản phẩm được tìm thấy, cập nhật số lượng mới
+            if (itemToUpdate != null)
+            {
+                itemToUpdate.Quantity = quantity;
+            }
+
+            // Lưu lại danh sách sản phẩm mới vào Session
+            Session["Cart"] = cart;
+
+            // Điều hướng người dùng trở lại trang giỏ hàng
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult DeleteAllCart()
+        {
+            List<CartItem> cart = (List<CartItem>)Session["Cart"];
+
+            
+            Session["Cart"] = null;
+
+            return RedirectToAction("Cart");
+        }
+
+        public ActionResult Order(string address)
+        {
+            if (Session["UserID"] != null)
+            {
+                List<CartItem> cart = (List<CartItem>)Session["Cart"];
+
+                if (cart == null)
+                {
+                    return View();
+                }
+                decimal temp = 0;
+                foreach (CartItem item in cart)
+                {
+                    temp += item.Quantity * item.UnitPrice;
+                }
+
+                Order order = new Order
+                {
+                    CustomerID = (int)Session["UserID"],
+                    DeliveryAddress = address,
+                    Temp = temp,
+                    Ship = 50000,
+                    OrderDate = DateTime.Now
+                };
+                if (DataController.AddOrder(order))
+                {
+                    foreach (CartItem item in cart)
+                    {
+                        OrderDetail orderDetail = new OrderDetail
+                        {
+                            OrderID = order.OrderID,
+                            ProductID = item.ProductID,
+                            Quantity = (short?)item.Quantity,
+                            UnitPrice = item.UnitPrice
+                        };
+                        DataController.AddOrderDetails(orderDetail);
+                    }
+                    Session["Cart"] = null;
+                    return RedirectToAction("Cart");
+                }
+                else
+                {
+                    return HttpNotFound();
+                }
+            }
+            return HttpNotFound();
         }
     }
 }

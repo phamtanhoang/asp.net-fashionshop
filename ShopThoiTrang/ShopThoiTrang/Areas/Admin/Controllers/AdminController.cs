@@ -11,7 +11,7 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         // GET: Admin/Admin
         public ActionResult Index()
         {
-            if (Session["UserID"] != null)
+            if (Session["UserID"] != null && DataAdminController.GetUserByID((int)Session["UserID"]).is_Admin==true)
             {
                 return View();
             }

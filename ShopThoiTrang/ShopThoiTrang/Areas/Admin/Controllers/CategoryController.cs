@@ -11,7 +11,7 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         // GET: Admin/Category
         public ActionResult Index()
         {
-            if (Session["UserID"] != null)
+            if (Session["UserID"] != null && DataAdminController.GetUserByID((int)Session["UserID"]).is_Admin == true)
             {
                 var cate = DataAdminController.GetCategories();
                 return View(cate);
@@ -23,7 +23,7 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         // GET: Admin/Category/Details/5
         public ActionResult Details(int id)
         {
-            if (Session["UserID"] != null)
+            if (Session["UserID"] != null && DataAdminController.GetUserByID((int)Session["UserID"]).is_Admin == true)
             {
                 Category category = DataAdminController.GetCategoryByID(id);
                 if (category == null)
@@ -46,7 +46,7 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         // GET: Admin/Category/Create
         public ActionResult Create()
         {
-            if (Session["UserID"] != null)
+            if (Session["UserID"] != null && DataAdminController.GetUserByID((int)Session["UserID"]).is_Admin == true)
             {
                 return View();
             }
@@ -57,7 +57,7 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Create(Category cate)
         {
-            if (Session["UserID"] != null)
+            if (Session["UserID"] != null && DataAdminController.GetUserByID((int)Session["UserID"]).is_Admin == true)
             {
                 try
                 {
@@ -86,7 +86,7 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         // GET: Admin/Category/Edit/5
         public ActionResult Edit(int id)
         {
-            if (Session["UserID"] != null)
+            if (Session["UserID"] != null && DataAdminController.GetUserByID((int)Session["UserID"]).is_Admin == true)
             {
                 Category category = DataAdminController.GetCategoryByID(id);
                 if (category == null)
@@ -102,7 +102,7 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
-            if (Session["UserID"] != null)
+            if (Session["UserID"] != null && DataAdminController.GetUserByID((int)Session["UserID"]).is_Admin == true)
             {
                 var category = DataAdminController.GetCategoryByID(id);
                 try
@@ -138,7 +138,7 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         // GET: Admin/Category/Delete/5
         public ActionResult Delete(int id)
         {
-            if (Session["UserID"] != null)
+            if (Session["UserID"] != null && DataAdminController.GetUserByID((int)Session["UserID"]).is_Admin == true)
             {
                 Category category = DataAdminController.GetCategoryByID(id);
                 if (category == null)
@@ -155,7 +155,7 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
-            if (Session["UserID"] != null)
+            if (Session["UserID"] != null && DataAdminController.GetUserByID((int)Session["UserID"]).is_Admin == true)
             {
                 var category = DataAdminController.GetCategoryByID(id);
                 try

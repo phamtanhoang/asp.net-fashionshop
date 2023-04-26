@@ -16,6 +16,7 @@
     <Property Name="CommentContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="UserID" Type="Int32" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="User" Relationship="Self.FK_Comments_User" FromRole="Comments" ToRole="User" />
   </EntityType>
   <EntityType Name="ImageProduct">
@@ -46,6 +47,10 @@
     <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="CustomerID" Type="Int32" />
+    <Property Name="DeliveryAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Temp" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="Ship" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="Active" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetails_Orders" FromRole="Orders" ToRole="OrderDetails" />
     <NavigationProperty Name="User" Relationship="Self.FK_Orders_Customers" FromRole="Orders" ToRole="User" />
   </EntityType>
@@ -90,9 +95,9 @@
     <Property Name="CustomerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="FullName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="PassWord" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Active" Type="Boolean" Nullable="false" />
-    <Property Name="PhoneNumber" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-    <Property Name="Email" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Active" Type="Boolean" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="is_Admin" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="Comments" Relationship="Self.FK_Comments_User" FromRole="User" ToRole="Comments" />
     <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Customers" FromRole="User" ToRole="Orders" />

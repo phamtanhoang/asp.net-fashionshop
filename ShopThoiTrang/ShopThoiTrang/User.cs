@@ -24,7 +24,7 @@ namespace ShopThoiTrang
         public int CustomerID { get; set; }
         public string FullName { get; set; }
         public string PassWord { get; set; }
-        public bool Active { get; set; }
+        public Nullable<bool> Active { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
         public bool is_Admin { get; set; }

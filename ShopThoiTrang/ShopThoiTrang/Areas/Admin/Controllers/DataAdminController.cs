@@ -342,5 +342,100 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
             }
             return true;
         }
+
+        //USERS
+        public static IQueryable<User> GetUsers()
+        {
+            using (var db = new ShopThoiTrangEntities())
+            {
+                var query = from p in db.Users
+                            select p;
+                return query.ToList().AsQueryable();
+            }
+        }
+        public static User GetUserByID(int n)
+        {
+            using (var db = new ShopThoiTrangEntities())
+            {
+                return db.Users.SingleOrDefault(p => p.CustomerID == n);
+            }
+        }
+        public static bool DeleteUser(User u)
+        {
+            using (var db = new ShopThoiTrangEntities())
+            {
+                var existingU = db.Users.FirstOrDefault(c => c.CustomerID== u.CustomerID);
+                if (existingU == null)
+                {
+                    return false; // Không tìm thấy bản ghi cần xóa
+                }
+
+                db.Users.Remove(existingU);
+                db.SaveChanges();
+            }
+            return true;
+        }
+
+        //ORDER
+        public static IQueryable<Order> GetOrders()
+        {
+            using (var db = new ShopThoiTrangEntities())
+            {
+                var query = from p in db.Orders
+                            select p;
+                return query.ToList().AsQueryable();
+            }
+        }
+        public static Order GetOrderByID(int id)
+        {
+            using (var db = new ShopThoiTrangEntities())
+            {
+                return db.Orders.SingleOrDefault(p => p.OrderID == id);
+            }
+        }
+
+        public static IQueryable<OrderDetail> GetOrderDetails(int id)
+        {
+            using (var db = new ShopThoiTrangEntities())
+            {
+                var query = db.OrderDetails.AsQueryable();
+                if (id>0)
+                {
+                    query = query.Where(p => p.OrderID == id);
+                }
+                return query.ToList().AsQueryable();
+            }
+        }
+        public static bool DeleteOrder(int id)
+        {
+            using (var db = new ShopThoiTrangEntities())
+            {
+                var existingOrder = db.Orders.FirstOrDefault(c => c.OrderID == id);
+                if (existingOrder == null)
+                {
+                    return false; // Không tìm thấy bản ghi cần xóa
+                }
+
+                existingOrder.OrderDetails.Clear();
+                db.Orders.Remove(existingOrder);
+                db.SaveChanges();
+            }
+            return true;
+        }
+        public static bool ChangeOrder(int id)
+        {
+            using (var db = new ShopThoiTrangEntities())
+            {
+                var existingOrder = db.Orders.FirstOrDefault(c => c.OrderID == id);
+                if (existingOrder == null)
+                    return false;
+                if (existingOrder.Active == true)
+                    existingOrder.Active = false;
+                else
+                    existingOrder.Active = true;
+                db.SaveChanges();
+            }
+            return true;
+        }
     }
 }

@@ -1,0 +1,142 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 order-details" style="margin:5rem auto">
+            <div class="col-lg-12 d-flex justify-content-center">
+                <div class="mb-3">
+
+                    @if (TempData.ContainsKey("SuccessMessage"))
+                    {
+                        <div class="alert alert-success alert-dismissible " role="alert" style="font-size:1.5rem">
+                            <strong>@TempData["SuccessMessage"]</strong>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    }
+                    @if (TempData.ContainsKey("ErrorMessage"))
+                    {
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                            <strong>@TempData["ErrorMessage"]</strong>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="col-lg-5 order-details" style="margin:3rem">
+                <h3 class="title">Thông tin tài khoản</h3>
+                <form action="User/ChangeInfomation" method="post">
+                    <div class="mb-3">
+                        <label class="form-label">Họ và tên</label>
+                        <input type="text" class="form-control" style="font-size:1.5rem" value="@ViewBag.FullName" name="FullName" required>
+                    </div>
+
+                    @if (Session["UserID"] != null && ShopThoiTrang.Controllers.DataController.getUserByID((int)Session["UserID"]).is_Admin == true)
+                    {
+
+                        <div class="mb-3">
+                            <label class="form-label">Số điện thoại</label>
+                            <input type="tel" class="form-control" style="font-size:1.5rem" value="@ViewBag.PhoneNumber" name="PhoneNumber">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Tên đăng nhập</label>
+                            <input type="text" class="form-control" style="font-size:1.5rem" value="@ViewBag.Email" name="Email" required>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="mb-3">
+                            <label class="form-label">Số điện thoại</label>
+                            <input type="tel" class="form-control" style="font-size:1.5rem" value="@ViewBag.PhoneNumber" name="PhoneNumber" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Địa chỉ email</label>
+                            <input type="email" class="form-control" style="font-size:1.5rem" value="@ViewBag.Email" name="Email" required>
+                        </div>
+                    }
+
+                    <div class="d-flex justify-content-center">
+                        <div class="mb-3">
+                            <input type="submit" class="btn btn-primary" value="Sửa thông tin" />
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="col-lg-5 order-details" style="margin:3rem">
+                <h3 class="title">Đổi mật khẩu</h3>
+                <form action="User/ChangePassWord" method="post">
+                    <div class="mb-3">
+                        <label class="form-label">Mật khẩu cũ</label>
+                        <input type="password" class="form-control" style="font-size:1.5rem" name="PassWord" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Mật khẩu mới</label>
+                        <input type="password" class="form-control" style="font-size:1.5rem" name="NewPassWord" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Nhập lại mật khẩu mới</label>
+                        <input type="password" class="form-control" style="font-size:1.5rem" name="ComfirmNewPassWord" required>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <div class="mb-3">
+                            <input type="submit" class="btn btn-primary" value="Đổi mật khẩu" />
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            @if (ShopThoiTrang.Controllers.DataController.getUserByID((int)Session["UserID"]).is_Admin != true)
+            {
+                <div class="col-lg-12 d-flex justify-content-center">
+                    <div class="mb-3">
+                        <a class="btn btn-danger delete-user-account" onclick="deleteUser()" style="font-size:2rem; color:white">Xóa tài khoản</a>
+                    </div>
+                </div>
+            }
+         </div>
+     </div>
+</div>
+<style>
+    h3 {
+        font-size: 3rem !important;
+        text-align:center;
+        margin-bottom:2rem;
+    }
+    .mb-3>input{
+        margin: 2rem 1rem 0;
+        font-size:1.5rem;
+    }
+</style>
+<script>
+    function deleteUser() {
+        Swal.fire({
+            title: 'Bạn có muốn xóa tài khoản này?',
+            text: "",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Đồng ý'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.get("/User/DeleteUserAccount", function (data) {
+                    Swal.fire({
+                        title: 'Xóa tài khoản thành công',
+                        icon: 'success',
+                        showCancelButton: false,
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        // Chuyển hướng về trang chủ
+                        window.location.href = "/";
+                    });
+                });
+            }
+        });
+    }
+
+
+</script>

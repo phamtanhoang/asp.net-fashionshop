@@ -18,6 +18,7 @@ namespace ShopThoiTrang
         public string CommentContent { get; set; }
         public System.DateTime CreateDate { get; set; }
         public Nullable<int> UserID { get; set; }
+        public bool Active { get; set; }
     
         public virtual User User { get; set; }
     }

@@ -12,6 +12,7 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         public ActionResult Index()
         {
             return View();
+            
         }
         [HttpPost]
         [Obsolete]
@@ -32,7 +33,7 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
 
         public ActionResult Logout()
         {
-            Session.Clear();
+            Session["UserID"] = null;
             return RedirectToAction("index", "Admin");
         }
     }

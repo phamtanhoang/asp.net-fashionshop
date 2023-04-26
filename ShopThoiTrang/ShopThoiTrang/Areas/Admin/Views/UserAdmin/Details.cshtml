@@ -1,0 +1,92 @@
+﻿
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_MainLayoutAdmin.cshtml";
+}
+
+<div class="container position-relative ">
+    <!-- Outer Row -->
+    <div class="row justify-content-center container">
+
+        <div class="col-xl-10 col-lg-12 col-md-9 justify-content-center">
+
+            <div class="card o-hidden border-0 shadow-lg my-5">
+                <div class="card-body p-0">
+                    <!-- Nested Row within Card Body -->
+                    <div class="row">
+
+                        <div class="col-lg-7" style="margin: 0 auto">
+                            <div class="p-5">
+                                <div class="text-center">
+                                    <h1 class="h3 mb-5 text-gray-800 text-center">Thông tin người dùng</h1>
+                                </div>
+                                <form>
+                                    <div class="form-group">
+                                        <p>Mã:</p>
+                                        <input type="text" class="form-control form-control-user"
+                                               disabled
+                                               value="@ViewBag.user.CustomerID"
+                                               name="ID">
+                                    </div>
+                                    <div class="form-group">
+                                        <p>Họ và tên:</p>
+                                        <input type="text" class="form-control form-control-user"
+                                               disabled
+                                               value="@ViewBag.user.FullName"
+                                               name="FullName">
+                                    </div>
+                                    <div class="form-group">
+                                        <p>Số điện thoại:</p>
+                                        <input type="tel" class="form-control form-control-user"
+                                               disabled
+                                               value="@ViewBag.user.PhoneNumber"
+                                               name="PhoneNumber">
+                                    </div>
+                                    <div class="form-group">
+                                        <p>Email:</p>
+                                        <input type="email" class="form-control form-control-user"
+                                               disabled
+                                               value="@ViewBag.user.Email"
+                                               name="Email">
+                                    </div>
+                                    @if (ViewBag.User.is_Admin)
+                                    {
+                                        <div class="form-group">
+                                            <p>Vai trò:</p>
+                                            <input type="text" class="form-control form-control-user" disabled name="Role"
+                                                   value="Quản lý" />
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="form-group">
+                                            <p>Vai trò:</p>
+                                            <input type="text" class="form-control form-control-user" disabled name="Role"
+                                                   value="Nhân viên" />
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-6 mb-3 mb-sm-0" style="margin:auto">
+                                                <a href="/Admin/UserAdmin/Delete/@ViewBag.user.CustomerID" class="btn btn-danger btn-user btn-block">
+                                                    Xóa người dùng
+                                                </a>
+                                            </div>
+                                        </div>
+                                    }
+                                    
+                                </form>
+                            </div>
+                        </div>
+                        <div class="back">
+                            <a href="@Url.Action("Index","UserAdmin")" class="text-black"><i style="font-size:1rem; " class="fa">&#xf060;</i></a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+

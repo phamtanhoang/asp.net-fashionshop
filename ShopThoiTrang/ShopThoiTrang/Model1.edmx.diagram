@@ -4,12 +4,12 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="2b2588e1455a483399f0f270adf8a68b" Name="Diagram1">
+      <Diagram DiagramId="be2df930e5a446cd978878d3dca646e4" Name="Diagram1">
         <EntityTypeShape EntityType="ShopThoiTrangModel.Category" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShopThoiTrangModel.Comment" Width="1.5" PointX="6" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopThoiTrangModel.Comment" Width="1.5" PointX="6" PointY="15.625" IsExpanded="true" />
         <EntityTypeShape EntityType="ShopThoiTrangModel.ImageProduct" Width="1.5" PointX="5.25" PointY="2.625" IsExpanded="true" />
         <EntityTypeShape EntityType="ShopThoiTrangModel.OrderDetail" Width="1.5" PointX="8.25" PointY="3.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShopThoiTrangModel.Order" Width="1.5" PointX="8.5" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopThoiTrangModel.Order" Width="1.5" PointX="6" PointY="11.375" IsExpanded="true" />
         <EntityTypeShape EntityType="ShopThoiTrangModel.Product" Width="1.5" PointX="3" PointY="3.125" IsExpanded="true" />
         <EntityTypeShape EntityType="ShopThoiTrangModel.sysdiagram" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ShopThoiTrangModel.Tag" Width="1.5" PointX="5.25" PointY="8.125" IsExpanded="true" />

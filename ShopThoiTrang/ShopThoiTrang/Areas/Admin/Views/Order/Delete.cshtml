@@ -1,0 +1,152 @@
+﻿@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_MainLayoutAdmin.cshtml";
+}
+
+
+<div class="container position-relative pt-4 pb-5">
+    <!-- Outer Row -->  
+    <div class="row justify-content-center container">
+
+        <div class="col-xl-10 col-lg-12 col-md-9 justify-content-center">
+
+            <div class="card o-hidden border-0 shadow-lg my-1">
+                <div class="card-body p-0">
+                    <div class="row">
+
+                        <div class="col-lg-10" style="margin: 0 auto">
+                            <div class="p-4">
+                                <div class="text-center">
+                                    <h1 class="h3 mb-4 text-gray-800 text-center">Xác nhận xóa đơn hàng</h1>
+                                </div>
+                                <form method="post" id="myForm">
+                                    <div class="form-group row container" style="margin:0; justify-content: center;">
+                                        <div class="col-sm-8 mb-3 mb-sm-0">
+                                            <div class="col-sm-12 mb-2">
+                                                <p>Mã:</p>
+                                                <input type="text" class="form-control form-control-user"
+                                                       value="@ViewBag.order.OrderID" disabled name="OrderID">
+                                            </div>
+                                            <div class="col-sm-12 mb-2">
+                                                <p>Ngày đặt:</p>
+                                                <input type="text" class="form-control form-control-user"
+                                                       value="@ViewBag.order.OrderDate.ToString("dd/MM/yyyy")" disabled name="OrderDate">
+                                            </div>
+                                            <div class="col-sm-12 mb-2">
+                                                <p>Tên người đặt:</p>
+                                                @{
+                                                    var users = ShopThoiTrang.Areas.Admin.Controllers.DataAdminController.GetUsers();
+                                                    foreach (var user in users)
+                                                    {
+                                                        if (user.CustomerID == ViewBag.order.CustomerID)
+                                                        {
+                                                            <input type="text" class="form-control form-control-user"
+                                                                   value="@user.FullName" disabled>
+                                                        }
+                                                    }
+                                                }
+                                            </div>
+                                            <div class="col-sm-12 mb-2">
+                                                <p>Địa chỉ giao hàng:</p>
+                                                <input type="text" class="form-control form-control-user"
+                                                       value="@ViewBag.order.DeliveryAddress" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4 mb-3 mb-sm-0">
+                                            <div class="col-sm-12 mb-2">
+                                                <p>Tình trạng:</p>
+                                                @if (ViewBag.order.Active == true)
+                                                {
+                                                    <input type="text" class="form-control form-control-user"
+                                                           value="Đã xác nhận" disabled name="OrderID">
+                                                }
+                                                else
+                                                {
+                                                    <input type="text" class="form-control form-control-user"
+                                                           value="Chưa xác nhận" disabled name="OrderID">
+                                                }
+
+                                            </div>
+                                            <div class="col-sm-12 mb-2">
+                                                <p>Tạm tính:</p>
+                                                <input type="text" class="form-control form-control-user"
+                                                       value="@ViewBag.order.Temp.ToString("#,##0 VND")" disabled name="OrderDate">
+                                            </div>
+                                            <div class="col-sm-12 mb-2">
+                                                <p>Phí giao hàng:</p>
+                                                <input type="text" class="form-control form-control-user"
+                                                       value="@ViewBag.order.Ship.ToString("#,##0 VND")" disabled>
+                                            </div>
+                                            <div class="col-sm-12 mb-2">
+                                                <p>Tổng tiền:</p>
+                                                @{
+                                                    decimal total = ViewBag.order.Temp + ViewBag.order.Ship;
+                                                    <input type="text" class="form-control form-control-user"
+                                                           value="@total.ToString("#,##0 VND")" disabled>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-10 mb-3 mb-sm-0" style="margin:auto">
+                                            <p>Danh sách sản phẩm:</p>
+                                            <div class="panel-default" style="border:1px solid lightgray">
+                                                <div class="center-block fix-width scroll-inner">
+                                                    <table class="table table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Tên sản phẩm</th>
+                                                                <th>Giá sản phẩm</th>
+                                                                <th>Số lượng</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @{
+                                                                var odds = ShopThoiTrang.Areas.Admin.Controllers.DataAdminController.GetOrderDetails(ViewBag.order.OrderID);
+                                                                foreach (var odd in odds)
+                                                                {
+                                                                    <tr>
+                                                                        @{
+                                                                            var prods = ShopThoiTrang.Areas.Admin.Controllers.DataAdminController.GetProducts("", "");
+                                                                            foreach (var pro in prods)
+                                                                            {
+                                                                                if (pro.ProductID == odd.ProductID)
+                                                                                {
+                                                                                    <td><a href="/Admin/Product/Details/@pro.ProductID" style="text-decoration:none">@pro.ProductName</a></td>
+                                                                                }
+                                                                            }
+
+                                                                        }
+                                                                        <td>@odd.UnitPrice</td>
+                                                                        <td>@odd.Quantity</td>
+                                                                    </tr>
+                                                                }
+                                                            }
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-6 mb-3 mb-sm-0" style="margin:auto">
+                                            <input type="submit" class="btn btn-primary btn-user btn-block" value="Xác nhận xóa" />
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="back">
+                            <a href="@Url.Action("Index","Order")" class="text-black"><i style="font-size:1rem; " class="fa">&#xf060;</i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+

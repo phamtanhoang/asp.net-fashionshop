@@ -47,7 +47,7 @@ namespace ShopThoiTrang.Controllers
         }
         public static IQueryable<Tag> GetTags()
         {
-            using (var db= new ShopThoiTrangEntities())
+            using (var db = new ShopThoiTrangEntities())
             {
                 var query = from p in db.Tags
                             select p;
@@ -55,7 +55,7 @@ namespace ShopThoiTrang.Controllers
                 return query.ToList().AsQueryable();
             }
         }
-        public static IQueryable<Product> RandomProduct(IQueryable<Product> product,int n)
+        public static IQueryable<Product> RandomProduct(IQueryable<Product> product, int n)
         {
             return product.OrderBy(x => Guid.NewGuid()).Take(n);
         }
@@ -74,7 +74,7 @@ namespace ShopThoiTrang.Controllers
                 query = query.Where(p => p.Product.ProductID == n);
                 return query.ToList().AsQueryable();
             }
-            
+
         }
         public static IQueryable<Tag> GetTagsByProductID(int productID)
         {
@@ -86,6 +86,7 @@ namespace ShopThoiTrang.Controllers
             }
         }
 
+        //user
         [Obsolete]
         public static int AddCustomer(User cus)
         {
@@ -124,5 +125,99 @@ namespace ShopThoiTrang.Controllers
                 return db.Users.SingleOrDefault(p => p.CustomerID == n);
             }
         }
+        public static int ChangeInfoUser(int userID, string fullName, string phoneNumber, string email)
+        {
+            using (var db = new ShopThoiTrangEntities())
+            {
+                User user = db.Users.SingleOrDefault(u => u.CustomerID == userID);
+                if (user == null)
+                    return 0;
+                user.FullName = fullName;
+                user.PhoneNumber = phoneNumber;
+                user.Email = email;
+                if (db.Users.Any(c => c.Email == user.Email && c.CustomerID != user.CustomerID))
+                    return 2;
+                if (db.Users.Any(c => c.PhoneNumber == user.PhoneNumber && c.CustomerID != user.CustomerID))
+                    return 3;
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    return 0;
+                }
+                return 1;
+            }
+        }
+
+        [Obsolete]
+        public static int ChangePassWordUser(int userID, string pw, string npw, string cnpw)
+        {
+            using (var db = new ShopThoiTrangEntities())
+            {
+                User user = db.Users.SingleOrDefault(u => u.CustomerID == userID);
+                if (user == null)
+                    return 0;
+                string p = FormsAuthentication.HashPasswordForStoringInConfigFile(pw, "SHA1");
+                if (user.PassWord != p)
+                    return 1;
+                if (npw != cnpw)
+                    return 2;
+                string np = FormsAuthentication.HashPasswordForStoringInConfigFile(npw, "SHA1");
+                user.PassWord = np;
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    return 0;
+                }
+                return 3;
+            }
+        }
+
+        public static bool DeleteUserAccount(int userID)
+        {
+            using (var db = new ShopThoiTrangEntities())
+            {
+                User user = db.Users.SingleOrDefault(u => u.CustomerID == userID);
+                if (user == null)
+                    return false;
+                db.Users.Remove(user);
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    return false;
+                }
+                return true;
+            }
+        }
+
+        //order
+        public static bool AddOrder(Order order)
+        {
+            using (var db = new ShopThoiTrangEntities())
+            {
+                db.Orders.Add(order);
+                db.SaveChanges();
+                return true;
+            }
+        }
+
+        public static bool AddOrderDetails(OrderDetail order)
+        {
+            using (var db = new ShopThoiTrangEntities())
+            {
+                db.OrderDetails.Add(order);
+                db.SaveChanges();
+                return true;
+            }
+        }
+        
     }
 }

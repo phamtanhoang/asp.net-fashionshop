@@ -11,7 +11,7 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         // GET: Admin/Tag
         public ActionResult Index()
         {
-            if (Session["UserID"] != null)
+            if (Session["UserID"] != null && DataAdminController.GetUserByID((int)Session["UserID"]).is_Admin == true)
             {
                 var tag = DataAdminController.GetTags();
                 return View(tag);
@@ -23,7 +23,7 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         // GET: Admin/Tag/Details/5
         public ActionResult Details(int id)
         {
-            if (Session["UserID"] != null)
+            if (Session["UserID"] != null && DataAdminController.GetUserByID((int)Session["UserID"]).is_Admin == true)
             {
                 var tag = DataAdminController.GetTagByID(id);
                 IEnumerable<Product> products = DataAdminController.GetProductsByTagID(id);
@@ -43,7 +43,7 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         // GET: Admin/Tag/Create
         public ActionResult Create()
         {
-            if (Session["UserID"] != null)
+            if (Session["UserID"] != null && DataAdminController.GetUserByID((int)Session["UserID"]).is_Admin == true)
             {
                 var products = DataAdminController.GetProducts("", "");
                 return View(products);
@@ -56,7 +56,7 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Create(Tag tag, int[] ProductID)
         {
-            if (Session["UserID"] != null)
+            if (Session["UserID"] != null && DataAdminController.GetUserByID((int)Session["UserID"]).is_Admin == true)
             {
                 try
                 {
@@ -86,7 +86,7 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         // GET: Admin/Tag/Edit/5
         public ActionResult Edit(int id)
         {
-            if (Session["UserID"] != null)
+            if (Session["UserID"] != null && DataAdminController.GetUserByID((int)Session["UserID"]).is_Admin == true)
             {
                 Tag tag = DataAdminController.GetTagByID(id);
                 if (tag == null)
@@ -103,7 +103,7 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
-            if (Session["UserID"] != null)
+            if (Session["UserID"] != null && DataAdminController.GetUserByID((int)Session["UserID"]).is_Admin == true)
             {
                 var tag = DataAdminController.GetTagByID(id);
                 try
@@ -139,7 +139,7 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         // GET: Admin/Tag/Delete/5
         public ActionResult Delete(int id)
         {
-            if (Session["UserID"] != null)
+            if (Session["UserID"] != null && DataAdminController.GetUserByID((int)Session["UserID"]).is_Admin == true)
             {
                 Tag tag = DataAdminController.GetTagByID(id);
                 if (tag == null)
@@ -156,7 +156,7 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
-            if (Session["UserID"] != null)
+            if (Session["UserID"] != null && DataAdminController.GetUserByID((int)Session["UserID"]).is_Admin == true)
             {
                 var tag = DataAdminController.GetTagByID(id);
                 try

@@ -15,6 +15,7 @@
     <Property Name="CommentContent" Type="ntext" Nullable="false" />
     <Property Name="CreateDate" Type="date" Nullable="false" />
     <Property Name="UserID" Type="int" />
+    <Property Name="Active" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="ImageProducts">
     <Key>
@@ -41,6 +42,10 @@
     <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="OrderDate" Type="date" Nullable="false" />
     <Property Name="CustomerID" Type="int" />
+    <Property Name="DeliveryAddress" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Temp" Type="money" Nullable="false" />
+    <Property Name="Ship" Type="money" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="Products">
     <Key>
@@ -86,9 +91,9 @@
     <Property Name="CustomerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="FullName" Type="nvarchar" MaxLength="40" Nullable="false" />
     <Property Name="PassWord" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="Active" Type="bit" Nullable="false" />
-    <Property Name="PhoneNumber" Type="nchar" MaxLength="10" Nullable="false" />
-    <Property Name="Email" Type="nchar" MaxLength="50" Nullable="false" />
+    <Property Name="Active" Type="bit" />
+    <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="is_Admin" Type="bit" Nullable="false" />
   </EntityType>
   <Association Name="FK_Comments_User">

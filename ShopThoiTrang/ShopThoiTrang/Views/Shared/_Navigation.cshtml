@@ -9,11 +9,14 @@
                 @Html.ActionLink("Các sản phẩm", "Index", "Shop")
             </li>
             <li class="nav-item">
-                @Html.ActionLink("Về chúng tôi", "Index", "About")
-            </li>
-            <li class="nav-item">
                 @Html.ActionLink("Liên hệ", "Index", "Contact")
             </li>
+            @if (Session["UserID"] != null && ShopThoiTrang.Controllers.DataController.getUserByID((int)Session["UserID"]).is_Admin==true)
+            {
+                <li class="nav-item">
+                    @Html.ActionLink("Admin page", "index", "admin")
+                </li>
+            }
         </ul>
     </div>
 

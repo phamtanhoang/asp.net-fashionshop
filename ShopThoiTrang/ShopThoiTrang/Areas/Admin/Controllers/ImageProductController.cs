@@ -12,7 +12,7 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         // GET: Admin/ImageProduct
         public ActionResult Index()
         {
-            if (Session["UserID"] != null)
+            if (Session["UserID"] != null && DataAdminController.GetUserByID((int)Session["UserID"]).is_Admin == true)
             {
                 var imgs = DataAdminController.GetImageProducts();
                 return View(imgs);
@@ -24,7 +24,7 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         // GET: Admin/ImageProduct/Details/5
         public ActionResult Details(int id)
         {
-            if (Session["UserID"] != null)
+            if (Session["UserID"] != null && DataAdminController.GetUserByID((int)Session["UserID"]).is_Admin == true)
             {
                 ImageProduct img = DataAdminController.GetImageProductByID(id);
                 if (img == null)
@@ -48,7 +48,7 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         // GET: Admin/ImageProduct/Create
         public ActionResult Create()
         {
-            if (Session["UserID"] != null)
+            if (Session["UserID"] != null && DataAdminController.GetUserByID((int)Session["UserID"]).is_Admin == true)
             {
                 var products = DataAdminController.GetProducts("", "");
                 return View(products);
@@ -62,7 +62,7 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         [Obsolete]
         public ActionResult Create(ImageProduct imgprod,FormCollection collection, HttpPostedFileBase Image)
         {
-            if (Session["UserID"] != null)
+            if (Session["UserID"] != null && DataAdminController.GetUserByID((int)Session["UserID"]).is_Admin == true)
             {
                 try
                 {
@@ -103,7 +103,7 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         // GET: Admin/ImageProduct/Edit/5
         public ActionResult Edit(int id)
         {
-            if (Session["UserID"] != null)
+            if (Session["UserID"] != null && DataAdminController.GetUserByID((int)Session["UserID"]).is_Admin == true)
             {
                 ImageProduct img = DataAdminController.GetImageProductByID(id);
                 if (img == null)
@@ -129,7 +129,7 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         [Obsolete]
         public ActionResult Edit(int id, FormCollection collection, HttpPostedFileBase Image)
         {
-            if (Session["UserID"] != null)
+            if (Session["UserID"] != null && DataAdminController.GetUserByID((int)Session["UserID"]).is_Admin == true)
             {
                 ImageProduct imgprod = DataAdminController.GetImageProductByID(id);
                 try
@@ -171,7 +171,7 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         // GET: Admin/ImageProduct/Delete/5
         public ActionResult Delete(int id)
         {
-            if (Session["UserID"] != null)
+            if (Session["UserID"] != null && DataAdminController.GetUserByID((int)Session["UserID"]).is_Admin == true)
             {
                 ImageProduct img = DataAdminController.GetImageProductByID(id);
                 if (img == null)
@@ -188,7 +188,7 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
-            if (Session["UserID"] != null)
+            if (Session["UserID"] != null && DataAdminController.GetUserByID((int)Session["UserID"]).is_Admin == true)
             {
                 var imgprod = DataAdminController.GetImageProductByID(id);
                 try
