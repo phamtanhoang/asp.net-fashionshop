@@ -437,5 +437,49 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
             }
             return true;
         }
+
+        //complain
+        public static IQueryable<Complain> GetComplains()
+        {
+            using (var db = new ShopThoiTrangEntities())
+            {
+                var query = from p in db.Complains select p;
+                return query.ToList().AsQueryable();
+            }
+        }
+        public static Complain GetComplainByID(int id)
+        {
+            using (var db = new ShopThoiTrangEntities())
+            {
+                return db.Complains.SingleOrDefault(p => p.ComplainID == id);
+            }
+        }
+
+        public static bool changeActiveComplain(Complain com)
+        {
+            using (var db = new ShopThoiTrangEntities())
+            {
+                var existing = db.Complains.FirstOrDefault(c => c.ComplainID == com.ComplainID);
+                if (existing == null)
+                    return false;
+                existing.Active = true;
+                db.SaveChanges();
+            }
+            return true;
+        }
+        public static bool DeleteComplain(int id)
+        {
+            using (var db = new ShopThoiTrangEntities())
+            {
+                var existing = db.Complains.FirstOrDefault(c => c.ComplainID == id);
+                if (existing == null)
+                {
+                    return false; // Không tìm thấy bản ghi cần xóa
+                }
+                db.Complains.Remove(existing);
+                db.SaveChanges();
+            }
+            return true;
+        }
     }
 }

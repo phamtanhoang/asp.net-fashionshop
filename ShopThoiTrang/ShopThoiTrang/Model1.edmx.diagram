@@ -4,9 +4,9 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="be2df930e5a446cd978878d3dca646e4" Name="Diagram1">
+      <Diagram DiagramId="311e6b9c420543f888381f54f03ff312" Name="Diagram1">
         <EntityTypeShape EntityType="ShopThoiTrangModel.Category" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="ShopThoiTrangModel.Comment" Width="1.5" PointX="6" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopThoiTrangModel.Complain" Width="1.5" PointX="6" PointY="15.625" IsExpanded="true" />
         <EntityTypeShape EntityType="ShopThoiTrangModel.ImageProduct" Width="1.5" PointX="5.25" PointY="2.625" IsExpanded="true" />
         <EntityTypeShape EntityType="ShopThoiTrangModel.OrderDetail" Width="1.5" PointX="8.25" PointY="3.625" IsExpanded="true" />
         <EntityTypeShape EntityType="ShopThoiTrangModel.Order" Width="1.5" PointX="6" PointY="11.375" IsExpanded="true" />
@@ -15,7 +15,7 @@
         <EntityTypeShape EntityType="ShopThoiTrangModel.Tag" Width="1.5" PointX="5.25" PointY="8.125" IsExpanded="true" />
         <EntityTypeShape EntityType="ShopThoiTrangModel.User" Width="1.5" PointX="3.75" PointY="11.375" IsExpanded="true" />
         <AssociationConnector Association="ShopThoiTrangModel.FK_Products_Categories" ManuallyRouted="false" />
-        <AssociationConnector Association="ShopThoiTrangModel.FK_Comments_User" ManuallyRouted="false" />
+        <AssociationConnector Association="ShopThoiTrangModel.FK_Complain_User" ManuallyRouted="false" />
         <AssociationConnector Association="ShopThoiTrangModel.FK_ImageProducts_Products" ManuallyRouted="false" />
         <AssociationConnector Association="ShopThoiTrangModel.FK_OrderDetails_Orders" ManuallyRouted="false" />
         <AssociationConnector Association="ShopThoiTrangModel.FK_OrderDetails_Products" ManuallyRouted="false" />

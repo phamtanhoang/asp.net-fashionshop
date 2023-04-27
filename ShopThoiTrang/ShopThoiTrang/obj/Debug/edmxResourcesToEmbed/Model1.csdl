@@ -8,16 +8,16 @@
     <Property Name="CategoryName" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="Products" Relationship="Self.FK_Products_Categories" FromRole="Categories" ToRole="Products" />
   </EntityType>
-  <EntityType Name="Comment">
+  <EntityType Name="Complain">
     <Key>
-      <PropertyRef Name="CommentID" />
+      <PropertyRef Name="ComplainID" />
     </Key>
-    <Property Name="CommentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="CommentContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ComplainID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ComplainContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="UserID" Type="Int32" />
     <Property Name="Active" Type="Boolean" Nullable="false" />
-    <NavigationProperty Name="User" Relationship="Self.FK_Comments_User" FromRole="Comments" ToRole="User" />
+    <NavigationProperty Name="User" Relationship="Self.FK_Complain_User" FromRole="Complain" ToRole="User" />
   </EntityType>
   <EntityType Name="ImageProduct">
     <Key>
@@ -99,7 +99,7 @@
     <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="is_Admin" Type="Boolean" Nullable="false" />
-    <NavigationProperty Name="Comments" Relationship="Self.FK_Comments_User" FromRole="User" ToRole="Comments" />
+    <NavigationProperty Name="Complains" Relationship="Self.FK_Complain_User" FromRole="User" ToRole="Complain" />
     <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Customers" FromRole="User" ToRole="Orders" />
   </EntityType>
   <Association Name="FK_Products_Categories">
@@ -114,14 +114,14 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Comments_User">
+  <Association Name="FK_Complain_User">
     <End Role="User" Type="Self.User" Multiplicity="0..1" />
-    <End Role="Comments" Type="Self.Comment" Multiplicity="*" />
+    <End Role="Complain" Type="Self.Complain" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="User">
         <PropertyRef Name="CustomerID" />
       </Principal>
-      <Dependent Role="Comments">
+      <Dependent Role="Complain">
         <PropertyRef Name="UserID" />
       </Dependent>
     </ReferentialConstraint>
@@ -180,7 +180,7 @@
   </Association>
   <EntityContainer Name="ShopThoiTrangEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Categories" EntityType="Self.Category" />
-    <EntitySet Name="Comments" EntityType="Self.Comment" />
+    <EntitySet Name="Complains" EntityType="Self.Complain" />
     <EntitySet Name="ImageProducts" EntityType="Self.ImageProduct" />
     <EntitySet Name="OrderDetails" EntityType="Self.OrderDetail" />
     <EntitySet Name="Orders" EntityType="Self.Order" />
@@ -192,9 +192,9 @@
       <End Role="Categories" EntitySet="Categories" />
       <End Role="Products" EntitySet="Products" />
     </AssociationSet>
-    <AssociationSet Name="FK_Comments_User" Association="Self.FK_Comments_User">
+    <AssociationSet Name="FK_Complain_User" Association="Self.FK_Complain_User">
       <End Role="User" EntitySet="Users" />
-      <End Role="Comments" EntitySet="Comments" />
+      <End Role="Complain" EntitySet="Complains" />
     </AssociationSet>
     <AssociationSet Name="FK_ImageProducts_Products" Association="Self.FK_ImageProducts_Products">
       <End Role="Products" EntitySet="Products" />

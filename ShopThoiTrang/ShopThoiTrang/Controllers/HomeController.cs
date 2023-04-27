@@ -32,18 +32,43 @@ namespace ShopThoiTrang.Controllers
             ViewBag.RandomProducts3 = products3.ToList();
             return View();
         }
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
 
-            return View();
+        [HttpGet]
+        public ActionResult Complain(string complain)
+        {
+            if (Session["UserID"] != null)
+            {
+                Complain com = new Complain
+                {
+                    ComplainContent = complain,
+                    CreateDate = DateTime.Now,
+                    UserID = (int)Session["UserID"]
+                };
+                DataController.AddComplain(com);
+
+                if (Request.UrlReferrer != null)
+                {
+                    return Redirect(Request.UrlReferrer.ToString());
+                }
+                return RedirectToAction("index");
+            }
+            return HttpNotFound();
         }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
+        //public ActionResult About()
+        //{
+        //    ViewBag.Message = "Your application description page.";
 
-            return View();
-        }
+        //    return View();
+        //}
+
+        
+
+        //public ActionResult Contact()
+        //{
+        //    ViewBag.Message = "Your contact page.";
+
+        //    return View();
+        //}
     }
 }

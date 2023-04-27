@@ -7,12 +7,12 @@
     <Property Name="CategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CategoryName" Type="nvarchar" MaxLength="15" Nullable="false" />
   </EntityType>
-  <EntityType Name="Comments">
+  <EntityType Name="Complain">
     <Key>
-      <PropertyRef Name="CommentID" />
+      <PropertyRef Name="ComplainID" />
     </Key>
-    <Property Name="CommentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="CommentContent" Type="ntext" Nullable="false" />
+    <Property Name="ComplainID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ComplainContent" Type="ntext" Nullable="false" />
     <Property Name="CreateDate" Type="date" Nullable="false" />
     <Property Name="UserID" Type="int" />
     <Property Name="Active" Type="bit" Nullable="false" />
@@ -96,14 +96,14 @@
     <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="is_Admin" Type="bit" Nullable="false" />
   </EntityType>
-  <Association Name="FK_Comments_User">
+  <Association Name="FK_Complain_User">
     <End Role="User" Type="Self.User" Multiplicity="0..1" />
-    <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
+    <End Role="Complain" Type="Self.Complain" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="User">
         <PropertyRef Name="CustomerID" />
       </Principal>
-      <Dependent Role="Comments">
+      <Dependent Role="Complain">
         <PropertyRef Name="UserID" />
       </Dependent>
     </ReferentialConstraint>
@@ -194,7 +194,7 @@
   </Association>
   <EntityContainer Name="ShopThoiTrangModelStoreContainer">
     <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Complain" EntityType="Self.Complain" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ImageProducts" EntityType="Self.ImageProducts" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="OrderDetails" EntityType="Self.OrderDetails" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
@@ -203,9 +203,9 @@
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Tags" EntityType="Self.Tags" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK_Comments_User" Association="Self.FK_Comments_User">
+    <AssociationSet Name="FK_Complain_User" Association="Self.FK_Complain_User">
       <End Role="User" EntitySet="User" />
-      <End Role="Comments" EntitySet="Comments" />
+      <End Role="Complain" EntitySet="Complain" />
     </AssociationSet>
     <AssociationSet Name="FK_ImageProducts_Products" Association="Self.FK_ImageProducts_Products">
       <End Role="Products" EntitySet="Products" />

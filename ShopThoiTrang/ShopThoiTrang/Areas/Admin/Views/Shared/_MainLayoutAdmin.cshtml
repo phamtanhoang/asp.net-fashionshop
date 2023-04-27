@@ -97,7 +97,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="@Url.Action("Index","Admin")">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="@Url.Action("Index", "Admin")">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -109,7 +109,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="@Url.Action("Index","Admin")">
+                <a class="nav-link" href="@Url.Action("Index", "Admin")">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Trang chủ</span>
                 </a>
@@ -133,12 +133,13 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Toàn bộ dữ liệu:</h6>
-                        <a class="collapse-item" href="@Url.Action("Index","Category")">Loại sản phẩm</a>
-                        <a class="collapse-item" href="@Url.Action("Index","Product")">Sản phẩm</a>
-                        <a class="collapse-item" href="@Url.Action("Index","Tag")">Nhãn</a>
-                        <a class="collapse-item" href="@Url.Action("Index","ImageProduct")">Ảnh sản phẩm</a>
-                        <a class="collapse-item" href="@Url.Action("Index","UserAdmin")">Người dùng</a>
-                        <a class="collapse-item" href="@Url.Action("Index","Order")">Hóa đơn</a>
+                        <a class="collapse-item" href="@Url.Action("Index", "Category")">Loại sản phẩm</a>
+                        <a class="collapse-item" href="@Url.Action("Index", "Product")">Sản phẩm</a>
+                        <a class="collapse-item" href="@Url.Action("Index", "Tag")">Nhãn</a>
+                        <a class="collapse-item" href="@Url.Action("Index", "ImageProduct")">Ảnh sản phẩm</a>
+                        <a class="collapse-item" href="@Url.Action("Index", "UserAdmin")">Người dùng</a>
+                        <a class="collapse-item" href="@Url.Action("Index", "Order")">Hóa đơn</a>
+                        <a class="collapse-item" href="@Url.Action("Index", "Complain")">Góp ý</a>
                     </div>
                 </div>
             </li>
@@ -154,7 +155,7 @@
                      data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Các tiện ích:</h6>
-                        <a class="collapse-item" onclick="return confirm('Bạn có chắc chắn muốn đăng xuất?')" href="~/admin/login/Logout">Đăng xuất</a>
+                        <a class="collapse-item" id="logout-link" href="~/admin/login/Logout">Đăng xuất</a>
                     </div>
                 </div>
             </li>
@@ -214,129 +215,105 @@
                         </li>
 
                         <!-- Nav Item - Alerts -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw"></i>
-                                <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">3+</span>
-                            </a>
-                            <!-- Dropdown - Alerts -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                 aria-labelledby="alertsDropdown">
-                                <h6 class="dropdown-header">
-                                    Alerts Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-primary">
-                                            <i class="fas fa-file-alt text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 12, 2019</div>
-                                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-success">
-                                            <i class="fas fa-donate text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 7, 2019</div>
-                                        $290.29 has been deposited into your account!
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-warning">
-                                            <i class="fas fa-exclamation-triangle text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 2, 2019</div>
-                                        Spending Alert: We've noticed unusually high spending for your account.
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                            </div>
-                        </li>
+                        @{
+                            int sum = 0;
+                            var orders = ShopThoiTrang.Areas.Admin.Controllers.DataAdminController.GetOrders();
+                            <li class="nav-item dropdown no-arrow mx-1">
+                                <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-bell fa-fw"></i>
 
+                                    @foreach (var order in orders)
+                                    {
+                                        if (order.Active == false)
+                                        {
+                                            sum = sum + 1;
+                                        }
+                                    }
+                                    <!-- Counter - Alerts -->
+                                    <span class="badge badge-danger badge-counter">@sum </span>
+                                </a>
+                                <!-- Dropdown - Alerts -->
+                                <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                     aria-labelledby="alertsDropdown">
+                                    <h6 class="dropdown-header">
+                                        Đơn hàng chưa xác nhận
+                                    </h6>
+
+                                    @foreach (var order in orders)
+                                    {
+                                        if (order.Active == false)
+                                        {
+                                            <a class="dropdown-item d-flex align-items-center" href="/Admin/Order/Details/@order.OrderID">
+                                                <div class="mr-3">
+                                                    <div class="icon-circle bg-success">
+                                                        <i class="fas fa-donate text-white"></i>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <div class="small text-gray-500">@order.OrderDate.ToString("dd/MM/yyyy")</div>
+                                                    <span class="font-weight-bold">Có đơn hàng chưa được xác nhận</span>
+                                                </div>
+                                            </a>
+                                        }
+                                    }
+
+                                </div>
+                            </li>
+                        }
                         <!-- Nav Item - Messages -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-envelope fa-fw"></i>
-                                <!-- Counter - Messages -->
-                                <span class="badge badge-danger badge-counter">7</span>
-                            </a>
-                            <!-- Dropdown - Messages -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                 aria-labelledby="messagesDropdown">
-                                <h6 class="dropdown-header">
-                                    Message Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="~/Areas/Static/img/undraw_profile_1.svg"
-                                             alt="...">
-                                        <div class="status-indicator bg-success"></div>
-                                    </div>
-                                    <div class="font-weight-bold">
-                                        <div class="text-truncate">
-                                            Hi there! I am wondering if you can help me with a
-                                            problem I've been having.
-                                        </div>
-                                        <div class="small text-gray-500">Emily Fowler · 58m</div>
-                                    </div>
+                        @{
+                            int sum2 = 0;
+                            var complains = ShopThoiTrang.Areas.Admin.Controllers.DataAdminController.GetComplains();
+
+                            <li class="nav-item dropdown no-arrow mx-1">
+                                <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-envelope fa-fw"></i>
+                                    <!-- Counter - Messages -->
+                                    @foreach (var com in complains)
+                                    {
+                                        if (com.Active == false)
+                                        {
+                                            sum2 = sum2 + 1;
+                                        }
+                                    }
+                                    <span class="badge badge-danger badge-counter">@sum2</span>
                                 </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="~/Areas/Static/img/undraw_profile_2.svg"
-                                             alt="...">
-                                        <div class="status-indicator"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">
-                                            I have the photos that you ordered last month, how
-                                            would you like them sent to you?
-                                        </div>
-                                        <div class="small text-gray-500">Jae Chun · 1d</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_3.svg"
-                                             alt="...">
-                                        <div class="status-indicator bg-warning"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">
-                                            Last month's report looks great, I am very happy with
-                                            the progress so far, keep up the good work!
-                                        </div>
-                                        <div class="small text-gray-500">Morgan Alvarez · 2d</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60"
-                                             alt="...">
-                                        <div class="status-indicator bg-success"></div>
-                                    </div>
-                                    <div>
-                                        <div class="text-truncate">
-                                            Am I a good boy? The reason I ask is because someone
-                                            told me that people say this to all dogs, even if they aren't good...
-                                        </div>
-                                        <div class="small text-gray-500">Chicken the Dog · 2w</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
-                            </div>
-                        </li>
+                                <!-- Dropdown - Messages -->
+                                <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                     aria-labelledby="messagesDropdown">
+                                    <h6 class="dropdown-header">
+                                        Góp ý chưa đọc
+                                    </h6>
+                                    @foreach (var com in complains)
+                                    {
+                                        if (com.Active == false)
+                                        {
+                                            <a class="dropdown-item d-flex align-items-center" href="/Admin/Complain/Details/@com.ComplainID">
+                                                <div class="dropdown-list-image mr-3">
+                                                    <img class="rounded-circle" src="~/Areas/Static/img/undraw_profile_2.svg"
+                                                         alt="...">
+                                                    <div class="status-indicator bg-warning"></div>
+                                                </div>
+                                                <div class="font-weight-bold">
+                                                    <div class="text-truncate">
+                                                        @com.ComplainContent
+                                                    </div>
+                                                    @{
+                                                        var u = ShopThoiTrang.Controllers.DataController.getUserByID((int)com.UserID);
+                                                        <div class="small text-gray-500">@u.FullName · @com.CreateDate.ToString("dd/MM/yyyy")</div>
+                                                    }
+
+                                                </div>
+                                            </a>
+                                        }
+                                    }
+                                    
+                                </div>
+                            </li>
+                        }
+
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -347,13 +324,13 @@
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 @if (Session["UserID"] != null)
                                 {
-                                  
+
                                     User user = ShopThoiTrang.Controllers.DataController.getUserByID((int)Session["UserID"]);
                                     <span class="mr-2 d-none d-lg-inline text-gray-600 small">Xin chào @user.FullName!!!</span>
                                 }
-                                
-                             </a>
-                         </li>
+
+                            </a>
+                        </li>
 
                     </ul>
 
@@ -427,10 +404,41 @@
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         $(document).ready(function () {
             $("#example").DataTable();
+            $('#logout-link').click(function (e) {
+                
+                e.preventDefault();
+                Swal.fire({
+                    title: 'Bạn có muốn đăng xuất?',
+                    text: "",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Đồng ý'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: '/admin/login/logout',
+                        });
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Đăng xuất thành công!!!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                        setTimeout(function () {
+                            location.reload();
+                        }, 1500);
+                    }
+                })
+            });
         });
+
     </script>
 </body>
 

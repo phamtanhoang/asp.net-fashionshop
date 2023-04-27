@@ -227,6 +227,7 @@
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\CloudinaryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ComplainController.cs" />
     <Compile Include="Areas\Admin\Controllers\DataAdminController.cs" />
     <Compile Include="Areas\Admin\Controllers\ImageProductController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
@@ -237,7 +238,7 @@
     <Compile Include="Category.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Comment.cs">
+    <Compile Include="Complain.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
@@ -2202,6 +2203,7 @@
     <Content Include="Areas\Admin\Views\UserAdmin\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Order\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Order\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Order\Details.cshtml" />
     <EntityDeploy Include="Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
@@ -2209,7 +2211,9 @@
     <Content Include="Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
-    <Content Include="Areas\Admin\Views\Order\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Complain\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Complain\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Complain\Delete.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2253,6 +2257,7 @@
     <Content Include="Static\img\shop01.png" />
     <Content Include="Static\img\shop02.png" />
     <Content Include="Static\img\shop03.png" />
+    <Content Include="Static\js\account.js" />
     <Content Include="Static\js\bootstrap.min.js" />
     <Content Include="Static\js\cart.js" />
     <Content Include="Static\js\jquery.min.js" />
@@ -2276,8 +2281,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />

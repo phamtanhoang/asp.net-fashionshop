@@ -1,88 +1,6 @@
-USE [master]
-GO
-/****** Object:  Database [ShopThoiTrang]    Script Date: 3/24/2023 9:35:11 PM ******/
-CREATE DATABASE [ShopThoiTrang]
- CONTAINMENT = NONE
- ON  PRIMARY 
-( NAME = N'ShopThoiTrang', FILENAME = N'D:\database_shopThoiTrang\ShopThoiTrang.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
- LOG ON 
-( NAME = N'ShopThoiTrang_log', FILENAME = N'D:\database_shopThoiTrang\ShopThoiTrang_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
- WITH CATALOG_COLLATION = DATABASE_DEFAULT
-GO
-ALTER DATABASE [ShopThoiTrang] SET COMPATIBILITY_LEVEL = 150
-GO
-IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
-begin
-EXEC [ShopThoiTrang].[dbo].[sp_fulltext_database] @action = 'enable'
-end
-GO
-ALTER DATABASE [ShopThoiTrang] SET ANSI_NULL_DEFAULT OFF 
-GO
-ALTER DATABASE [ShopThoiTrang] SET ANSI_NULLS OFF 
-GO
-ALTER DATABASE [ShopThoiTrang] SET ANSI_PADDING OFF 
-GO
-ALTER DATABASE [ShopThoiTrang] SET ANSI_WARNINGS OFF 
-GO
-ALTER DATABASE [ShopThoiTrang] SET ARITHABORT OFF 
-GO
-ALTER DATABASE [ShopThoiTrang] SET AUTO_CLOSE OFF 
-GO
-ALTER DATABASE [ShopThoiTrang] SET AUTO_SHRINK OFF 
-GO
-ALTER DATABASE [ShopThoiTrang] SET AUTO_UPDATE_STATISTICS ON 
-GO
-ALTER DATABASE [ShopThoiTrang] SET CURSOR_CLOSE_ON_COMMIT OFF 
-GO
-ALTER DATABASE [ShopThoiTrang] SET CURSOR_DEFAULT  GLOBAL 
-GO
-ALTER DATABASE [ShopThoiTrang] SET CONCAT_NULL_YIELDS_NULL OFF 
-GO
-ALTER DATABASE [ShopThoiTrang] SET NUMERIC_ROUNDABORT OFF 
-GO
-ALTER DATABASE [ShopThoiTrang] SET QUOTED_IDENTIFIER OFF 
-GO
-ALTER DATABASE [ShopThoiTrang] SET RECURSIVE_TRIGGERS OFF 
-GO
-ALTER DATABASE [ShopThoiTrang] SET  DISABLE_BROKER 
-GO
-ALTER DATABASE [ShopThoiTrang] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
-GO
-ALTER DATABASE [ShopThoiTrang] SET DATE_CORRELATION_OPTIMIZATION OFF 
-GO
-ALTER DATABASE [ShopThoiTrang] SET TRUSTWORTHY OFF 
-GO
-ALTER DATABASE [ShopThoiTrang] SET ALLOW_SNAPSHOT_ISOLATION OFF 
-GO
-ALTER DATABASE [ShopThoiTrang] SET PARAMETERIZATION SIMPLE 
-GO
-ALTER DATABASE [ShopThoiTrang] SET READ_COMMITTED_SNAPSHOT OFF 
-GO
-ALTER DATABASE [ShopThoiTrang] SET HONOR_BROKER_PRIORITY OFF 
-GO
-ALTER DATABASE [ShopThoiTrang] SET RECOVERY FULL 
-GO
-ALTER DATABASE [ShopThoiTrang] SET  MULTI_USER 
-GO
-ALTER DATABASE [ShopThoiTrang] SET PAGE_VERIFY CHECKSUM  
-GO
-ALTER DATABASE [ShopThoiTrang] SET DB_CHAINING OFF 
-GO
-ALTER DATABASE [ShopThoiTrang] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
-GO
-ALTER DATABASE [ShopThoiTrang] SET TARGET_RECOVERY_TIME = 60 SECONDS 
-GO
-ALTER DATABASE [ShopThoiTrang] SET DELAYED_DURABILITY = DISABLED 
-GO
-ALTER DATABASE [ShopThoiTrang] SET ACCELERATED_DATABASE_RECOVERY = OFF  
-GO
-EXEC sys.sp_db_vardecimal_storage_format N'ShopThoiTrang', N'ON'
-GO
-ALTER DATABASE [ShopThoiTrang] SET QUERY_STORE = OFF
-GO
 USE [ShopThoiTrang]
 GO
-/****** Object:  Table [dbo].[Categories]    Script Date: 3/24/2023 9:35:11 PM ******/
+/****** Object:  Table [dbo].[Categories]    Script Date: 4/27/2023 7:57:14 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -93,52 +11,27 @@ CREATE TABLE [dbo].[Categories](
  CONSTRAINT [PK_Categories] PRIMARY KEY CLUSTERED 
 (
 	[CategoryID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
- CONSTRAINT [uc_CategoryName] UNIQUE NONCLUSTERED 
-(
-	[CategoryName] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Comments]    Script Date: 3/24/2023 9:35:11 PM ******/
+/****** Object:  Table [dbo].[Complain]    Script Date: 4/27/2023 7:57:14 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[Comments](
-	[CommentID] [int] IDENTITY(1,1) NOT NULL,
-	[CommentContent] [ntext] NOT NULL,
+CREATE TABLE [dbo].[Complain](
+	[ComplainID] [int] IDENTITY(1,1) NOT NULL,
+	[ComplainContent] [ntext] NOT NULL,
 	[CreateDate] [date] NOT NULL,
-	[CustomerName] [nvarchar](40) NOT NULL,
-	[ProductID] [int] NULL,
+	[UserID] [int] NULL,
+	[Active] [bit] NOT NULL,
  CONSTRAINT [PK_Comments] PRIMARY KEY CLUSTERED 
 (
-	[CommentID] ASC
+	[ComplainID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Customers]    Script Date: 3/24/2023 9:35:11 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[Customers](
-	[CustomerID] [int] IDENTITY(1,1) NOT NULL,
-	[CustomerName] [nvarchar](40) NOT NULL,
-	[UserName] [varchar](50) NOT NULL,
-	[PassWord] [varchar](50) NOT NULL,
-	[Active] [bit] NOT NULL,
- CONSTRAINT [PK_Customers] PRIMARY KEY CLUSTERED 
-(
-	[CustomerID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
- CONSTRAINT [uc_UserName] UNIQUE NONCLUSTERED 
-(
-	[UserName] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-/****** Object:  Table [dbo].[ImageProducts]    Script Date: 3/24/2023 9:35:11 PM ******/
+/****** Object:  Table [dbo].[ImageProducts]    Script Date: 4/27/2023 7:57:14 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -153,7 +46,7 @@ CREATE TABLE [dbo].[ImageProducts](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[OrderDetails]    Script Date: 3/24/2023 9:35:11 PM ******/
+/****** Object:  Table [dbo].[OrderDetails]    Script Date: 4/27/2023 7:57:14 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -170,7 +63,7 @@ CREATE TABLE [dbo].[OrderDetails](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Orders]    Script Date: 3/24/2023 9:35:11 PM ******/
+/****** Object:  Table [dbo].[Orders]    Script Date: 4/27/2023 7:57:14 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -179,13 +72,17 @@ CREATE TABLE [dbo].[Orders](
 	[OrderID] [int] IDENTITY(1,1) NOT NULL,
 	[OrderDate] [date] NOT NULL,
 	[CustomerID] [int] NULL,
+	[DeliveryAddress] [nvarchar](max) NOT NULL,
+	[Temp] [money] NOT NULL,
+	[Ship] [money] NOT NULL,
+	[Active] [bit] NOT NULL,
  CONSTRAINT [PK_Orders] PRIMARY KEY CLUSTERED 
 (
 	[OrderID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Products]    Script Date: 3/24/2023 9:35:11 PM ******/
+/****** Object:  Table [dbo].[Products]    Script Date: 4/27/2023 7:57:14 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -201,14 +98,10 @@ CREATE TABLE [dbo].[Products](
  CONSTRAINT [PK_Products] PRIMARY KEY CLUSTERED 
 (
 	[ProductID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
- CONSTRAINT [uc_ProductName] UNIQUE NONCLUSTERED 
-(
-	[ProductName] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[ProductTags]    Script Date: 3/24/2023 9:35:11 PM ******/
+/****** Object:  Table [dbo].[ProductTags]    Script Date: 4/27/2023 7:57:14 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -223,7 +116,7 @@ CREATE TABLE [dbo].[ProductTags](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Tags]    Script Date: 3/24/2023 9:35:11 PM ******/
+/****** Object:  Table [dbo].[Tags]    Script Date: 4/27/2023 7:57:14 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -234,21 +127,468 @@ CREATE TABLE [dbo].[Tags](
  CONSTRAINT [PK_Tags] PRIMARY KEY CLUSTERED 
 (
 	[TagID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
- CONSTRAINT [uc_TagName] UNIQUE NONCLUSTERED 
-(
-	[TagName] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [dbo].[Customers] ADD  CONSTRAINT [DF_Customers_Active]  DEFAULT ((1)) FOR [Active]
+/****** Object:  Table [dbo].[User]    Script Date: 4/27/2023 7:57:14 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[User](
+	[CustomerID] [int] IDENTITY(1,1) NOT NULL,
+	[FullName] [nvarchar](40) NOT NULL,
+	[PassWord] [varchar](50) NOT NULL,
+	[Active] [bit] NULL,
+	[PhoneNumber] [nvarchar](50) NULL,
+	[Email] [nvarchar](50) NOT NULL,
+	[is_Admin] [bit] NOT NULL,
+ CONSTRAINT [PK_Customers] PRIMARY KEY CLUSTERED 
+(
+	[CustomerID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET IDENTITY_INSERT [dbo].[Categories] ON 
+GO
+INSERT [dbo].[Categories] ([CategoryID], [CategoryName]) VALUES (1, N'Áo')
+GO
+INSERT [dbo].[Categories] ([CategoryID], [CategoryName]) VALUES (3, N'Phụ kiện')
+GO
+INSERT [dbo].[Categories] ([CategoryID], [CategoryName]) VALUES (2, N'Quần')
+GO
+SET IDENTITY_INSERT [dbo].[Categories] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Complain] ON 
+GO
+INSERT [dbo].[Complain] ([ComplainID], [ComplainContent], [CreateDate], [UserID], [Active]) VALUES (1, N'Tốt', CAST(N'2023-04-27' AS Date), 3, 0)
+GO
+INSERT [dbo].[Complain] ([ComplainID], [ComplainContent], [CreateDate], [UserID], [Active]) VALUES (2, N'Sản phẩm chất lượng', CAST(N'2023-04-26' AS Date), 3, 1)
+GO
+INSERT [dbo].[Complain] ([ComplainID], [ComplainContent], [CreateDate], [UserID], [Active]) VALUES (4, N'Sản phẩm tuyệt vời', CAST(N'2023-04-25' AS Date), 2, 1)
+GO
+SET IDENTITY_INSERT [dbo].[Complain] OFF
+GO
+SET IDENTITY_INSERT [dbo].[ImageProducts] ON 
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (1, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678083466/2_nj9tvc.jpg', 1)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (2, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678083466/3_gz6pv9.jpg', 1)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (3, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678083466/4_oli6dt.jpg', 1)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (4, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678084295/2_byvqks.jpg', 2)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (5, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678084295/3_utovw6.jpg', 2)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (6, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678084295/4_ksuqrs.jpg', 2)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (7, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678084506/2_z1oy7e.jpg', 3)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (8, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678084506/3_h55bcm.jpg', 3)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (9, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678084506/4_tyj4z5.jpg', 3)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (10, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678084778/2_ykph2j.jpg', 4)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (11, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678084778/3_mebaof.jpg', 4)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (12, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678084778/4_mioz5h.jpg', 4)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (13, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678085002/2_pm3woy.jpg', 5)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (14, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678085002/3_xijld6.jpg', 5)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (15, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678085002/4_mivhtf.jpg', 5)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (16, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678086396/2_f4jya1.webp', 6)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (17, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678085250/3_cfnqty.jpg', 6)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (18, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678085250/4_pduhmn.jpg', 6)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (19, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678113798/2_cqdcaq.jpg', 7)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (20, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678113798/3_p6izux.jpg', 7)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (21, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678113798/4_j4u1yt.jpg', 7)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (22, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678113955/2_aofeix.jpg', 8)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (23, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678113955/3_aucrc3.jpg', 8)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (24, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678113955/4_qnovye.jpg', 8)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (25, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114141/2_duvehu.jpg', 9)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (26, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114142/3_ry2x1q.jpg', 9)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (27, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114142/4_y2wc0c.jpg', 9)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (28, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114362/2_ivypku.jpg', 10)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (29, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114362/3_x3bglv.jpg', 10)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (30, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114362/4_ounfnt.jpg', 10)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (31, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114534/2_z8vnyr.jpg', 11)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (32, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114534/3_pcenny.jpg', 11)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (33, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114534/4_bgvh6c.jpg', 11)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (34, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114731/2_oxouxo.jpg', 12)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (35, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114731/3_tabpdu.jpg', 12)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (36, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114731/4_l1ktly.jpg', 12)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (37, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114919/2_exncjy.jpg', 13)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (38, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114919/3_q4s77p.jpg', 13)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (39, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114919/4_ky2zen.jpg', 13)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (40, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115199/2_yjtbcc.jpg', 14)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (41, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115199/3_zc0kz8.jpg', 14)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (42, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115199/4_pfjg2x.jpg', 14)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (43, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115328/2_jlqs79.jpg', 15)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (44, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115328/3_dzsf8p.jpg', 15)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (45, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115328/4_ho1bb5.jpg', 15)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (46, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115689/2_ws5oq4.jpg', 16)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (47, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115689/3_sacfxg.jpg', 16)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (48, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115689/4_pb0efb.jpg', 16)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (49, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115832/2_pi3mg0.jpg', 17)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (50, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115832/3_hmzksk.jpg', 17)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (51, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115832/4_mkhtmc.jpg', 17)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (52, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115945/2_tsiuuc.jpg', 18)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (53, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115945/3_kpidsn.jpg', 18)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (54, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115945/4_ogol8f.jpg', 18)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (55, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116081/2_qbotua.jpg', 19)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (56, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116081/3_gaqofj.jpg', 19)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (57, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116081/4_l4ulmc.jpg', 19)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (58, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116354/2_k3ebh7.jpg', 20)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (59, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116354/3_pg65pq.jpg', 20)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (60, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116081/4_l4ulmc.jpg', 20)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (61, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116632/2_ehuzwk.jpg', 21)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (62, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116632/3_kqjlsj.jpg', 21)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (63, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116632/4_hyi5uw.jpg', 21)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (64, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116840/2_bwj7gx.jpg', 22)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (65, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116840/3_svpcjv.jpg', 22)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (66, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116840/4_n88cbh.jpg', 22)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (67, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116979/2_sxcymk.jpg', 23)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (68, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116979/3_wuxmfq.jpg', 23)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (69, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116979/4_u00wxn.jpg', 23)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (70, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678117279/2_cr99ft.jpg', 24)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (71, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678117279/3_rrc7mz.jpg', 24)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (72, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678117279/4_fl4fmy.jpg', 24)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (73, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678117708/2_e0arv5.jpg', 25)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (74, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678117708/3_sejiuj.jpg', 25)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (75, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678117708/4_e2qnyq.jpg', 25)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (76, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678117936/2_ee7stl.jpg', 26)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (77, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678117936/3_qppx1r.jpg', 26)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (78, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678117937/4_my0ddk.jpg', 26)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (79, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678118077/2_lvesiw.jpg', 27)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (80, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678118077/3_rs0b7a.jpg', 27)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (81, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678118077/4_dflky4.jpg', 27)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (82, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678118183/2_anfg9z.jpg', 28)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (83, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678118183/3_pp45x6.jpg', 28)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (84, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678118183/4_jepkcg.jpg', 28)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (85, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678118325/2_hevabz.jpg', 29)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (86, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678118325/3_xcw6tr.jpg', 29)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (87, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678118325/4_sv7jjm.jpg', 29)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (88, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678118432/2_xool6c.jpg', 30)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (89, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678118432/3_jwsygw.jpg', 30)
+GO
+INSERT [dbo].[ImageProducts] ([ImageProductID], [Image], [ProductID]) VALUES (90, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678118432/4_rhswuu.jpg', 30)
+GO
+SET IDENTITY_INSERT [dbo].[ImageProducts] OFF
+GO
+INSERT [dbo].[OrderDetails] ([OrderID], [ProductID], [UnitPrice], [Quantity]) VALUES (3, 38, 35000.0000, 6)
+GO
+INSERT [dbo].[OrderDetails] ([OrderID], [ProductID], [UnitPrice], [Quantity]) VALUES (4, 1, 250000.0000, 4)
+GO
+INSERT [dbo].[OrderDetails] ([OrderID], [ProductID], [UnitPrice], [Quantity]) VALUES (5, 5, 250000.0000, 1)
+GO
+SET IDENTITY_INSERT [dbo].[Orders] ON 
+GO
+INSERT [dbo].[Orders] ([OrderID], [OrderDate], [CustomerID], [DeliveryAddress], [Temp], [Ship], [Active]) VALUES (3, CAST(N'2023-04-25' AS Date), 2, N'254/32 Âu Cơ, tp Hồ Chí Minh', 210000.0000, 50000.0000, 0)
+GO
+INSERT [dbo].[Orders] ([OrderID], [OrderDate], [CustomerID], [DeliveryAddress], [Temp], [Ship], [Active]) VALUES (4, CAST(N'2023-04-26' AS Date), 3, N'371 Nguyễn Kiệm', 1000000.0000, 50000.0000, 0)
+GO
+INSERT [dbo].[Orders] ([OrderID], [OrderDate], [CustomerID], [DeliveryAddress], [Temp], [Ship], [Active]) VALUES (5, CAST(N'2023-04-27' AS Date), 1, N'25dihfaisdf', 250000.0000, 50000.0000, 1)
+GO
+SET IDENTITY_INSERT [dbo].[Orders] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Products] ON 
+GO
+INSERT [dbo].[Products] ([ProductID], [ProductName], [UnitPrice], [Description], [active], [Image], [CategoryID]) VALUES (1, N'Áo thun đen', 250000.0000, N'Áo thun nam với chất liệu cotton 100%, màu đen, size M.', 1, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678083467/1_msrhqs.jpg', 1)
+GO
+INSERT [dbo].[Products] ([ProductID], [ProductName], [UnitPrice], [Description], [active], [Image], [CategoryID]) VALUES (2, N'Áo thun hồng', 250000.0000, N'Áo thun nam với chất liệu cotton 100%, màu hồng, size L.', 1, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678084295/1_iqzzdy.jpg', 1)
+GO
+INSERT [dbo].[Products] ([ProductID], [ProductName], [UnitPrice], [Description], [active], [Image], [CategoryID]) VALUES (3, N'Áo thun nâu', 250000.0000, N'Áo thun nam với chất liệu cotton 100%, màu nâu, size M.', 1, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678084506/1_av6ymd.jpg', 1)
+GO
+INSERT [dbo].[Products] ([ProductID], [ProductName], [UnitPrice], [Description], [active], [Image], [CategoryID]) VALUES (4, N'Áo thun trắng', 250000.0000, N'Áo thun nam với chất liệu cotton 100%, màu trắng, size S.', 1, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678084778/1_kamkkm.jpg', 1)
+GO
+INSERT [dbo].[Products] ([ProductID], [ProductName], [UnitPrice], [Description], [active], [Image], [CategoryID]) VALUES (5, N'Áo thun vàng', 250000.0000, N'Áo thun nam với chất liệu cotton 100%, màu vàng, size M.', 1, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678085002/1_kbidca.jpg', 1)
+GO
+INSERT [dbo].[Products] ([ProductID], [ProductName], [UnitPrice], [Description], [active], [Image], [CategoryID]) VALUES (6, N'Áo thun xanh', 250000.0000, N'Áo thun nam với chất liệu cotton 100%, màu xanh, size XL.', 1, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678085250/1_a3utn9.jpg', 1)
+GO
+INSERT [dbo].[Products] ([ProductID], [ProductName], [UnitPrice], [Description], [active], [Image], [CategoryID]) VALUES (7, N'Áo polo đen in', 280000.0000, N'Áo polo nam với chất liệu cotton 100%, màu đen, size M.', 1, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678113798/1_tdxqgv.jpg', 1)
+GO
+INSERT [dbo].[Products] ([ProductID], [ProductName], [UnitPrice], [Description], [active], [Image], [CategoryID]) VALUES (8, N'Áo polo đen trắng', 280000.0000, N'Áo polo nam với chất liệu cotton 100%, màu đen trắng, size L.', 1, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678113955/1_abuz9t.jpg', 1)
+GO
+INSERT [dbo].[Products] ([ProductID], [ProductName], [UnitPrice], [Description], [active], [Image], [CategoryID]) VALUES (9, N'Áo polo trắng phối đen', 280000.0000, N'Áo polo nam với chất liệu cotton 100%, màu trắng đen, size S.', 1, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114142/1_prloly.jpg', 1)
+GO
+INSERT [dbo].[Products] ([ProductID], [ProductName], [UnitPrice], [Description], [active], [Image], [CategoryID]) VALUES (10, N'Áo polo trắng in', 280000.0000, N'Áo polo nam với chất liệu cotton 100%, màu trắng, size M.', 1, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114362/1_szusmk.jpg', 1)
+GO
+INSERT [dbo].[Products] ([ProductID], [ProductName], [UnitPrice], [Description], [active], [Image], [CategoryID]) VALUES (11, N'Áo polo trắng xanh', 280000.0000, N'Áo polo nam với chất liệu cotton 100%, màu trắng sọc xanh, size M.', 1, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114534/1_hqljrb.jpg', 1)
+GO
+INSERT [dbo].[Products] ([ProductID], [ProductName], [UnitPrice], [Description], [active], [Image], [CategoryID]) VALUES (12, N'Áo polo xanh biển', 280000.0000, N'Áo polo nam với chất liệu cotton 100%, màu xanh nước biển, size XL.', 1, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114731/1_evzvhh.jpg', 1)
+GO
+INSERT [dbo].[Products] ([ProductID], [ProductName], [UnitPrice], [Description], [active], [Image], [CategoryID]) VALUES (13, N'Áo sơ mi họa tiết', 300000.0000, N'Áo sơ mi nam với chất liệu cotton 100%, màu trắng họa tiết đen, size M.', 1, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114919/1_hfrpvd.jpg', 1)
+GO
+INSERT [dbo].[Products] ([ProductID], [ProductName], [UnitPrice], [Description], [active], [Image], [CategoryID]) VALUES (14, N'Áo sơ mi nâu tay dài', 300000.0000, N'Áo sơ mi nam với chất liệu cotton 100%, màu nâu, size L.', 1, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115199/1_vp4na1.jpg', 1)
+GO
+INSERT [dbo].[Products] ([ProductID], [ProductName], [UnitPrice], [Description], [active], [Image], [CategoryID]) VALUES (15, N'Áo sơ mi sọc trắng xanh', 300000.0000, N'Áo sơ mi nam với chất liệu cotton 100%, màu xanh sọc trắng, size M.', 1, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115328/1_zamww6.jpg', 1)
+GO
+INSERT [dbo].[Products] ([ProductID], [ProductName], [UnitPrice], [Description], [active], [Image], [CategoryID]) VALUES (16, N'Áo sơ mi trắng tay dài', 300000.0000, N'Áo sơ mi nam với chất liệu cotton 100%, màu trắng, size S.', 1, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115689/1_pymxpm.jpg', 1)
+GO
+INSERT [dbo].[Products] ([ProductID], [ProductName], [UnitPrice], [Description], [active], [Image], [CategoryID]) VALUES (17, N'Áo sơ mi trắng tay ngắn', 300000.0000, N'Áo sơ mi nam với chất liệu cotton 100%, màu trắng, size M.', 1, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115832/1_nkscl1.jpg', 1)
+GO
+INSERT [dbo].[Products] ([ProductID], [ProductName], [UnitPrice], [Description], [active], [Image], [CategoryID]) VALUES (18, N'Áo sơ mi xanh rêu tay dài', 300000.0000, N'Áo sơ mi nam với chất liệu cotton 100%, màu xanh rêu, size L.', 1, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115946/1_tge7xx.jpg', 1)
+GO
+INSERT [dbo].[Products] ([ProductID], [ProductName], [UnitPrice], [Description], [active], [Image], [CategoryID]) VALUES (19, N'Quần jean đen dài', 300000.0000, N'Quần jean nam với chất liệu cotton Duck và bông thô, màu đen, size 27.', 1, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116081/1_lljijk.jpg', 2)
+GO
+INSERT [dbo].[Products] ([ProductID], [ProductName], [UnitPrice], [Description], [active], [Image], [CategoryID]) VALUES (20, N'Quần kaki be dài', 290000.0000, N'Quần kaki nam với chất liệu cotton đan chéo với sợi tổng hợp, màu be, size 28.', 1, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116354/1_k86kon.jpg', 2)
+GO
+INSERT [dbo].[Products] ([ProductID], [ProductName], [UnitPrice], [Description], [active], [Image], [CategoryID]) VALUES (21, N'Quần kaki đen dài', 290000.0000, N'Quần jean nam với chất liệu cotton đan chéo với sợi tổng hợp, màu đen, size 30.', 1, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116632/1_on8l00.jpg', 2)
+GO
+INSERT [dbo].[Products] ([ProductID], [ProductName], [UnitPrice], [Description], [active], [Image], [CategoryID]) VALUES (22, N'Quần jean trắng rách dài', 300000.0000, N'Quần jean nam với chất liệu cotton Duck và bông thô, màu trắng, size 32.', 1, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116840/1_sgrbo3.jpg', 2)
+GO
+INSERT [dbo].[Products] ([ProductID], [ProductName], [UnitPrice], [Description], [active], [Image], [CategoryID]) VALUES (23, N'Quần jean xanh đậm dài', 300000.0000, N'Quần jean nam với chất liệu cotton Duck và bông thô, màu xanh đậm, size 30.', 1, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116979/1_kxa2gq.jpg', 2)
+GO
+INSERT [dbo].[Products] ([ProductID], [ProductName], [UnitPrice], [Description], [active], [Image], [CategoryID]) VALUES (24, N'Quần jean xanh rách dài', 300000.0000, N'Quần jean nam với chất liệu cotton Duck và bông thô, màu xanh, size 29.', 1, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678117279/1_yywk1u.jpg', 2)
+GO
+INSERT [dbo].[Products] ([ProductID], [ProductName], [UnitPrice], [Description], [active], [Image], [CategoryID]) VALUES (25, N'Quần jean đen túi', 230000.0000, N'Quần jean nam với chất liệu cotton 100%, màu đen, size XL.', 1, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678117708/1_qumhpx.jpg', 2)
+GO
+INSERT [dbo].[Products] ([ProductID], [ProductName], [UnitPrice], [Description], [active], [Image], [CategoryID]) VALUES (26, N'Quần jean xanh', 230000.0000, N'Quần jean nam với chất liệu cotton 100%, màu xanh, size XXL.', 1, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678117936/1_xyjolt.jpg', 2)
+GO
+INSERT [dbo].[Products] ([ProductID], [ProductName], [UnitPrice], [Description], [active], [Image], [CategoryID]) VALUES (27, N'Quần jean be', 230000.0000, N'Quần jean nam với chất liệu cotton 100%, màu be, size XXXL.', 1, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678118078/1_zt7cc0.jpg', 2)
+GO
+INSERT [dbo].[Products] ([ProductID], [ProductName], [UnitPrice], [Description], [active], [Image], [CategoryID]) VALUES (28, N'Quần jean đen', 230000.0000, N'Quần jean nam với chất liệu cotton 100%, màu đen, size XL.', 1, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678118183/1_yfq90y.jpg', 2)
+GO
+INSERT [dbo].[Products] ([ProductID], [ProductName], [UnitPrice], [Description], [active], [Image], [CategoryID]) VALUES (29, N'Quần jean xanh rách', 230000.0000, N'Quần jean nam với chất liệu cotton 100%, màu xanh, size XXL.', 1, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678118325/1_nvogbn.jpg', 2)
+GO
+INSERT [dbo].[Products] ([ProductID], [ProductName], [UnitPrice], [Description], [active], [Image], [CategoryID]) VALUES (30, N'Quần short trắng in', 230000.0000, N'Quần short nam với chất liệu cotton 100%, màu trắng, size XL.', 1, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678118432/1_ggxbje.jpg', 2)
+GO
+INSERT [dbo].[Products] ([ProductID], [ProductName], [UnitPrice], [Description], [active], [Image], [CategoryID]) VALUES (31, N'Đồng hồ đeo tay Skmei', 350000.0000, N'Đồng hồ đeo tay nam với chất liệu nhựa, màu đen vàng.', 1, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678118993/1163YL_%C4%90%E1%BB%93ng_h%E1%BB%93_%C4%91eo_tay_Skmei_-_1163YL_falljh.jpg', 3)
+GO
+INSERT [dbo].[Products] ([ProductID], [ProductName], [UnitPrice], [Description], [active], [Image], [CategoryID]) VALUES (32, N'Đồng hồ đeo tay Nakzen', 350000.0000, N'Đồng hồ đeo tay nam với chất liệu nhựa, màu trắng.', 1, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678119711/SL5059GBN-7_%C4%90%E1%BB%93ng_h%E1%BB%93_%C4%91eo_tay_Nakzen_-_SL5059GBN-7_tdjir5.jpg', 3)
+GO
+INSERT [dbo].[Products] ([ProductID], [ProductName], [UnitPrice], [Description], [active], [Image], [CategoryID]) VALUES (33, N'Balo đen ', 450000.0000, N'Balo nam nữ với chất liệu nhựa PVC, màu đen.', 1, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678119943/XBG096_Ba_l%C3%B4_%C4%91en_CS_jtvcit.jpg', 3)
+GO
+INSERT [dbo].[Products] ([ProductID], [ProductName], [UnitPrice], [Description], [active], [Image], [CategoryID]) VALUES (34, N'Túi đeo chéo', 150000.0000, N'Túi đeo chéo nam nữ với chất liệu nhựa PVC, màu đen.', 1, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678120449/XBG097_T%C3%BAi_%C4%91eo_ch%C3%A9o_CS_juycio.jpg', 3)
+GO
+INSERT [dbo].[Products] ([ProductID], [ProductName], [UnitPrice], [Description], [active], [Image], [CategoryID]) VALUES (35, N'Thắt lưng mẫu 1', 200000.0000, N'Thắt lưng nam với chất liệu vải cotton và polyester, màu đen.', 1, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678120341/XEL229_D%C3%A2y_n%E1%BB%8Bt_jmdspv.jpg', 3)
+GO
+INSERT [dbo].[Products] ([ProductID], [ProductName], [UnitPrice], [Description], [active], [Image], [CategoryID]) VALUES (36, N'Thắt lưng mẫu 2', 200000.0000, N'Thắt lưng nam với chất liệu vải cotton và polyester, màu đen.', 1, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678120405/XEL232_D%C3%A2y_n%E1%BB%8Bt_yqgtxj.jpg', 3)
+GO
+INSERT [dbo].[Products] ([ProductID], [ProductName], [UnitPrice], [Description], [active], [Image], [CategoryID]) VALUES (37, N'Vớ nam mẫu 1', 35000.0000, N'Vớ nam với chất liệu bằng các loại sợi mềm như len, đủ màu.', 1, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678120599/XSK024_V%E1%BB%9B_nam_e3jhwf.jpg', 3)
+GO
+INSERT [dbo].[Products] ([ProductID], [ProductName], [UnitPrice], [Description], [active], [Image], [CategoryID]) VALUES (38, N'Vớ nam mẫu 2', 35000.0000, N'Vớ nam với chất liệu bằng các loại sợi mềm như len, đủ màu.', 1, N'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678120675/XSK025_V%E1%BB%9B_nam_j7cwda.jpg', 3)
+GO
+SET IDENTITY_INSERT [dbo].[Products] OFF
+GO
+INSERT [dbo].[ProductTags] ([ProductID], [TagID]) VALUES (1, 1)
+GO
+INSERT [dbo].[ProductTags] ([ProductID], [TagID]) VALUES (2, 2)
+GO
+INSERT [dbo].[ProductTags] ([ProductID], [TagID]) VALUES (2, 3)
+GO
+INSERT [dbo].[ProductTags] ([ProductID], [TagID]) VALUES (3, 1)
+GO
+INSERT [dbo].[ProductTags] ([ProductID], [TagID]) VALUES (3, 2)
+GO
+INSERT [dbo].[ProductTags] ([ProductID], [TagID]) VALUES (4, 3)
+GO
+INSERT [dbo].[ProductTags] ([ProductID], [TagID]) VALUES (5, 1)
+GO
+INSERT [dbo].[ProductTags] ([ProductID], [TagID]) VALUES (6, 2)
+GO
+INSERT [dbo].[ProductTags] ([ProductID], [TagID]) VALUES (7, 4)
+GO
+INSERT [dbo].[ProductTags] ([ProductID], [TagID]) VALUES (9, 2)
+GO
+INSERT [dbo].[ProductTags] ([ProductID], [TagID]) VALUES (11, 1)
+GO
+INSERT [dbo].[ProductTags] ([ProductID], [TagID]) VALUES (11, 4)
+GO
+INSERT [dbo].[ProductTags] ([ProductID], [TagID]) VALUES (12, 3)
+GO
+INSERT [dbo].[ProductTags] ([ProductID], [TagID]) VALUES (13, 1)
+GO
+INSERT [dbo].[ProductTags] ([ProductID], [TagID]) VALUES (13, 2)
+GO
+INSERT [dbo].[ProductTags] ([ProductID], [TagID]) VALUES (14, 3)
+GO
+INSERT [dbo].[ProductTags] ([ProductID], [TagID]) VALUES (15, 1)
+GO
+INSERT [dbo].[ProductTags] ([ProductID], [TagID]) VALUES (15, 4)
+GO
+INSERT [dbo].[ProductTags] ([ProductID], [TagID]) VALUES (16, 3)
+GO
+INSERT [dbo].[ProductTags] ([ProductID], [TagID]) VALUES (17, 2)
+GO
+INSERT [dbo].[ProductTags] ([ProductID], [TagID]) VALUES (17, 5)
+GO
+INSERT [dbo].[ProductTags] ([ProductID], [TagID]) VALUES (18, 2)
+GO
+INSERT [dbo].[ProductTags] ([ProductID], [TagID]) VALUES (18, 4)
+GO
+INSERT [dbo].[ProductTags] ([ProductID], [TagID]) VALUES (20, 5)
+GO
+INSERT [dbo].[ProductTags] ([ProductID], [TagID]) VALUES (21, 1)
+GO
+INSERT [dbo].[ProductTags] ([ProductID], [TagID]) VALUES (22, 3)
+GO
+INSERT [dbo].[ProductTags] ([ProductID], [TagID]) VALUES (23, 1)
+GO
+INSERT [dbo].[ProductTags] ([ProductID], [TagID]) VALUES (23, 4)
+GO
+INSERT [dbo].[ProductTags] ([ProductID], [TagID]) VALUES (24, 2)
+GO
+INSERT [dbo].[ProductTags] ([ProductID], [TagID]) VALUES (24, 3)
+GO
+INSERT [dbo].[ProductTags] ([ProductID], [TagID]) VALUES (25, 1)
+GO
+INSERT [dbo].[ProductTags] ([ProductID], [TagID]) VALUES (25, 2)
+GO
+INSERT [dbo].[ProductTags] ([ProductID], [TagID]) VALUES (26, 3)
+GO
+INSERT [dbo].[ProductTags] ([ProductID], [TagID]) VALUES (27, 4)
+GO
+INSERT [dbo].[ProductTags] ([ProductID], [TagID]) VALUES (28, 4)
+GO
+INSERT [dbo].[ProductTags] ([ProductID], [TagID]) VALUES (35, 3)
+GO
+INSERT [dbo].[ProductTags] ([ProductID], [TagID]) VALUES (35, 5)
+GO
+INSERT [dbo].[ProductTags] ([ProductID], [TagID]) VALUES (37, 5)
+GO
+INSERT [dbo].[ProductTags] ([ProductID], [TagID]) VALUES (38, 4)
+GO
+SET IDENTITY_INSERT [dbo].[Tags] ON 
+GO
+INSERT [dbo].[Tags] ([TagID], [TagName]) VALUES (5, N'Best Seller')
+GO
+INSERT [dbo].[Tags] ([TagID], [TagName]) VALUES (4, N'Mùa đông')
+GO
+INSERT [dbo].[Tags] ([TagID], [TagName]) VALUES (3, N'Mùa hè')
+GO
+INSERT [dbo].[Tags] ([TagID], [TagName]) VALUES (1, N'New')
+GO
+INSERT [dbo].[Tags] ([TagID], [TagName]) VALUES (2, N'Sale')
+GO
+SET IDENTITY_INSERT [dbo].[Tags] OFF
+GO
+SET IDENTITY_INSERT [dbo].[User] ON 
+GO
+INSERT [dbo].[User] ([CustomerID], [FullName], [PassWord], [Active], [PhoneNumber], [Email], [is_Admin]) VALUES (1, N'Phạm Tấn Hoàng', N'40BD001563085FC35165329EA1FF5C5ECBDBBEEF', 1, N'', N'admin', 1)
+GO
+INSERT [dbo].[User] ([CustomerID], [FullName], [PassWord], [Active], [PhoneNumber], [Email], [is_Admin]) VALUES (2, N'Phạm Hoàng', N'356A192B7913B04C54574D18C28D46E6395428AB', 1, N'132654789', N'2051052048hoang@ou.edu.vn', 0)
+GO
+INSERT [dbo].[User] ([CustomerID], [FullName], [PassWord], [Active], [PhoneNumber], [Email], [is_Admin]) VALUES (3, N'Taylor Swift', N'40BD001563085FC35165329EA1FF5C5ECBDBBEEF', 1, N'0974982359', N'user2@gmail.com', 0)
+GO
+SET IDENTITY_INSERT [dbo].[User] OFF
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [uc_CategoryName]    Script Date: 4/27/2023 7:57:14 PM ******/
+ALTER TABLE [dbo].[Categories] ADD  CONSTRAINT [uc_CategoryName] UNIQUE NONCLUSTERED 
+(
+	[CategoryName] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [uc_ProductName]    Script Date: 4/27/2023 7:57:14 PM ******/
+ALTER TABLE [dbo].[Products] ADD  CONSTRAINT [uc_ProductName] UNIQUE NONCLUSTERED 
+(
+	[ProductName] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [uc_TagName]    Script Date: 4/27/2023 7:57:14 PM ******/
+ALTER TABLE [dbo].[Tags] ADD  CONSTRAINT [uc_TagName] UNIQUE NONCLUSTERED 
+(
+	[TagName] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[Complain] ADD  CONSTRAINT [DF_Comments_Active]  DEFAULT ((0)) FOR [Active]
+GO
+ALTER TABLE [dbo].[Orders] ADD  CONSTRAINT [DF_Orders_Active]  DEFAULT ((0)) FOR [Active]
 GO
 ALTER TABLE [dbo].[Products] ADD  CONSTRAINT [DF_Products_active]  DEFAULT ((1)) FOR [active]
 GO
-ALTER TABLE [dbo].[Comments]  WITH CHECK ADD  CONSTRAINT [FK_Comments_Products] FOREIGN KEY([ProductID])
-REFERENCES [dbo].[Products] ([ProductID])
+ALTER TABLE [dbo].[User] ADD  CONSTRAINT [DF_Customers_Active]  DEFAULT ((0)) FOR [Active]
 GO
-ALTER TABLE [dbo].[Comments] CHECK CONSTRAINT [FK_Comments_Products]
+ALTER TABLE [dbo].[User] ADD  CONSTRAINT [DF_Customers_is_Admin]  DEFAULT ((1)) FOR [is_Admin]
+GO
+ALTER TABLE [dbo].[Complain]  WITH CHECK ADD  CONSTRAINT [FK_Complain_User] FOREIGN KEY([UserID])
+REFERENCES [dbo].[User] ([CustomerID])
+GO
+ALTER TABLE [dbo].[Complain] CHECK CONSTRAINT [FK_Complain_User]
 GO
 ALTER TABLE [dbo].[ImageProducts]  WITH CHECK ADD  CONSTRAINT [FK_ImageProducts_Products] FOREIGN KEY([ProductID])
 REFERENCES [dbo].[Products] ([ProductID])
@@ -266,7 +606,7 @@ GO
 ALTER TABLE [dbo].[OrderDetails] CHECK CONSTRAINT [FK_OrderDetails_Products]
 GO
 ALTER TABLE [dbo].[Orders]  WITH CHECK ADD  CONSTRAINT [FK_Orders_Customers] FOREIGN KEY([CustomerID])
-REFERENCES [dbo].[Customers] ([CustomerID])
+REFERENCES [dbo].[User] ([CustomerID])
 GO
 ALTER TABLE [dbo].[Orders] CHECK CONSTRAINT [FK_Orders_Customers]
 GO
@@ -285,469 +625,3 @@ REFERENCES [dbo].[Tags] ([TagID])
 GO
 ALTER TABLE [dbo].[ProductTags] CHECK CONSTRAINT [FK_ProductTags_Tags]
 GO
-USE [master]
-GO
-ALTER DATABASE [ShopThoiTrang] SET  READ_WRITE 
-GO
-
-
-use ShopThoiTrang
-go
-
-insert into Categories
-values(N'Áo')
-insert into Categories
-values(N'Quần')
-insert into Categories
-values(N'Phụ kiện')
-
-insert into Products
-values(N'Áo thun đen', 250000, N'Áo thun nam với chất liệu cotton 100%, màu đen, size M.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678083467/1_msrhqs.jpg',1)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678083466/2_nj9tvc.jpg',1)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678083466/3_gz6pv9.jpg',1)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678083466/4_oli6dt.jpg',1)
-
-go
-
-insert into Products
-values(N'Áo thun hồng', 250000, N'Áo thun nam với chất liệu cotton 100%, màu hồng, size L.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678084295/1_iqzzdy.jpg',1)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678084295/2_byvqks.jpg',2)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678084295/3_utovw6.jpg',2)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678084295/4_ksuqrs.jpg',2)
-
-go
-
-insert into Products
-values(N'Áo thun nâu', 250000, N'Áo thun nam với chất liệu cotton 100%, màu nâu, size M.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678084506/1_av6ymd.jpg',1)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678084506/2_z1oy7e.jpg',3)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678084506/3_h55bcm.jpg',3)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678084506/4_tyj4z5.jpg',3)
-
-go
-
-insert into Products
-values(N'Áo thun trắng', 250000, N'Áo thun nam với chất liệu cotton 100%, màu trắng, size S.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678084778/1_kamkkm.jpg',1)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678084778/2_ykph2j.jpg',4)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678084778/3_mebaof.jpg',4)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678084778/4_mioz5h.jpg',4)
-
-go
-
-insert into Products
-values(N'Áo thun vàng', 250000, N'Áo thun nam với chất liệu cotton 100%, màu vàng, size M.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678085002/1_kbidca.jpg',1)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678085002/2_pm3woy.jpg',5)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678085002/3_xijld6.jpg',5)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678085002/4_mivhtf.jpg',5)
-
-go
-
-insert into Products
-values(N'Áo thun xanh', 250000, N'Áo thun nam với chất liệu cotton 100%, màu xanh, size XL.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678085250/1_a3utn9.jpg',1)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678086396/2_f4jya1.webp',6)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678085250/3_cfnqty.jpg',6)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678085250/4_pduhmn.jpg',6)
-
-go
-
-insert into Products
-values(N'Áo polo đen in', 280000, N'Áo polo nam với chất liệu cotton 100%, màu đen, size M.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678113798/1_tdxqgv.jpg',1)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678113798/2_cqdcaq.jpg',7)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678113798/3_p6izux.jpg',7)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678113798/4_j4u1yt.jpg',7)
-
-go
-
-insert into Products
-values(N'Áo polo đen trắng', 280000, N'Áo polo nam với chất liệu cotton 100%, màu đen trắng, size L.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678113955/1_abuz9t.jpg',1)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678113955/2_aofeix.jpg',8)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678113955/3_aucrc3.jpg',8)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678113955/4_qnovye.jpg',8)
-
-go
-
-insert into Products
-values(N'Áo polo trắng phối đen', 280000, N'Áo polo nam với chất liệu cotton 100%, màu trắng đen, size S.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114142/1_prloly.jpg',1)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114141/2_duvehu.jpg',9)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114142/3_ry2x1q.jpg',9)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114142/4_y2wc0c.jpg',9)
-
-go
-
-insert into Products
-values(N'Áo polo trắng in', 280000, N'Áo polo nam với chất liệu cotton 100%, màu trắng, size M.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114362/1_szusmk.jpg',1)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114362/2_ivypku.jpg',10)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114362/3_x3bglv.jpg',10)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114362/4_ounfnt.jpg',10)
-
-go
-
-insert into Products
-values(N'Áo polo trắng xanh', 280000, N'Áo polo nam với chất liệu cotton 100%, màu trắng sọc xanh, size M.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114534/1_hqljrb.jpg',1)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114534/2_z8vnyr.jpg',11)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114534/3_pcenny.jpg',11)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114534/4_bgvh6c.jpg',11)
-
-go
-
-insert into Products
-values(N'Áo polo xanh biển', 280000, N'Áo polo nam với chất liệu cotton 100%, màu xanh nước biển, size XL.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114731/1_evzvhh.jpg',1)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114731/2_oxouxo.jpg',12)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114731/3_tabpdu.jpg',12)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114731/4_l1ktly.jpg',12)
-
-go
-
-insert into Products
-values(N'Áo sơ mi họa tiết', 300000, N'Áo sơ mi nam với chất liệu cotton 100%, màu trắng họa tiết đen, size M.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114919/1_hfrpvd.jpg',1)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114919/2_exncjy.jpg',13)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114919/3_q4s77p.jpg',13)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678114919/4_ky2zen.jpg',13)
-
-go
-
-insert into Products
-values(N'Áo sơ mi nâu tay dài', 300000, N'Áo sơ mi nam với chất liệu cotton 100%, màu nâu, size L.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115199/1_vp4na1.jpg',1)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115199/2_yjtbcc.jpg',14)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115199/3_zc0kz8.jpg',14)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115199/4_pfjg2x.jpg',14)
-
-go
-
-insert into Products
-values(N'Áo sơ mi sọc trắng xanh', 300000, N'Áo sơ mi nam với chất liệu cotton 100%, màu xanh sọc trắng, size M.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115328/1_zamww6.jpg',1)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115328/2_jlqs79.jpg',15)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115328/3_dzsf8p.jpg',15)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115328/4_ho1bb5.jpg',15)
-
-go
-
-insert into Products
-values(N'Áo sơ mi trắng tay dài', 300000, N'Áo sơ mi nam với chất liệu cotton 100%, màu trắng, size S.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115689/1_pymxpm.jpg',1)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115689/2_ws5oq4.jpg',16)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115689/3_sacfxg.jpg',16)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115689/4_pb0efb.jpg',16)
-
-go
-
-insert into Products
-values(N'Áo sơ mi trắng tay ngắn', 300000, N'Áo sơ mi nam với chất liệu cotton 100%, màu trắng, size M.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115832/1_nkscl1.jpg',1)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115832/2_pi3mg0.jpg',17)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115832/3_hmzksk.jpg',17)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115832/4_mkhtmc.jpg',17)
-
-go
-
-insert into Products
-values(N'Áo sơ mi xanh rêu tay dài', 300000, N'Áo sơ mi nam với chất liệu cotton 100%, màu xanh rêu, size L.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115946/1_tge7xx.jpg',1)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115945/2_tsiuuc.jpg',18)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115945/3_kpidsn.jpg',18)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678115945/4_ogol8f.jpg',18)
-
-go
-
-insert into Products
-values(N'Quần jean đen dài', 300000, N'Quần jean nam với chất liệu cotton Duck và bông thô, màu đen, size 27.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116081/1_lljijk.jpg',2)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116081/2_qbotua.jpg',19)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116081/3_gaqofj.jpg',19)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116081/4_l4ulmc.jpg',19)
-
-go
-
-insert into Products
-values(N'Quần kaki be dài', 290000, N'Quần kaki nam với chất liệu cotton đan chéo với sợi tổng hợp, màu be, size 28.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116354/1_k86kon.jpg',2)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116354/2_k3ebh7.jpg',20)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116354/3_pg65pq.jpg',20)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116081/4_l4ulmc.jpg',20)
-
-go
-
-insert into Products
-values(N'Quần kaki đen dài', 290000, N'Quần jean nam với chất liệu cotton đan chéo với sợi tổng hợp, màu đen, size 30.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116632/1_on8l00.jpg',2)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116632/2_ehuzwk.jpg',21)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116632/3_kqjlsj.jpg',21)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116632/4_hyi5uw.jpg',21)
-
-go
-
-insert into Products
-values(N'Quần jean trắng rách dài', 300000, N'Quần jean nam với chất liệu cotton Duck và bông thô, màu trắng, size 32.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116840/1_sgrbo3.jpg',2)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116840/2_bwj7gx.jpg',22)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116840/3_svpcjv.jpg',22)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116840/4_n88cbh.jpg',22)
-
-go
-
-insert into Products
-values(N'Quần jean xanh đậm dài', 300000, N'Quần jean nam với chất liệu cotton Duck và bông thô, màu xanh đậm, size 30.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116979/1_kxa2gq.jpg',2)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116979/2_sxcymk.jpg',23)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116979/3_wuxmfq.jpg',23)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678116979/4_u00wxn.jpg',23)
-
-go
-
-insert into Products
-values(N'Quần jean xanh rách dài', 300000, N'Quần jean nam với chất liệu cotton Duck và bông thô, màu xanh, size 29.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678117279/1_yywk1u.jpg',2)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678117279/2_cr99ft.jpg',24)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678117279/3_rrc7mz.jpg',24)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678117279/4_fl4fmy.jpg',24)
-
-go
-
-insert into Products
-values(N'Quần jean đen túi', 230000, N'Quần jean nam với chất liệu cotton 100%, màu đen, size XL.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678117708/1_qumhpx.jpg',2)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678117708/2_e0arv5.jpg',25)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678117708/3_sejiuj.jpg',25)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678117708/4_e2qnyq.jpg',25)
-
-go
-
-insert into Products
-values(N'Quần jean xanh', 230000, N'Quần jean nam với chất liệu cotton 100%, màu xanh, size XXL.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678117936/1_xyjolt.jpg',2)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678117936/2_ee7stl.jpg',26)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678117936/3_qppx1r.jpg',26)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678117937/4_my0ddk.jpg',26)
-
-go
-
-insert into Products
-values(N'Quần jean be', 230000, N'Quần jean nam với chất liệu cotton 100%, màu be, size XXXL.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678118078/1_zt7cc0.jpg',2)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678118077/2_lvesiw.jpg',27)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678118077/3_rs0b7a.jpg',27)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678118077/4_dflky4.jpg',27)
-
-go
-
-insert into Products
-values(N'Quần jean đen', 230000, N'Quần jean nam với chất liệu cotton 100%, màu đen, size XL.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678118183/1_yfq90y.jpg',2)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678118183/2_anfg9z.jpg',28)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678118183/3_pp45x6.jpg',28)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678118183/4_jepkcg.jpg',28)
-
-go
-
-insert into Products
-values(N'Quần jean xanh rách', 230000, N'Quần jean nam với chất liệu cotton 100%, màu xanh, size XXL.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678118325/1_nvogbn.jpg',2)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678118325/2_hevabz.jpg',29)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678118325/3_xcw6tr.jpg',29)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678118325/4_sv7jjm.jpg',29)
-
-go
-
-insert into Products
-values(N'Quần short trắng in', 230000, N'Quần short nam với chất liệu cotton 100%, màu trắng, size XL.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678118432/1_ggxbje.jpg',2)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678118432/2_xool6c.jpg',30)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678118432/3_jwsygw.jpg',30)
-insert into ImageProducts
-values('https://res.cloudinary.com/dgwpcjq86/image/upload/v1678118432/4_rhswuu.jpg',30)
-
-go
-
-insert into Products
-values(N'Đồng hồ đeo tay Skmei', 350000, N'Đồng hồ đeo tay nam với chất liệu nhựa, màu đen vàng.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678118993/1163YL_%C4%90%E1%BB%93ng_h%E1%BB%93_%C4%91eo_tay_Skmei_-_1163YL_falljh.jpg',3)
-
-go
-
-insert into Products
-values(N'Đồng hồ đeo tay Nakzen', 350000, N'Đồng hồ đeo tay nam với chất liệu nhựa, màu trắng.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678119711/SL5059GBN-7_%C4%90%E1%BB%93ng_h%E1%BB%93_%C4%91eo_tay_Nakzen_-_SL5059GBN-7_tdjir5.jpg',3)
-
-go
-
-insert into Products
-values(N'Balo đen ', 450000, N'Balo nam nữ với chất liệu nhựa PVC, màu đen.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678119943/XBG096_Ba_l%C3%B4_%C4%91en_CS_jtvcit.jpg',3)
-
-go
-
-insert into Products
-values(N'Túi đeo chéo', 150000, N'Túi đeo chéo nam nữ với chất liệu nhựa PVC, màu đen.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678120449/XBG097_T%C3%BAi_%C4%91eo_ch%C3%A9o_CS_juycio.jpg',3)
-
-go
-
-insert into Products
-values(N'Thắt lưng mẫu 1', 200000, N'Thắt lưng nam với chất liệu vải cotton và polyester, màu đen.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678120341/XEL229_D%C3%A2y_n%E1%BB%8Bt_jmdspv.jpg',3)
-
-go
-
-insert into Products
-values(N'Thắt lưng mẫu 2', 200000, N'Thắt lưng nam với chất liệu vải cotton và polyester, màu đen.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678120405/XEL232_D%C3%A2y_n%E1%BB%8Bt_yqgtxj.jpg',3)
-
-go
-
-insert into Products
-values(N'Vớ nam mẫu 1', 35000, N'Vớ nam với chất liệu bằng các loại sợi mềm như len, đủ màu.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678120599/XSK024_V%E1%BB%9B_nam_e3jhwf.jpg',3)
-
-go
-
-insert into Products
-values(N'Vớ nam mẫu 2', 35000, N'Vớ nam với chất liệu bằng các loại sợi mềm như len, đủ màu.', 1,'https://res.cloudinary.com/dgwpcjq86/image/upload/v1678120675/XSK025_V%E1%BB%9B_nam_j7cwda.jpg',3)
-
-
-insert into Tags
-values(N'New')
-insert into Tags
-values(N'Sale')
-insert into Tags
-values(N'Mùa hè')
-insert into Tags
-values(N'Mùa đông')
-
-
-insert into ProductTags
-values(1,1)
-insert into ProductTags
-values(9,1)
-insert into ProductTags
-values(13,1)
-insert into ProductTags
-values(18,1)
-insert into ProductTags
-values(15,1)
-insert into ProductTags
-values(25,1)
-insert into ProductTags
-values(37,1)
-
-insert into ProductTags
-values(3,2)
-insert into ProductTags
-values(5,2)
-insert into ProductTags
-values(10,2)
-insert into ProductTags
-values(16,2)
-insert into ProductTags
-values(25,2)
-insert into ProductTags
-values(19,2)
-insert into ProductTags
-values(27,2)
-insert into ProductTags
-values(28,2)
-insert into ProductTags
-values(1,2)
-
-insert into ProductTags
-values(2,3)
-insert into ProductTags
-values(4,3)
-insert into ProductTags
-values(12,3)
-insert into ProductTags
-values(14,3)
-insert into ProductTags
-values(22,3)
-insert into ProductTags
-values(24,3)
-insert into ProductTags
-values(26,3)
-insert into ProductTags
-values(35,3)
-insert into ProductTags
-values(16,3)
-
-insert into ProductTags
-values(7,4)
-insert into ProductTags
-values(11,4)
-insert into ProductTags
-values(15,4)
-insert into ProductTags
-values(18,4)
-insert into ProductTags
-values(23,4)
-insert into ProductTags
-values(28,4)
-insert into ProductTags
-values(27,4)
-insert into ProductTags
-values(28,4)
-insert into ProductTags
-values(38,4)

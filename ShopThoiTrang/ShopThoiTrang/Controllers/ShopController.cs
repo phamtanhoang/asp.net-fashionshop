@@ -10,14 +10,14 @@ namespace ShopThoiTrang.Controllers
     public class ShopController : Controller
     {
         // GET: Shop
-        public ActionResult Index()
+        public ActionResult Index(string cateName, string search)
         {
             IQueryable<Category> categories = DataController.GetCategories();
             IQueryable<Product> products = DataController.RandomProduct(DataController.GetProducts("New", ""),5);
-            IQueryable<Product> all_product = DataController.GetProducts("", "");
+            IQueryable<Product> all_product =  DataController.GetProducts(search, cateName);
             return View(products, all_product, categories);
         }
-
+        
         private ActionResult View(IQueryable<Product> products, IQueryable<Product> all_product, IQueryable<Category> categories)
         {
             ViewBag.Categories = categories;
@@ -26,6 +26,11 @@ namespace ShopThoiTrang.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult SearrchByCategory(string cateName)
+        {
+            return RedirectToAction("Index", new { cateName = cateName });
+        }
         // GET: Shop/Details/5
         public ActionResult Details(int id)
         {

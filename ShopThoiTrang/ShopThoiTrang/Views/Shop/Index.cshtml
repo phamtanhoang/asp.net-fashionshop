@@ -19,40 +19,30 @@
                 <div class="aside">
                     <h3 class="aside-title">Loại sản phẩm</h3>
                     <div class="checkbox-filter">
+                        @{
+                            var cates = ShopThoiTrang.Controllers.DataController.GetCategories();
+                            <div class="input-checkbox">
+                                    <label>
+                                        <a href="/Shop/index">Toàn bộ</a>
+                                    </label>
+                                </div>
+                            foreach (var cate in cates)
+                            {
+                                <div class="input-checkbox">
+                                    <label>
+                                        <a href="/Shop/index?cateName=@cate.CategoryName">@cate.CategoryName</a>
+                                        
+                                    </label>
+                                </div>
+                            }
 
-                        <div class="input-checkbox">
-                            <input type="checkbox" id="category-1">
-                            <label for="category-1">
-                                <span></span>
-                                Áo
-                                <small>(120)</small>
-                            </label>
-                        </div>
-
-                        <div class="input-checkbox">
-                            <input type="checkbox" id="category-2">
-                            <label for="category-2">
-                                <span></span>
-                                Quần
-                                <small>(740)</small>
-                            </label>
-                        </div>
-
-                        <div class="input-checkbox">
-                            <input type="checkbox" id="category-3">
-                            <label for="category-3">
-                                <span></span>
-                                Phụ kiện
-                                <small>(1450)</small>
-                            </label>
-                        </div>
-
+                        }
 
                     </div>
                 </div>
                 <!-- /aside Widget -->
                 <!-- aside Widget -->
-                <div class="aside">
+                @*<div class="aside">
                     <h3 class="aside-title">Mức giá</h3>
                     <div class="price-filter">
                         <div id="price-slider"></div>
@@ -68,7 +58,7 @@
                             <span class="qty-down">-</span>
                         </div>
                     </div>
-                </div>
+                </div>*@
                 <!-- /aside Widget -->
                 <!-- aside Widget -->
                 <div class="aside">
@@ -101,62 +91,59 @@
             <div id="store" class="col-md-9">
 
                 <!-- store products -->
-                <div class="row">
-                    <!-- product -->
-                    @foreach (var product in ViewBag.AllProducts)
-                    {
-                        <div class="col-md-4 col-xs-6">
-                            <div class="product">
-                                <div class="product-img">
-                                    <img src="@product.Image" alt="">
-                                    <div class="product-label">
-                                        @foreach (var tag in ShopThoiTrang.Controllers.DataController.GetTagsByProductID(product.ProductID))
-                                        {
-                                            <span class="new" style="text-transform: uppercase;">@tag.TagName</span>
-                                        }
+
+                    <div class="row">
+                        <!-- product -->
+
+                        @foreach (var product in ViewBag.AllProducts)
+                        {
+                            <div class="col-md-4 col-xs-6 product-item">
+                                <div class="product">
+                                    <div class="product-img">
+                                        <img src="@product.Image" alt="">
+                                        <div class="product-label">
+                                            @foreach (var tag in ShopThoiTrang.Controllers.DataController.GetTagsByProductID(product.ProductID))
+                                            {
+                                                <span class="new" style="text-transform: uppercase;">@tag.TagName</span>
+                                            }
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="product-body">
-                                    @foreach (var category in ViewBag.Categories)
-                                    {
-                                        if (@category.CategoryID == @product.CategoryID)
+                                    <div class="product-body">
+                                        @foreach (var category in ViewBag.Categories)
                                         {
-                                            <p class="product-category" >@category.CategoryName</p>
+                                            if (@category.CategoryID == @product.CategoryID)
+                                            {
+                                                <p class="product-category">@category.CategoryName</p>
+                                            }
                                         }
-                                    }
-                                    <h3 class="product-name"><a href="~/Shop/Details/@product.ProductID">@product.ProductName</a></h3>
-                                    <h4 class="product-price">@product.UnitPrice.ToString("#,##0 VND")</h4>
-                                    <div class="product-btns">
-                                        <button class="quick-view" onclick="location.href='/Shop/Details/@product.ProductID';"><i class="fa fa-eye"></i><span class="tooltipp">Xem chi tiết</span></button>
+                                        <h3 class="product-name"><a href="~/Shop/Details/@product.ProductID">@product.ProductName</a></h3>
+                                        <h4 class="product-price">@product.UnitPrice.ToString("#,##0 VND")</h4>
+                                        <div class="product-btns">
+                                            <button class="quick-view" onclick="location.href='/Shop/Details/@product.ProductID';"><i class="fa fa-eye"></i><span class="tooltipp">Xem chi tiết</span></button>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="add-to-cart">
-                                    <button class="add-to-cart-btn" data-product-id="@product.ProductID" data-product-image="@product.Image" data-product-name="@product.ProductName" data-product-price="@product.UnitPrice"><i class="fa fa-shopping-cart"></i> add to cart</button>
+                                    <div class="add-to-cart">
+                                        <button class="add-to-cart-btn" data-product-id="@product.ProductID" data-product-image="@product.Image" data-product-name="@product.ProductName" data-product-price="@product.UnitPrice"><i class="fa fa-shopping-cart"></i> add to cart</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="clearfix visible-sm visible-xs"></div>
+                            <div class="clearfix visible-sm visible-xs"></div>
 
-                    }
-                    <!-- /product -->
+                        }
+                        <!-- /product -->
 
 
-                </div>
-                <!-- /store products -->
-                <!-- store bottom filter -->
-                <div class="store-filter clearfix">
-                    <span class="store-qty">Showing 12-100 products</span>
-                    <ul class="store-pagination">
-                        @*@Html.PagedListPager(ViewBag.AllProducts, page => Url.Action("Index", new { page }))*@
+                    </div>
+                    <!-- /store products -->
+                    <!-- store bottom filter -->
+                    <div class="store-filter clearfix">
+                        <span class="store-qty">Showing 9 products</span>
+                        <ul class="store-pagination">
+                        </ul>
+                    </div>
+                    <!-- /store bottom filter -->
 
-                        <li class="active">1</li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-                    </ul>
-                </div>
-                <!-- /store bottom filter -->
+                
             </div>
             <!-- /STORE -->
         </div>
@@ -165,3 +152,78 @@
     <!-- /container -->
 </div>
 <!-- /SECTION -->
+
+<script>
+    function LoadProds() {
+        // Lấy danh sách sản phẩm
+        var products = document.getElementsByClassName('product-item');
+        // Số sản phẩm muốn hiển thị trên trang đầu tiên
+        var itemsPerPage = 9;
+        for (var i = 0; i < products.length; i++) {
+            products[i].style.display = 'none';
+        }
+        var totalPages = Math.ceil(products.length / itemsPerPage);
+
+        var pagination = document.getElementsByClassName('store-pagination')[0];
+
+
+        // tạo thẻ li cho mỗi trang
+        for (var i = 1; i <= totalPages; i++) {
+            var listItem = document.createElement('li');
+            var link = document.createElement('a');
+            link.textContent = i;
+            listItem.appendChild(link);
+            pagination.appendChild(listItem);
+        }
+        // thêm pagination vào DOM
+        var storeFilter = document.querySelector('.store-filter');
+        storeFilter.appendChild(pagination);
+
+        for (var i = 0; i < itemsPerPage; i++) {
+            products[i].style.display = 'block';
+        }
+
+        // lấy danh sách các phần tử li trong thẻ ul
+        var paginationList = document.querySelector('.store-pagination').getElementsByTagName('li');
+        // thêm class "active" vào phần tử đầu tiên
+        paginationList[0].classList.add('active');
+
+        var links = document.querySelectorAll('.store-pagination li a');
+
+        for (var i = 0; i < links.length; i++) {
+            links[i].addEventListener('click', function () {
+                // Bỏ class active của các li khác
+                var activeLinks = document.querySelectorAll('.store-pagination li.active');
+                for (var j = 0; j < activeLinks.length; j++) {
+                    activeLinks[j].classList.remove('active');
+                }
+
+                // Thêm class active vào li chứa liên kết vừa được click
+                this.parentElement.classList.add('active');
+
+                var pageNum = parseInt(this.textContent);
+                for (var i = 0; i < products.length; i++) {
+                    products[i].style.display = 'none';
+                }
+                var startIndex = (pageNum - 1) * itemsPerPage;
+                var endIndex = pageNum * itemsPerPage - 1;
+                for (var i = startIndex; i <= endIndex && i < products.length; i++) {
+                    products[i].style.display = 'block';
+                }
+              
+            });
+        }
+    };
+    LoadProds();
+   
+</script>
+<style>
+    .input-checkbox a {
+        color: black;
+        font-size:1.2rem;
+    }
+        .input-checkbox a:hover {
+            color: red;
+            font-size: 1.5em;
+        }
+</style>

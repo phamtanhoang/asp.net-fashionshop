@@ -9,11 +9,11 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Comments">
-      <EntityTypeMapping TypeName="ShopThoiTrangModel.Comment">
-        <MappingFragment StoreEntitySet="Comments">
-          <ScalarProperty Name="CommentID" ColumnName="CommentID" />
-          <ScalarProperty Name="CommentContent" ColumnName="CommentContent" />
+    <EntitySetMapping Name="Complains">
+      <EntityTypeMapping TypeName="ShopThoiTrangModel.Complain">
+        <MappingFragment StoreEntitySet="Complain">
+          <ScalarProperty Name="ComplainID" ColumnName="ComplainID" />
+          <ScalarProperty Name="ComplainContent" ColumnName="ComplainContent" />
           <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
           <ScalarProperty Name="UserID" ColumnName="UserID" />
           <ScalarProperty Name="Active" ColumnName="Active" />

@@ -16,7 +16,7 @@
                 {
                     User user = ShopThoiTrang.Controllers.DataController.getUserByID((int)Session["UserID"]);
                     <li><a href="/user/index" style="text-decoration: none">Xin chào @user.FullName!!!</a></li>
-                    <li><a href="/user/logout" onclick="return confirm('Bạn có chắc chắn muốn đăng xuất?')" style="text-decoration: none"><i class="fa fa-user-o"></i>Đăng xuất</a></li>
+                    <li><a href="/user/logout" id="logout-link" style="text-decoration: none"><i class="fa fa-user-o"></i>Đăng xuất</a></li>
                 }
             </ul>
         </div>
@@ -40,9 +40,10 @@
                 <!-- SEARCH BAR -->
                 <div class="col-md-4">
                     <div class="header-search">
-                        <form>
-                            <input class="input" placeholder="Tìm kiếm tại đây...">
-                            <button class="search-btn">Tìm kiếm</button>
+                        <form action="/Shop/index" method="get">
+                            <input id="search-input" name="search" class="input" placeholder="Tìm kiếm theo nhãn sản phẩm..." required>
+                            <input id="search-button" type="submit" class="search-btn"  value="Tìm kiếm" style="text-align:center; cursor:pointer"/>
+                            
                         </form>
                     </div>
                 </div>

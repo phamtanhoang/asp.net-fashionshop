@@ -40,11 +40,12 @@ namespace ShopThoiTrang.Controllers
                 }
                 if (!string.IsNullOrEmpty(cate))
                 {
-                    query = query.Where(p => p.Category.CategoryName == cate);
+                    query = query.Where(p => p.Category.CategoryName.Contains(cate));
                 }
                 return query.ToList().AsQueryable();
             }
         }
+
         public static IQueryable<Tag> GetTags()
         {
             using (var db = new ShopThoiTrangEntities())
@@ -218,6 +219,17 @@ namespace ShopThoiTrang.Controllers
                 return true;
             }
         }
-        
+
+
+        //complain
+        public static bool AddComplain(Complain com)
+        {
+            using (var db = new ShopThoiTrangEntities())
+            {
+                db.Complains.Add(com);
+                db.SaveChanges();
+                return true;
+            }
+        }
     }
 }

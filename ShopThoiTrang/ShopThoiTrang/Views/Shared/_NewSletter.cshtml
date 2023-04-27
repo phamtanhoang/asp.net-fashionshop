@@ -1,15 +1,22 @@
-﻿
-<div id="newsletter" class="section">
+﻿<div id="newsletter" class="section">
+
     <!-- container -->
     <div class="container">
         <!-- row -->
         <div class="row">
             <div class="col-md-12">
                 <div class="newsletter">
-                    <p>Đăng kí để nhận <strong>TIN MỚI</strong></p>
-                    <form>
-                        <input class="input" type="email" placeholder="Nhập email của bạn...">
-                        <button class="newsletter-btn"><i class="fa fa-envelope"></i> Đăng kí</button>
+                    <p>Phản hồi ý kiến của bạn cho <strong>CỬA HÀNG</strong></p>
+                    <form action="/Home/Complain/" method="get">
+                        @if (Session["UserID"] != null)
+                        {
+                            <input class="input" type="text" placeholder="Nhập ý kiến của bạn..." name="complain" required>
+                            <input type="submit" class="newsletter-btn" value="Gửi" />
+                        }
+                        else
+                        {
+                            <span style="font-size:1.5rem">Vui lòng <a href="/user/account/">đăng nhập</a> để gửi phản hồi</span>
+                        }
                     </form>
                     <ul class="newsletter-follow">
                         <li>
@@ -32,3 +39,5 @@
     </div>
     <!-- /container -->
 </div>
+        
+   

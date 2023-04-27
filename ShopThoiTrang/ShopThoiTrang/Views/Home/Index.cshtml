@@ -47,15 +47,7 @@
             <div class="col-md-12">
                 <div class="section-title">
                     <h3 class="title" style="font-weight:650">Sản phẩm mới</h3>
-                    <div class="section-nav">
-                        <ul class="section-tab-nav tab-nav">
-                            <li class="active"><a data-toggle="tab" href="#tab1">Tất cả</a></li>
-                            @foreach (var category in ViewBag.Categories)
-                            {
-                                <li><a data-toggle="tab" href="#tab1">@category.CategoryName</a></li>
-                            }
-                        </ul>
-                    </div>
+                    
                 </div>
             </div>
             <!-- /section title -->
@@ -144,7 +136,7 @@
                                         <div class="shop-body">
                                             <p style="font-size: 2rem; color: white; font-weight:500">Bộ sưu tập</p>
                                             <p style="color: white; margin: 1rem 0 1.5rem; font-size: 2.5rem; font-weight: 550">@cate.CategoryName</p>
-                                            <a href="#" class="cta-btn" style="font-size: 1.3rem">Shop now <i class="fa fa-arrow-circle-right"></i></a>
+                                            <a href="/Shop/index?cateName=@cate.CategoryName" class="cta-btn" style="font-size: 1.3rem">Shop now <i class="fa fa-arrow-circle-right"></i></a>
                                         </div>
                                     </div>
                                 </div>

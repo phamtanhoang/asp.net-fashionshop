@@ -29,7 +29,7 @@
                         <ul class="footer-links">
                             @foreach (var cate in Model)
                             {
-                                <li><a href="#">@cate.CategoryName</a></li>
+                                <li><a href="/Shop/index?cateName=@cate.CategoryName">@cate.CategoryName</a></li>
                             }
                         </ul>
                     </div>

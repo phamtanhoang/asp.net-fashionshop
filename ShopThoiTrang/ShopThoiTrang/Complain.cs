@@ -12,10 +12,10 @@ namespace ShopThoiTrang
     using System;
     using System.Collections.Generic;
     
-    public partial class Comment
+    public partial class Complain
     {
-        public int CommentID { get; set; }
-        public string CommentContent { get; set; }
+        public int ComplainID { get; set; }
+        public string ComplainContent { get; set; }
         public System.DateTime CreateDate { get; set; }
         public Nullable<int> UserID { get; set; }
         public bool Active { get; set; }
