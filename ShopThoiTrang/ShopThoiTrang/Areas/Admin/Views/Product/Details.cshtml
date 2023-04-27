@@ -79,7 +79,7 @@
                                                         <tbody>
                                                             @foreach (var tag in ViewBag.tags)
                                                             {
-                                                                <tr>
+                                                                <tr onclick="window.location.href = '/Admin/Tag/Details/@tag.TagID'">
                                                                     <th>@tag.TagID</th>
                                                                     <td>@tag.TagName</td>
                                                                 </tr>

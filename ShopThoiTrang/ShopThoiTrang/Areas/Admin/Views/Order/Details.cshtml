@@ -126,6 +126,7 @@
                                                     <table class="table table-bordered">
                                                         <thead>
                                                             <tr>
+                                                                <th>Mã</th>
                                                                 <th>Tên sản phẩm</th>
                                                                 <th>Giá sản phẩm</th>
                                                                 <th>Số lượng</th>
@@ -134,24 +135,25 @@
                                                         <tbody>
                                                             @{
                                                                 var odds = ShopThoiTrang.Areas.Admin.Controllers.DataAdminController.GetOrderDetails(ViewBag.order.OrderID);
-                                                                foreach (var odd in odds)
-                                                                {
-                                                                    <tr>
-                                                                        @{
-                                                                            var prods = ShopThoiTrang.Areas.Admin.Controllers.DataAdminController.GetProducts("", "");
-                                                                            foreach (var pro in prods)
+                                                            }
+                                                            @foreach (var odd in odds)
+                                                            {
+                                                                <tr onclick="window.location.href = '/Admin/Product/Details/@odd.ProductID'">
+                                                                    @{
+                                                                        var prods = ShopThoiTrang.Areas.Admin.Controllers.DataAdminController.GetProducts("", "");
+                                                                        foreach (var pro in prods)
+                                                                        {
+                                                                            if (pro.ProductID == odd.ProductID)
                                                                             {
-                                                                                if (pro.ProductID == odd.ProductID)
-                                                                                {
-                                                                                    <td><a href="/Admin/Product/Details/@pro.ProductID" style="text-decoration:none">@pro.ProductName</a></td>
-                                                                                }
+                                                                                <td>@pro.ProductID</td>
+                                                                                <td>@pro.ProductName</td>
                                                                             }
-
                                                                         }
-                                                                        <td>@odd.UnitPrice</td>
-                                                                        <td>@odd.Quantity</td>
-                                                                    </tr>
-                                                                }
+                                                                        float floatValue = Convert.ToSingle(odd.UnitPrice);
+                                                                    }
+                                                                    <td>@floatValue.ToString("#,##VNĐ")</td>
+                                                                    <td>@odd.Quantity</td>
+                                                                </tr>
                                                             }
                                                         </tbody>
                                                     </table>

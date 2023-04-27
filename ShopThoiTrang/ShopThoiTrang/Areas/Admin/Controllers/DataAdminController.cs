@@ -1,5 +1,6 @@
 ﻿using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
+using ShopThoiTrang.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -480,6 +481,61 @@ namespace ShopThoiTrang.Areas.Admin.Controllers
                 db.SaveChanges();
             }
             return true;
+        }
+
+        public static List<Report> GetReports(int year)
+        {
+            using (var db = new ShopThoiTrangEntities())
+            {
+                var query = db.Orders.Where(o => o.OrderDate.Year == year)
+                                     .GroupBy(o => o.OrderDate.Month)
+                                     .Select(g => new Report
+                                     {
+                                         Month = g.Key,
+                                         Sum = g.Sum(o => o.Temp + o.Ship)
+                                     })
+                                     .OrderBy(r => r.Month);
+
+                return query.ToList();
+            }
+        }
+
+        public static List<ReportCate> GetCategoryReports(int year)
+        {
+            using (var db = new ShopThoiTrangEntities())
+            {
+                var data = db.Orders
+                .Where(o => o.OrderDate.Year == year)
+                .Join(db.OrderDetails, o => o.OrderID, od => od.OrderID, (o, od) => new { Order = o, OrderDetail = od })
+                .Join(db.Products, od => od.OrderDetail.ProductID, p => p.ProductID, (od, p) => new { od.Order, od.OrderDetail, Product = p })
+                .Join(db.Categories, p => p.Product.CategoryID, c => c.CategoryID, (p, c) => new { c.CategoryName, TotalSalesAmount = p.OrderDetail.Quantity * p.OrderDetail.UnitPrice })
+                .GroupBy(x => x.CategoryName)
+                .Select(g => new ReportCate { CategoryName = g.Key, TotalSalesAmount = g.Sum(x => x.TotalSalesAmount) })
+                .ToList();
+                return data;
+            }
+        }
+
+        public static int GetTotalOrderByYear(int year)
+        {
+            using (var db = new ShopThoiTrangEntities())
+            {
+                return db.Orders.Where(o => o.OrderDate.Year == year).Count();
+            }
+        }
+        public static int GetTotalInactiveOrderByYear(int year)
+        {
+            using (var db = new ShopThoiTrangEntities())
+            {
+                return db.Orders.Where(o => o.OrderDate.Year == year && o.Active == false).Count();
+            }
+        }
+        public static float GetSumOrderByYear(int year)
+        {
+            using (var db = new ShopThoiTrangEntities())
+            {
+                return (float)db.Orders.Where(o => o.OrderDate.Year == year && o.Active == false).Sum(o => (o.Temp+o.Ship));
+            }
         }
     }
 }

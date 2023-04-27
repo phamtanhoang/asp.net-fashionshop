@@ -24,7 +24,12 @@ namespace ShopThoiTrang
         {
             throw new UnintentionalCodeFirstException();
         }
-    
+
+        internal object Fetch<T>(string v)
+        {
+            throw new NotImplementedException();
+        }
+
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Complain> Complains { get; set; }
         public virtual DbSet<ImageProduct> ImageProducts { get; set; }

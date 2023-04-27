@@ -163,7 +163,7 @@ namespace ShopThoiTrang.Controllers
                         {
                             OrderID = order.OrderID,
                             ProductID = item.ProductID,
-                            Quantity = (short?)item.Quantity,
+                            Quantity = (short)item.Quantity,
                             UnitPrice = item.UnitPrice
                         };
                         DataController.AddOrderDetails(orderDetail);

@@ -32,8 +32,8 @@
     </Key>
     <Property Name="OrderID" Type="int" Nullable="false" />
     <Property Name="ProductID" Type="int" Nullable="false" />
-    <Property Name="UnitPrice" Type="money" />
-    <Property Name="Quantity" Type="smallint" />
+    <Property Name="UnitPrice" Type="money" Nullable="false" />
+    <Property Name="Quantity" Type="smallint" Nullable="false" />
   </EntityType>
   <EntityType Name="Orders">
     <Key>

@@ -1,19 +1,25 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_MainLayoutAdmin.cshtml";
 
 }
-
 
 <div class="container-fluid">
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Thống kê</h1>
-        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
-            <i class="fas fa-download fa-sm text-white-50"></i> Generate Report
-        </a>
+
+        <div class="d-sm-inline-block btn btn-sm shadow-sm ">
+            <form method="get">
+                <select name="lang" id="year-select">
+                    
+                </select>
+                <button type="submit" class="btn btn-sm btn-primary">Lọc</button>
+            </form>
+
+        </div>
+        
     </div>
 
     <!-- Content Row -->
@@ -28,7 +34,7 @@
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                 Tổng đơn hàng
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" style="margin-left:1rem">@TempData["CountOrder"]</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -47,7 +53,7 @@
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                 Tổng tiền
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" style="margin-left:1rem">@TempData["SumOrder"]</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -66,7 +72,7 @@
                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                 Đơn hàng chưa được xử lý
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" style="margin-left:1rem">@TempData["CountOrderNoneActive"]</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -87,7 +93,7 @@
                 <!-- Card Body -->
                 <div class="card-body">
                     <div class="chart-area">
-                        <canvas id="myAreaChart"></canvas>
+                        <canvas id="myChart"></canvas>
                     </div>
                 </div>
             </div>
@@ -98,19 +104,8 @@
             <div class="card shadow mb-4">
                 <!-- Card Body -->
                 <div class="card-body">
-                    <div class="chart-pie pt-4 pb-2">
-                        <canvas id="myPieChart"></canvas>
-                    </div>
-                    <div class="mt-4 text-center small">
-                        <span class="mr-2">
-                            <i class="fas fa-circle text-primary"></i> Direct
-                        </span>
-                        <span class="mr-2">
-                            <i class="fas fa-circle text-success"></i> Social
-                        </span>
-                        <span class="mr-2">
-                            <i class="fas fa-circle text-info"></i> Referral
-                        </span>
+                    <div class="pt-4 pb-2">
+                        <canvas id="myChart2"></canvas>
                     </div>
                 </div>
             </div>
@@ -118,4 +113,66 @@
     </div>
 
 </div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chartData = @Html.Raw(ViewBag.ChartData);
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: chartData,
+        options: {
+            maintainAspectRatio: false,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
 
+    var ctx2 = document.getElementById('myChart2').getContext('2d');
+    var chartData2 = @Html.Raw(ViewBag.ChartData2);
+    var myChart = new Chart(ctx2, {
+        type: 'doughnut',
+        data: chartData2,
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+
+    function loadYearOptions(selectElement, yearsBack) {
+        var currentYear = new Date().getFullYear();
+        for (var i = 0; i <= yearsBack; i++) {
+            var option = document.createElement("option");
+            option.text = currentYear - i;
+            option.value = currentYear - i;
+            selectElement.add(option);
+        }
+    }
+    var yearSelect = document.getElementById("year-select");
+    loadYearOptions(yearSelect, 15);
+
+    // Lấy giá trị tham số 'lang' từ URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const lang = urlParams.get('lang');
+
+    // Tìm phần tử select
+    const selectEl = document.querySelector('#year-select');
+
+    // Lặp qua tất cả các option và chọn option có giá trị bằng với lang
+    for (let i = 0; i < selectEl.options.length; i++) {
+        const option = selectEl.options[i];
+        if (option.value === lang) {
+            option.selected = true;
+            break;
+        }
+    }
+</script>

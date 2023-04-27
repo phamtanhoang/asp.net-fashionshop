@@ -1,6 +1,6 @@
 USE [ShopThoiTrang]
 GO
-/****** Object:  Table [dbo].[Categories]    Script Date: 4/27/2023 7:57:14 PM ******/
+/****** Object:  Table [dbo].[Categories]    Script Date: 4/28/2023 1:23:26 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -14,7 +14,7 @@ CREATE TABLE [dbo].[Categories](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Complain]    Script Date: 4/27/2023 7:57:14 PM ******/
+/****** Object:  Table [dbo].[Complain]    Script Date: 4/28/2023 1:23:26 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -31,7 +31,7 @@ CREATE TABLE [dbo].[Complain](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[ImageProducts]    Script Date: 4/27/2023 7:57:14 PM ******/
+/****** Object:  Table [dbo].[ImageProducts]    Script Date: 4/28/2023 1:23:26 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -46,7 +46,7 @@ CREATE TABLE [dbo].[ImageProducts](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[OrderDetails]    Script Date: 4/27/2023 7:57:14 PM ******/
+/****** Object:  Table [dbo].[OrderDetails]    Script Date: 4/28/2023 1:23:26 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -54,8 +54,8 @@ GO
 CREATE TABLE [dbo].[OrderDetails](
 	[OrderID] [int] NOT NULL,
 	[ProductID] [int] NOT NULL,
-	[UnitPrice] [money] NULL,
-	[Quantity] [smallint] NULL,
+	[UnitPrice] [money] NOT NULL,
+	[Quantity] [smallint] NOT NULL,
  CONSTRAINT [PK_OrderDetails] PRIMARY KEY CLUSTERED 
 (
 	[OrderID] ASC,
@@ -63,7 +63,7 @@ CREATE TABLE [dbo].[OrderDetails](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Orders]    Script Date: 4/27/2023 7:57:14 PM ******/
+/****** Object:  Table [dbo].[Orders]    Script Date: 4/28/2023 1:23:26 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -82,7 +82,7 @@ CREATE TABLE [dbo].[Orders](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Products]    Script Date: 4/27/2023 7:57:14 PM ******/
+/****** Object:  Table [dbo].[Products]    Script Date: 4/28/2023 1:23:26 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -101,7 +101,7 @@ CREATE TABLE [dbo].[Products](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[ProductTags]    Script Date: 4/27/2023 7:57:14 PM ******/
+/****** Object:  Table [dbo].[ProductTags]    Script Date: 4/28/2023 1:23:26 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -116,7 +116,7 @@ CREATE TABLE [dbo].[ProductTags](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Tags]    Script Date: 4/27/2023 7:57:14 PM ******/
+/****** Object:  Table [dbo].[Tags]    Script Date: 4/28/2023 1:23:26 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -130,7 +130,7 @@ CREATE TABLE [dbo].[Tags](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[User]    Script Date: 4/27/2023 7:57:14 PM ******/
+/****** Object:  Table [dbo].[User]    Script Date: 4/28/2023 1:23:26 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -166,6 +166,8 @@ GO
 INSERT [dbo].[Complain] ([ComplainID], [ComplainContent], [CreateDate], [UserID], [Active]) VALUES (2, N'Sản phẩm chất lượng', CAST(N'2023-04-26' AS Date), 3, 1)
 GO
 INSERT [dbo].[Complain] ([ComplainID], [ComplainContent], [CreateDate], [UserID], [Active]) VALUES (4, N'Sản phẩm tuyệt vời', CAST(N'2023-04-25' AS Date), 2, 1)
+GO
+INSERT [dbo].[Complain] ([ComplainID], [ComplainContent], [CreateDate], [UserID], [Active]) VALUES (5, N'Very good', CAST(N'2023-04-27' AS Date), 2, 1)
 GO
 SET IDENTITY_INSERT [dbo].[Complain] OFF
 GO
@@ -359,13 +361,29 @@ INSERT [dbo].[OrderDetails] ([OrderID], [ProductID], [UnitPrice], [Quantity]) VA
 GO
 INSERT [dbo].[OrderDetails] ([OrderID], [ProductID], [UnitPrice], [Quantity]) VALUES (5, 5, 250000.0000, 1)
 GO
+INSERT [dbo].[OrderDetails] ([OrderID], [ProductID], [UnitPrice], [Quantity]) VALUES (6, 5, 250000.0000, 2)
+GO
+INSERT [dbo].[OrderDetails] ([OrderID], [ProductID], [UnitPrice], [Quantity]) VALUES (6, 26, 230000.0000, 2)
+GO
+INSERT [dbo].[OrderDetails] ([OrderID], [ProductID], [UnitPrice], [Quantity]) VALUES (6, 37, 35000.0000, 2)
+GO
+INSERT [dbo].[OrderDetails] ([OrderID], [ProductID], [UnitPrice], [Quantity]) VALUES (7, 3, 250000.0000, 1)
+GO
+INSERT [dbo].[OrderDetails] ([OrderID], [ProductID], [UnitPrice], [Quantity]) VALUES (7, 28, 230000.0000, 1)
+GO
+INSERT [dbo].[OrderDetails] ([OrderID], [ProductID], [UnitPrice], [Quantity]) VALUES (7, 36, 200000.0000, 1)
+GO
 SET IDENTITY_INSERT [dbo].[Orders] ON 
 GO
-INSERT [dbo].[Orders] ([OrderID], [OrderDate], [CustomerID], [DeliveryAddress], [Temp], [Ship], [Active]) VALUES (3, CAST(N'2023-04-25' AS Date), 2, N'254/32 Âu Cơ, tp Hồ Chí Minh', 210000.0000, 50000.0000, 0)
+INSERT [dbo].[Orders] ([OrderID], [OrderDate], [CustomerID], [DeliveryAddress], [Temp], [Ship], [Active]) VALUES (3, CAST(N'2022-01-25' AS Date), 2, N'254/32 Âu Cơ, tp Hồ Chí Minh', 210000.0000, 50000.0000, 0)
 GO
-INSERT [dbo].[Orders] ([OrderID], [OrderDate], [CustomerID], [DeliveryAddress], [Temp], [Ship], [Active]) VALUES (4, CAST(N'2023-04-26' AS Date), 3, N'371 Nguyễn Kiệm', 1000000.0000, 50000.0000, 0)
+INSERT [dbo].[Orders] ([OrderID], [OrderDate], [CustomerID], [DeliveryAddress], [Temp], [Ship], [Active]) VALUES (4, CAST(N'2023-02-26' AS Date), 3, N'371 Nguyễn Kiệm', 1000000.0000, 50000.0000, 0)
 GO
 INSERT [dbo].[Orders] ([OrderID], [OrderDate], [CustomerID], [DeliveryAddress], [Temp], [Ship], [Active]) VALUES (5, CAST(N'2023-04-27' AS Date), 1, N'25dihfaisdf', 250000.0000, 50000.0000, 1)
+GO
+INSERT [dbo].[Orders] ([OrderID], [OrderDate], [CustomerID], [DeliveryAddress], [Temp], [Ship], [Active]) VALUES (6, CAST(N'2023-04-27' AS Date), 2, N'27 Lạc Long Quân, thành phố Hồ Chí Minh', 1030000.0000, 50000.0000, 1)
+GO
+INSERT [dbo].[Orders] ([OrderID], [OrderDate], [CustomerID], [DeliveryAddress], [Temp], [Ship], [Active]) VALUES (7, CAST(N'2023-04-27' AS Date), 3, N'371 Nguyễn Kiệm', 680000.0000, 50000.0000, 0)
 GO
 SET IDENTITY_INSERT [dbo].[Orders] OFF
 GO
@@ -553,7 +571,7 @@ SET IDENTITY_INSERT [dbo].[User] OFF
 GO
 SET ANSI_PADDING ON
 GO
-/****** Object:  Index [uc_CategoryName]    Script Date: 4/27/2023 7:57:14 PM ******/
+/****** Object:  Index [uc_CategoryName]    Script Date: 4/28/2023 1:23:26 AM ******/
 ALTER TABLE [dbo].[Categories] ADD  CONSTRAINT [uc_CategoryName] UNIQUE NONCLUSTERED 
 (
 	[CategoryName] ASC
@@ -561,7 +579,7 @@ ALTER TABLE [dbo].[Categories] ADD  CONSTRAINT [uc_CategoryName] UNIQUE NONCLUST
 GO
 SET ANSI_PADDING ON
 GO
-/****** Object:  Index [uc_ProductName]    Script Date: 4/27/2023 7:57:14 PM ******/
+/****** Object:  Index [uc_ProductName]    Script Date: 4/28/2023 1:23:26 AM ******/
 ALTER TABLE [dbo].[Products] ADD  CONSTRAINT [uc_ProductName] UNIQUE NONCLUSTERED 
 (
 	[ProductName] ASC
@@ -569,7 +587,7 @@ ALTER TABLE [dbo].[Products] ADD  CONSTRAINT [uc_ProductName] UNIQUE NONCLUSTERE
 GO
 SET ANSI_PADDING ON
 GO
-/****** Object:  Index [uc_TagName]    Script Date: 4/27/2023 7:57:14 PM ******/
+/****** Object:  Index [uc_TagName]    Script Date: 4/28/2023 1:23:26 AM ******/
 ALTER TABLE [dbo].[Tags] ADD  CONSTRAINT [uc_TagName] UNIQUE NONCLUSTERED 
 (
 	[TagName] ASC
